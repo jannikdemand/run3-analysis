@@ -13,103 +13,99 @@ Muon_1_ID_SF_RooWorkspace = Producer(
     call='scalefactor::muon::id_rooworkspace({df}, {input}, {output}, "{muon_sf_workspace}", "{muon_sf_id_name}", "{muon_sf_id_args}")',
     input=[q.pt_1, q.eta_1],
     output=[q.id_wgt_mu_1],
-    scopes=["mt", "mm"],
+    scopes=["mm", "mmet"],
 )
 Muon_1_Iso_SF_RooWorkspace = Producer(
     name="MuonIso_SF_RooWorkspace",
     call='scalefactor::muon::iso_rooworkspace({df}, {input}, {output}, "{muon_sf_workspace}", "{muon_sf_iso_name}", "{muon_sf_iso_args}")',
     input=[q.pt_1, q.eta_1, q.iso_1],
     output=[q.iso_wgt_mu_1],
-    scopes=["mt", "mm"],
+    scopes=["mm", "mmet"],
 )
 Muon_1_ID_SF = Producer(
     name="MuonID_SF",
     call='scalefactor::muon::id({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file}", "{muon_id_sf_name}")',
     input=[q.pt_1, q.eta_1],
     output=[q.id_wgt_mu_1],
-    scopes=["mt", "mm"],
+    scopes=["mm", "mmet"],
 )
 Muon_1_Iso_SF = Producer(
     name="MuonIso_SF",
     call='scalefactor::muon::iso({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file}", "{muon_iso_sf_name}")',
     input=[q.pt_1, q.eta_1],
     output=[q.iso_wgt_mu_1],
-    scopes=["mt", "mm"],
+    scopes=["mm", "mmet"],
 )
 Muon_2_ID_SF_RooWorkspace = Producer(
     name="MuonID_SF_RooWorkspace",
     call='scalefactor::muon::id_rooworkspace({df}, {input}, {output}, "{muon_sf_workspace}", "{muon_sf_id_name}", "{muon_sf_id_args}")',
     input=[q.pt_2, q.eta_2],
     output=[q.id_wgt_mu_2],
-    scopes=["em", "mm"],
+    scopes=["mm", "mmet"],
 )
 Muon_2_Iso_SF_RooWorkspace = Producer(
     name="MuonIso_SF_RooWorkspace",
     call='scalefactor::muon::iso_rooworkspace({df}, {input}, {output}, "{muon_sf_workspace}", "{muon_sf_iso_name}", "{muon_sf_iso_args}")',
     input=[q.pt_2, q.eta_2, q.iso_2],
     output=[q.iso_wgt_mu_2],
-    scopes=["em", "mm"],
+    scopes=["mm", "mmet"],
 )
 Muon_2_ID_SF = Producer(
     name="MuonID_SF",
     call='scalefactor::muon::id({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file}", "{muon_id_sf_name}")',
     input=[q.pt_2, q.eta_2],
     output=[q.id_wgt_mu_2],
-    scopes=["em", "mm"],
+    scopes=["mm", "mmet"],
 )
 Muon_2_Iso_SF = Producer(
     name="MuonIso_SF",
     call='scalefactor::muon::iso({df}, {input}, "{muon_sf_year_id}", "{muon_sf_varation}", {output}, "{muon_sf_file}", "{muon_iso_sf_name}")',
     input=[q.pt_2, q.eta_2],
     output=[q.iso_wgt_mu_2],
-    scopes=["em", "mm"],
+    scopes=["mm", "mmet"],
 )
 MuonIDIso_SF = ProducerGroup(
     name="MuonIDIso_SF",
     call=None,
     input=None,
     output=None,
-    scopes=["mt", "em", "mm"],
+    scopes=["mm", "mmet"],
     subproducers={
-        "mt": [
-            Muon_1_ID_SF,
-            Muon_1_Iso_SF,
-        ],
-        "em": [
-            Muon_2_ID_SF,
-            Muon_2_Iso_SF,
-        ],
         "mm": [
             Muon_1_ID_SF,
             Muon_1_Iso_SF,
             Muon_2_ID_SF,
             Muon_2_Iso_SF,
         ],
-    },
-)
-MuonIDIso_SF_RooWorkspace = ProducerGroup(
-    name="MuonIDIso_SF_RooWorkspace",
-    call=None,
-    input=None,
-    output=None,
-    scopes=["mt", "em", "mm"],
-    subproducers={
-        "mt": [
-            Muon_1_ID_SF_RooWorkspace,
-            Muon_1_Iso_SF_RooWorkspace,
-        ],
-        "em": [
-            Muon_2_ID_SF_RooWorkspace,
-            Muon_2_Iso_SF_RooWorkspace,
-        ],
-        "mm": [
-            Muon_1_ID_SF_RooWorkspace,
-            Muon_1_Iso_SF_RooWorkspace,
-            Muon_2_ID_SF_RooWorkspace,
-            Muon_2_Iso_SF_RooWorkspace,
+        "mmet": [
+            Muon_1_ID_SF,
+            Muon_1_Iso_SF,
         ],
     },
 )
+# MuonIDIso_SF_RooWorkspace = ProducerGroup(
+#     name="MuonIDIso_SF_RooWorkspace",
+#     call=None,
+#     input=None,
+#     output=None,
+#     scopes=["mm", "mmet", "mmet"],
+#     subproducers={
+#         "mt": [
+#             Muon_1_ID_SF_RooWorkspace,
+#             Muon_1_Iso_SF_RooWorkspace,
+#         ],
+#         "em": [
+#             Muon_2_ID_SF_RooWorkspace,
+#             Muon_2_Iso_SF_RooWorkspace,
+#         ],
+#         "mm": [
+#             Muon_1_ID_SF_RooWorkspace,
+#             Muon_1_Iso_SF_RooWorkspace,
+#             Muon_2_ID_SF_RooWorkspace,
+#             Muon_2_Iso_SF_RooWorkspace,
+#         ],
+#     },
+# )
 
 ############################
 # Tau ID/ISO SF
@@ -207,7 +203,7 @@ Ele_1_IDWP90_SF = Producer(
     call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "wp90noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.pt_1, q.eta_1],
     output=[q.id_wgt_ele_wp90nonIso_1],
-    scopes=["em", "ee", "et"],
+    scopes=["ee", "emet"],
 )
 Ele_2_IDWP90_SF = Producer(
     name="Ele_IDWP90_SF",
@@ -221,7 +217,7 @@ Ele_1_IDWP80_SF = Producer(
     call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "wp80noiso", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
     input=[q.pt_1, q.eta_1],
     output=[q.id_wgt_ele_wp80nonIso_1],
-    scopes=["em", "ee", "et"],
+    scopes=["ee", "emet"],
 )
 Ele_2_IDWP80_SF = Producer(
     name="Ele_IDWP80_SF",
@@ -230,20 +226,42 @@ Ele_2_IDWP80_SF = Producer(
     output=[q.id_wgt_ele_wp80nonIso_2],
     scopes=["ee"],
 )
+Ele_1_IDWPMedium_SF = Producer(
+    name="Ele_1_IDWPMedium_SF",
+    call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "Medium", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    input=[q.pt_1, q.eta_1],
+    output=[q.id_wgt_ele_wpmedium_1],
+    scopes=["ee", "emet"],
+)
+Ele_2_IDWPMedium_SF = Producer(
+    name="Ele_2_IDWPMedium_SF",
+    call='scalefactor::electron::id({df}, {input}, "{ele_sf_year_id}", "Medium", "{ele_sf_varation}", {output}, "{ele_sf_file}", "{ele_id_sf_name}")',
+    input=[q.pt_2, q.eta_2],
+    output=[q.id_wgt_ele_wpmedium_2],
+    scopes=["ee"],
+)
 EleID_SF = ProducerGroup(
     name="EleID_SF",
     call=None,
     input=None,
     output=None,
-    scopes=["em", "ee", "et"],
+    scopes=["ee", "emet"],
     subproducers={
-        "em": [Ele_1_IDWP90_SF, Ele_1_IDWP80_SF],
-        "ee": [
-            Ele_1_IDWP90_SF,
-            Ele_1_IDWP80_SF,
-            Ele_2_IDWP90_SF,
-            Ele_2_IDWP80_SF,
+        "ee":  [
+            Ele_1_IDWPMedium_SF,
+            Ele_2_IDWPMedium_SF,
         ],
-        "et": [Ele_1_IDWP90_SF, Ele_1_IDWP80_SF],
+        "emet": [
+            Ele_1_IDWPMedium_SF,
+        ],
+
+        # "em": [Ele_1_IDWP90_SF, Ele_1_IDWP80_SF],
+        # "ee": [
+        #     Ele_1_IDWP90_SF,
+        #     Ele_1_IDWP80_SF,
+        #     Ele_2_IDWP90_SF,
+        #     Ele_2_IDWP80_SF,
+        # ],
+        # "et": [Ele_1_IDWP90_SF, Ele_1_IDWP80_SF],
     },
 )

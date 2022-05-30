@@ -6,6 +6,120 @@ from .producers import electrons as electrons
 from .producers import taus as taus
 
 
+def add_leptonSFShifts(configuration):
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonIDUp",
+            scopes = ["mm", "mmet"],
+            shift_config={
+                ("mm", "mmet"): {"muon_sf_varation": "systup"},
+            },
+            producers={
+                "mm": [
+                    scalefactors.Muon_1_ID_SF,
+                    scalefactors.Muon_2_ID_SF,
+                ],
+                "mmet": [
+                    scalefactors.Muon_1_ID_SF,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonIDDown",
+            scopes = ["mm", "mmet"],
+            shift_config={
+                ("mm", "mmet"): {"muon_sf_varation": "systdown"},
+            },
+            producers={
+                "mm": [
+                    scalefactors.Muon_1_ID_SF,
+                    scalefactors.Muon_2_ID_SF,
+                ],
+                "mmet": [
+                    scalefactors.Muon_1_ID_SF,
+                ],
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonIsoUp",
+            scopes = ["mm", "mmet"],
+            shift_config={
+                ("mm", "mmet"): {"muon_sf_varation": "systup"},
+            },
+            producers={
+                "mm": [
+                    scalefactors.Muon_1_Iso_SF,
+                    scalefactors.Muon_2_Iso_SF,
+                ],
+                "mmet": [
+                    scalefactors.Muon_1_Iso_SF,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="MuonIsoDown",
+            scopes = ["mm", "mmet"],
+            shift_config={
+                ("mm", "mmet"): {"muon_sf_varation": "systdown"},
+            },
+            producers={
+                "mm": [
+                    scalefactors.Muon_1_Iso_SF,
+                    scalefactors.Muon_2_Iso_SF,
+                ],
+                "mmet": [
+                    scalefactors.Muon_1_Iso_SF,
+                ],
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="ElectronIDUp",
+            scopes = ["ee", "emet"],
+            shift_config={
+                ("ee", "emet"): {"ele_sf_varation": "sfup"},
+            },
+            producers={
+                "ee": [
+                    scalefactors.Ele_1_IDWPMedium_SF,
+                    scalefactors.Ele_2_IDWPMedium_SF,
+                ],
+                "emet": [
+                    scalefactors.Ele_1_IDWPMedium_SF,
+                ]
+            },
+        )
+    )
+    configuration.add_shift(
+        SystematicShift(
+            name="ElectronIDDown",
+            scopes = ["ee", "emet"],
+            shift_config={
+                ("ee", "emet"): {"ele_sf_varation": "sfdown"},
+            },
+            producers={
+                "ee": [
+                    scalefactors.Ele_1_IDWPMedium_SF,
+                    scalefactors.Ele_2_IDWPMedium_SF,
+                ],
+                "emet": [
+                    scalefactors.Ele_1_IDWPMedium_SF,
+                ],
+            },
+        )
+    )
+
+    return configuration
+
+
+
 def add_tauVariations(configuration):
     #########################
     # TauvsMuID scale factor shifts

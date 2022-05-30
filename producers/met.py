@@ -148,16 +148,26 @@ MetBasics = ProducerGroup(
 PropagateLeptonsToMet = Producer(
     name="PropagateLeptonsToMet",
     call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
-    input=[q.met_p4, q.p4_1_uncorrected, q.p4_2_uncorrected, q.p4_1, q.p4_2],
+    input= {
+        "mm": [q.met_p4, q.p4_1_uncorrected, q.p4_2_uncorrected, q.p4_1, q.p4_2],
+        "mmet": [q.met_p4, q.p4_1_uncorrected, q.p4_1],
+        "ee": [q.met_p4, q.p4_1_uncorrected, q.p4_2_uncorrected, q.p4_1, q.p4_2],
+        "emet": [q.met_p4, q.p4_1_uncorrected, q.p4_1],
+    },
     output=[q.met_p4_leptoncorrected],
-    scopes=["et", "mt", "tt", "em", "mm", "ee"],
+    scopes=["mm", "mmet", "ee", "emet"],
 )
 PropagateLeptonsToPFMet = Producer(
     name="PropagateLeptonsToPFMet",
     call="met::propagateLeptonsToMet({df}, {input}, {output}, {propagateLeptons})",
-    input=[q.pfmet_p4, q.p4_1_uncorrected, q.p4_2_uncorrected, q.p4_1, q.p4_2],
+    input= {
+        "mm": [q.pfmet_p4, q.p4_1_uncorrected, q.p4_2_uncorrected, q.p4_1, q.p4_2],
+        "mmet": [q.pfmet_p4, q.p4_1_uncorrected, q.p4_1],
+        "ee": [q.pfmet_p4, q.p4_1_uncorrected, q.p4_2_uncorrected, q.p4_1, q.p4_2],
+        "emet": [q.pfmet_p4, q.p4_1_uncorrected, q.p4_1],
+    },
     output=[q.pfmet_p4_leptoncorrected],
-    scopes=["et", "mt", "tt", "em", "mm", "ee"],
+    scopes=["mm", "mmet", "ee", "emet"],
 )
 PropagateJetsToMet = Producer(
     name="PropagateJetsToMet",
@@ -174,7 +184,7 @@ PropagateJetsToMet = Producer(
         nanoAOD.Jet_mass,
     ],
     output=[q.met_p4_jetcorrected],
-    scopes=["et", "mt", "tt", "em", "mm", "ee"],
+    scopes=["mm", "mmet", "ee", "emet"],
 )
 PropagateJetsToPFMet = Producer(
     name="PropagateJetsToPFMet",
@@ -191,7 +201,7 @@ PropagateJetsToPFMet = Producer(
         nanoAOD.Jet_mass,
     ],
     output=[q.pfmet_p4_jetcorrected],
-    scopes=["et", "mt", "tt", "em", "mm", "ee"],
+    scopes=["mm", "mmet", "ee", "emet"],
 )
 
 ApplyRecoilCorrections = Producer(
@@ -203,7 +213,7 @@ ApplyRecoilCorrections = Producer(
         q.Jet_pt_corrected,
     ],
     output=[q.met_p4_recoilcorrected],
-    scopes=["et", "mt", "tt", "em", "mm", "ee"],
+    scopes=["mm", "mmet", "ee", "emet"],
 )
 ApplyRecoilCorrectionsPFMet = Producer(
     name="ApplyRecoilCorrectionsPFMet",
@@ -214,42 +224,42 @@ ApplyRecoilCorrectionsPFMet = Producer(
         q.Jet_pt_corrected,
     ],
     output=[q.pfmet_p4_recoilcorrected],
-    scopes=["et", "mt", "tt", "em", "mm", "ee"],
+    scopes=["mm", "mmet", "ee", "emet"],
 )
 MetPt = Producer(
     name="MetPt",
     call="quantities::pt({df}, {output}, {input})",
     input=[q.met_p4_recoilcorrected],
     output=[q.met],
-    scopes=["et", "mt", "tt", "em", "mm", "ee"],
+    scopes=["mm", "mmet", "ee", "emet"],
 )
 PFMetPt = Producer(
     name="PFMetPt",
     call="quantities::pt({df}, {output}, {input})",
     input=[q.pfmet_p4_recoilcorrected],
     output=[q.pfmet],
-    scopes=["et", "mt", "tt", "em", "mm", "ee"],
+    scopes=["mm", "mmet", "ee", "emet"],
 )
 MetPhi = Producer(
     name="MetPhi",
     call="quantities::phi({df}, {output}, {input})",
     input=[q.met_p4_recoilcorrected],
     output=[q.metphi],
-    scopes=["et", "mt", "tt", "em", "mm", "ee"],
+    scopes=["mm", "mmet", "ee", "emet"],
 )
 PFMetPhi = Producer(
     name="PFMetPhi",
     call="quantities::phi({df}, {output}, {input})",
     input=[q.pfmet_p4_recoilcorrected],
     output=[q.pfmetphi],
-    scopes=["et", "mt", "tt", "em", "mm", "ee"],
+    scopes=["mm", "mmet", "ee", "emet"],
 )
 MetCorrections = ProducerGroup(
     name="MetCorrections",
     call=None,
     input=None,
     output=None,
-    scopes=["et", "mt", "tt", "em", "mm", "ee"],
+    scopes=["mm", "mmet", "ee", "emet"],
     subproducers=[
         PropagateLeptonsToMet,
         PropagateJetsToMet,
@@ -263,7 +273,7 @@ PFMetCorrections = ProducerGroup(
     call=None,
     input=None,
     output=None,
-    scopes=["et", "mt", "tt", "em", "mm", "ee"],
+    scopes=["mm", "mmet", "ee", "emet"],
     subproducers=[
         PropagateLeptonsToPFMet,
         PropagateJetsToPFMet,

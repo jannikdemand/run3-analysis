@@ -1,8 +1,8 @@
 from ..quantities import output as q
 from ..quantities import nanoAOD as nanoAOD
 from code_generation.producer import BaseFilter, Producer, ProducerGroup, VectorProducer
-from .electrons import DiElectronVeto
-from .muons import DiMuonVeto
+# from .electrons import DiElectronVeto
+# from .muons import DiMuonVeto
 
 ####################
 # Set of general producers for event quantities
@@ -152,7 +152,7 @@ ZPtMassReweighting = Producer(
         q.recoil_genboson_p4_vec,
     ],
     output=[q.ZPtMassReweightWeight],
-    scopes=["global", "em", "et", "mt", "tt", "mm"],
+    scopes=["global", "mm", "mmet", "ee", "emet"],
 )
 
 TopPtReweighting = Producer(
@@ -164,24 +164,24 @@ TopPtReweighting = Producer(
         nanoAOD.GenParticle_pt,
     ],
     output=[q.topPtReweightWeight],
-    scopes=["global", "em", "et", "mt", "tt", "mm"],
+    scopes=["global", "mm", "mmet", "ee", "emet"],
 )
 
-DiLeptonVeto = ProducerGroup(
-    name="DiLeptonVeto",
-    call="basefunctions::CombineFlagsAny({df}, {output}, {input})",
-    input=[],
-    output=[q.dilepton_veto],
-    scopes=["global"],
-    subproducers=[DiElectronVeto, DiMuonVeto],
-)
+# DiLeptonVeto = ProducerGroup(
+#     name="DiLeptonVeto",
+#     call="basefunctions::CombineFlagsAny({df}, {output}, {input})",
+#     input=[],
+#     output=[q.dilepton_veto],
+#     scopes=["global"],
+#     subproducers=[DiElectronVeto, DiMuonVeto],
+# )
 
 GGH_NNLO_Reweighting = Producer(
     name="GGH_NNLO_Reweighting",
     call='htxs::ggHNNLOWeights({df}, {output}, "{ggHNNLOweightsRootfile}", "{ggH_generator}", {input})',
     input=[nanoAOD.HTXS_Higgs_pt, nanoAOD.HTXS_njets30],
     output=[q.ggh_NNLO_weight],
-    scopes=["global", "em", "et", "mt", "tt", "mm"],
+    scopes=["global", "mm", "mmet", "ee", "emet"],
 )
 
 GGH_WG1_Uncertainties = Producer(
@@ -203,7 +203,7 @@ GGH_WG1_Uncertainties = Producer(
         q.THU_ggH_PT120,
         q.THU_ggH_qmtop,
     ],
-    scopes=["global", "em", "et", "mt", "tt", "mm"],
+    scopes=["global", "mm", "mmet", "ee", "emet"],
 )
 
 QQH_WG1_Uncertainties = Producer(
@@ -224,5 +224,5 @@ QQH_WG1_Uncertainties = Producer(
         q.THU_qqH_25,
         q.THU_qqH_JET01,
     ],
-    scopes=["global", "em", "et", "mt", "tt", "mm"],
+    scopes=["global", "mm", "mmet", "ee", "emet"],
 )

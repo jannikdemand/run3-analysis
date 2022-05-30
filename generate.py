@@ -7,7 +7,7 @@ from code_generation.code_generation import CodeGenerator
 
 def run(args):
 
-    analysis_name = "tau"
+    analysis_name = "earlyrun3"
 
     available_samples = [
         "ggh_htautau",
@@ -18,15 +18,16 @@ def run(args):
         "rem_hbb",
         "embedding",
         "embedding_mc",
+        "electroweak_boson",
+
         "ttbar",
         "diboson",
         "dyjets",
         "wjets",
         "data",
-        "electroweak_boson",
     ]
     available_eras = ["2016", "2017", "2018"]
-    available_scopes = ["et", "mt", "tt", "em", "ee", "mm"]
+    available_scopes = ["mm", "mmet", "ee", "emet"]
 
     ## setup variables
     shifts = set([shift.lower() for shift in args.shifts])
