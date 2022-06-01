@@ -157,7 +157,7 @@ OneGoodElectronFlag = Producer(
     input={
         "emet": [q.good_electrons_mask],
     },
-    output=[q.n_good_electrons_flag],  # q.n_good_electrons_flag
+    output=[q.n_good_electrons_flag],
     scopes=["emet"],
 )
 OneGoodElectronFilter = Filter(

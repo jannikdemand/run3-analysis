@@ -518,6 +518,7 @@ def build_config(
             nanoAOD.event,
             q.npartons,
             q.puweight,
+            nanoAOD.genWeight,
 
             q.njets,
             q.jpt_1,

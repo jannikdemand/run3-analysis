@@ -148,7 +148,7 @@ OneGoodMuonFlag = Producer(
     input={
         "mmet": [q.good_muons_mask],
     },
-    output=[q.n_good_muons_flag],  # q.n_good_muons_flag
+    output=[q.n_good_muons_flag],
     scopes=["mmet"],
 )
 OneGoodMuonFilter = Filter(
