@@ -358,6 +358,7 @@ def build_config(
             event.npartons,
             event.MetFilter,
             event.PUweights,
+            event.EventGenWeight,
             muons.BaseMuons,
             electrons.BaseElectrons,
             jets.JetEnergyCorrection,
@@ -408,6 +409,8 @@ def build_config(
             triggers.MMGenerateSingleMuonTriggerFlags2,
 
             genparticles.MMGenDiTauPairQuantities,
+            genparticles.gen_match_1,
+            genparticles.gen_match_2,
         ],
     )
 
@@ -420,8 +423,12 @@ def build_config(
             pairselection.LVMu1,
             pairselection.LVMu1Uncorrected,
             pairquantities.LepMETQuantities,
+
             scalefactors.MuonIDIso_SF,
             triggers.MMGenerateSingleMuonTriggerFlags1,
+
+            genparticles.gen_match_1,
+            # genparticles.gen_match_2,
         ],
     )
 
@@ -444,6 +451,8 @@ def build_config(
             triggers.EEGenerateSingleElectronTriggerFlags2,
 
             # genparticles.MMGenDiTauPairQuantities,
+            genparticles.gen_match_1,
+            genparticles.gen_match_2,
         ],
     )
 
@@ -456,8 +465,12 @@ def build_config(
             pairselection.LVEl1,
             pairselection.LVEl1Uncorrected,
             pairquantities.LepMETQuantities,
+
             scalefactors.EleID_SF,
             triggers.EEGenerateSingleElectronTriggerFlags1,
+
+            genparticles.gen_match_1,
+            # genparticles.gen_match_2,
         ],
     )
 
@@ -481,7 +494,7 @@ def build_config(
     configuration.add_modification_rule(
         "global",
         RemoveProducer(
-            producers=[event.PUweights, event.npartons],
+            producers=[event.PUweights, event.EventGenWeight, event.npartons],
             samples=["data"],
         ),
     )
@@ -494,7 +507,44 @@ def build_config(
     configuration.add_modification_rule(
         "mm",
         RemoveProducer(
-            producers=[genparticles.MMGenDiTauPairQuantities],
+            producers=[
+                genparticles.MMGenDiTauPairQuantities,
+                genparticles.gen_match_1,
+                genparticles.gen_match_2,
+            ],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        "mmet",
+        RemoveProducer(
+            producers=[
+                # genparticles.MMGenDiTauPairQuantities,
+                genparticles.gen_match_1,
+                # genparticles.gen_match_2,
+            ],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        "ee",
+        RemoveProducer(
+            producers=[
+                # genparticles.MMGenDiTauPairQuantities,
+                genparticles.gen_match_1,
+                genparticles.gen_match_2,
+            ],
+            samples=["data"],
+        ),
+    )
+    configuration.add_modification_rule(
+        "emet",
+        RemoveProducer(
+            producers=[
+                # genparticles.MMGenDiTauPairQuantities,
+                genparticles.gen_match_1,
+                # genparticles.gen_match_2,
+            ],
             samples=["data"],
         ),
     )
@@ -518,7 +568,7 @@ def build_config(
             nanoAOD.event,
             q.npartons,
             q.puweight,
-            nanoAOD.genWeight,
+            q.genweight,
 
             q.njets,
             q.jpt_1,
@@ -593,12 +643,15 @@ def build_config(
             q.gen_phi_1,
             q.gen_mass_1,
             q.gen_pdgid_1,
+            q.gen_match_1,
 
             q.gen_pt_2,
             q.gen_eta_2,
             q.gen_phi_2,
             q.gen_mass_2,
             q.gen_pdgid_2,
+            q.gen_match_2,
+
             q.gen_m_vis,
 
             q.mjj,
@@ -627,6 +680,8 @@ def build_config(
             q.dz_1,
             q.q_1,
             q.iso_1,
+
+            q.gen_match_1,
 
             q.mt_1,
 
@@ -664,12 +719,15 @@ def build_config(
             # q.gen_phi_1,
             # q.gen_mass_1,
             # q.gen_pdgid_1,
+            q.gen_match_1,
 
             # q.gen_pt_2,
             # q.gen_eta_2,
             # q.gen_phi_2,
             # q.gen_mass_2,
             # q.gen_pdgid_2,
+            q.gen_match_2,
+
             # q.gen_m_vis,
 
             q.mjj,
@@ -696,6 +754,8 @@ def build_config(
             q.dz_1,
             q.q_1,
             q.iso_1,
+
+            q.gen_match_1,
 
             q.mt_1,
 

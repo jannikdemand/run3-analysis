@@ -193,12 +193,27 @@ gen_m_vis = Producer(
     output=[q.gen_m_vis],
     scopes=["mt", "et", "tt", "em", "mm"],
 )
+gen_match_1 = Producer(
+    name="gen_match_1",
+    call="quantities::tau::genmatch({df}, {output}, 0, {input})",
+    input= {
+        "mm": [q.selectedLepton, nanoAOD.Muon_genMatch],
+        "mmet": [q.selectedLepton, nanoAOD.Muon_genMatch],
+        "ee": [q.selectedLepton, nanoAOD.Electron_genMatch],
+        "emet": [q.selectedLepton, nanoAOD.Electron_genMatch],
+    },
+    output=[q.gen_match_1],
+    scopes=["mm", "mmet", "ee", "emet"],
+)
 gen_match_2 = Producer(
     name="gen_match_2",
     call="quantities::tau::genmatch({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Tau_genMatch],
+    input= {
+        "mm": [q.selectedLepton, nanoAOD.Muon_genMatch],
+        "ee": [q.selectedLepton, nanoAOD.Electron_genMatch],
+    },
     output=[q.gen_match_2],
-    scopes=["mt", "et", "tt"],
+    scopes=["mm", "ee"],
 )
 gen_taujet_pt_1 = Producer(
     name="gen_taujet_pt_1",

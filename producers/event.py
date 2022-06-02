@@ -145,6 +145,14 @@ PUweights = Producer(
     scopes=["global"],
 )
 
+EventGenWeight = Producer(
+    name="EventGenWeight",
+    call="basefunctions::rename<Float_t>({df}, {input}, {output})",
+    input=[nanoAOD.genWeight],
+    output=[q.genweight],
+    scopes=["global"],
+)
+
 ZPtMassReweighting = Producer(
     name="ZPtMassReweighting",
     call='reweighting::zPtMassReweighting({df}, {output}, {input}, "{zptmass_file}", "{zptmass_functor}", "{zptmass_arguments}")',
