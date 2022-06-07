@@ -7,7 +7,7 @@ from .producers import event as event
 from .producers import genparticles as genparticles
 # from .producers import jets as jets
 # from .producers import met as met
-# from .producers import muons as muons
+from .producers import muons as muons
 # from .producers import pairquantities as pairquantities
 # from .producers import pairselection as pairselection
 # from .producers import scalefactors as scalefactors
@@ -43,6 +43,13 @@ def build_config(
         available_scopes,
     )
 
+    configuration.add_config_parameters(
+        "mm",
+        {
+            "min_muon_pt": -1.0,
+        },
+    )
+
     configuration.add_producers(
         "global",
         [
@@ -54,11 +61,13 @@ def build_config(
 
     configuration.add_producers(
         "mm",
-        [],
+        [
+            muons.GoodMuonPtCut
+        ],
     )
 
     configuration.add_outputs(
-        "global",
+        "mm",
         [
             q.is_data,
             q.is_embedding,
