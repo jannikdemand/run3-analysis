@@ -611,7 +611,10 @@ def build_config(
             # q.pt_tt,
             # q.pt_ttjj,
             # q.mt_tot,
-            # q.genbosonmass,
+            q.genbosonmass,
+            q.genbosonpt,
+            q.genbosoneta,
+            q.genbosonphi,
         ],
     )
 
