@@ -142,6 +142,13 @@ GenBosonPhi = Producer(
     output=[q.genbosonphi],
     scopes=["global"],
 )
+GenBosonRapidity = Producer(
+    name="GenBosonRapidity",
+    call="met::genBosonRapidity({df}, {output}, {input})",
+    input=[q.recoil_genboson_p4_vec],
+    output=[q.genbosonrapidity],
+    scopes=["global"],
+)
 MetBasics = ProducerGroup(
     name="MetBasics",
     call=None,
@@ -165,6 +172,7 @@ MetBasics = ProducerGroup(
         GenBosonPt,
         GenBosonEta,
         GenBosonPhi,
+        GenBosonRapidity,
     ],
 )
 

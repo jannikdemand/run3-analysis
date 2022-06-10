@@ -615,6 +615,7 @@ def build_config(
             q.genbosonpt,
             q.genbosoneta,
             q.genbosonphi,
+            q.genbosonrapidity,
         ],
     )
 
