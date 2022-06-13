@@ -2,6 +2,8 @@ from code_generation.quantity import Quantity
 
 lumi = Quantity("lumi")
 puweight = Quantity("puweight")
+npu = Quantity("npu")
+npvGood = Quantity("npvGood")
 prefireweight = Quantity("prefiring_wgt")
 genweight = Quantity("genweight")
 
