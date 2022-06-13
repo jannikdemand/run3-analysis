@@ -121,6 +121,34 @@ GenBosonMass = Producer(
     output=[q.genbosonmass],
     scopes=["global"],
 )
+GenBosonPt = Producer(
+    name="GenBosonPt",
+    call="met::genBosonPt({df}, {output}, {input})",
+    input=[q.recoil_genboson_p4_vec],
+    output=[q.genbosonpt],
+    scopes=["global"],
+)
+GenBosonEta = Producer(
+    name="GenBosonEta",
+    call="met::genBosonEta({df}, {output}, {input})",
+    input=[q.recoil_genboson_p4_vec],
+    output=[q.genbosoneta],
+    scopes=["global"],
+)
+GenBosonPhi = Producer(
+    name="GenBosonPhi",
+    call="met::genBosonPhi({df}, {output}, {input})",
+    input=[q.recoil_genboson_p4_vec],
+    output=[q.genbosonphi],
+    scopes=["global"],
+)
+GenBosonRapidity = Producer(
+    name="GenBosonRapidity",
+    call="met::genBosonRapidity({df}, {output}, {input})",
+    input=[q.recoil_genboson_p4_vec],
+    output=[q.genbosonrapidity],
+    scopes=["global"],
+)
 MetBasics = ProducerGroup(
     name="MetBasics",
     call=None,
@@ -141,6 +169,10 @@ MetBasics = ProducerGroup(
         MetSumEt,
         CalculateGenBosonVector,
         GenBosonMass,
+        GenBosonPt,
+        GenBosonEta,
+        GenBosonPhi,
+        GenBosonRapidity,
     ],
 )
 

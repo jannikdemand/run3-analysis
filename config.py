@@ -356,6 +356,8 @@ def build_config(
             event.SampleFlags,
             event.Lumi,
             event.npartons,
+            event.Npu,
+            event.NpvGood,
             event.MetFilter,
             event.PUweights,
             event.EventGenWeight,
@@ -494,7 +496,8 @@ def build_config(
     configuration.add_modification_rule(
         "global",
         RemoveProducer(
-            producers=[event.PUweights, event.EventGenWeight, event.npartons],
+            producers=[event.PUweights, event.EventGenWeight, event.npartons, event.Npu],
+            #producers=[event.PUweights, event.EventGenWeight, event.npartons],
             samples=["data"],
         ),
     )
@@ -566,6 +569,8 @@ def build_config(
             nanoAOD.run,
             q.lumi,
             nanoAOD.event,
+            q.npvGood,
+            q.npu,
             q.npartons,
             q.puweight,
             q.genweight,
@@ -611,7 +616,11 @@ def build_config(
             # q.pt_tt,
             # q.pt_ttjj,
             # q.mt_tot,
-            # q.genbosonmass,
+            q.genbosonmass,
+            q.genbosonpt,
+            q.genbosoneta,
+            q.genbosonphi,
+            q.genbosonrapidity,
         ],
     )
 
