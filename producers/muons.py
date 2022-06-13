@@ -263,7 +263,7 @@ OneGoodMuonSelection = ProducerGroup(
         LooseMuons,
         VetoMuons,
         ExtraMuonsVeto,
-        VetoMuonFilter,
+        # VetoMuonFilter,
     ]
 )
 

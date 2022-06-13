@@ -272,7 +272,7 @@ OneGoodElectronSelection = ProducerGroup(
         LooseElectrons,
         VetoElectrons,
         ExtraElectronsVeto,
-        VetoElectronFilter,
+        # VetoElectronFilter,
     ]
 )
 

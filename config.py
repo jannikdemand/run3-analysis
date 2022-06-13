@@ -697,6 +697,8 @@ def build_config(
             triggers.MMGenerateSingleMuonTriggerFlags1.output_group,
             q.id_wgt_mu_1,
             q.iso_wgt_mu_1,
+
+            q.muon_veto_flag,
         ],
     )
 
@@ -770,6 +772,8 @@ def build_config(
 
             triggers.EEGenerateSingleElectronTriggerFlags1.output_group,
             q.id_wgt_ele_wpmedium_1,
+
+            q.electron_veto_flag,
         ],
     )
 
