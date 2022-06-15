@@ -21,7 +21,7 @@ from code_generation.configuration import Configuration
 from code_generation.modifiers import EraModifier, SampleModifier
 from code_generation.rules import AppendProducer, RemoveProducer, ReplaceProducer
 from code_generation.systematics import SystematicShift, SystematicShiftByQuantity
-from .variations import add_leptonSFShifts  # add_tauVariations
+from .variations import add_leptonSFShifts, add_PUweightsShifts  # add_tauVariations
 
 # from .producers import taus as taus
 # from .producers import embedding as emb
@@ -56,11 +56,25 @@ def build_config(
 
             "PU_reweighting_file": EraModifier(
                 {
-                    "2016": "data/pileup/Data_Pileup_2016_271036-284044_13TeVMoriond17_23Sep2016ReReco_69p2mbMinBiasXS.root",
-                    "2017": "data/pileup/Data_Pileup_2017_294927-306462_13TeVSummer17_PromptReco_69p2mbMinBiasXS.root",
-                    "2018": "data/pileup/Data_Pileup_2018_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18.root",
+                    "2016": "",
+                    "2017": "data/jsonpog-integration/POG/LUM/2017_UL/puWeights.json.gz",
+                    "2018": "data/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz",
+
+                    # "2016": "data/pileup/Data_Pileup_2016_271036-284044_13TeVMoriond17_23Sep2016ReReco_69p2mbMinBiasXS.root",
+                    # "2017": "data/pileup/Data_Pileup_2017_294927-306462_13TeVSummer17_PromptReco_69p2mbMinBiasXS.root",
+                    # "2018": "data/pileup/Data_Pileup_2018_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18.root",
                 }
             ),
+            "PU_reweighting_era": EraModifier(
+                {
+                    "2016": "",
+                    "2017": "Collisions17_UltraLegacy_goldenJSON",
+                    "2018": "Collisions18_UltraLegacy_goldenJSON",
+                }
+            ),
+            "PU_reweighting_variation": "nominal",
+
+
             "golden_json_file": EraModifier(
                 {
                     "2016": "data/golden_json/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt",
@@ -896,6 +910,11 @@ def build_config(
     #             if sample not in ["data", "emb", "emb_mc"]
     #         ],
     #     )
+
+    #########################
+    # PU weights systematics
+    #########################
+    add_PUweightsShifts(configuration)
 
     #########################
     # Lepton ID/Iso scale factor shifts, channel dependent

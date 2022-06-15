@@ -4,6 +4,40 @@ from .producers import pairselection as pairselection
 from .producers import muons as muons
 from .producers import electrons as electrons
 from .producers import taus as taus
+from .producers import event as event 
+
+def add_PUweightsShifts(configuration):
+    configuration.add_shift(
+        SystematicShift(
+            name="PUUp",
+            scopes=["global"],
+            shift_config={
+                ("global"): {"PU_reweighting_variation": "up"},
+            },
+            producers={
+                "global": [
+                    event.PUweights,
+                ],
+            },
+        )
+    )
+
+    configuration.add_shift(
+        SystematicShift(
+            name="PUDown",
+            scopes=["global"],
+            shift_config={
+                ("global"): {"PU_reweighting_variation": "down"},
+            },
+            producers={
+                "global": [
+                    event.PUweights,
+                ],
+            },
+        )
+    )
+
+    return configuration
 
 
 def add_leptonSFShifts(configuration):
