@@ -64,6 +64,107 @@ MMTrueGenPair = Producer(
 # Set of general producers for Gen DiTauPair Quantities
 ####################
 
+
+gen_matchIdx_1 = Producer(
+    name="gen_matchIdx_1",
+    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    input= {
+        "mm": [q.selectedLepton, nanoAOD.Muon_indexToGen],
+        "mmet": [q.selectedLepton, nanoAOD.Muon_indexToGen],
+        "ee": [q.selectedLepton, nanoAOD.Electron_indexToGen],
+        "emet": [q.selectedLepton, nanoAOD.Electron_indexToGen],
+    },
+    output=[q.gen_matchIdx_1],
+    scopes=["mm", "mmet", "ee", "emet"],
+)
+gen_matchIdx_2 = Producer(
+    name="gen_matchIdx_2",
+    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    input= {
+        "mm": [q.selectedLepton, nanoAOD.Muon_indexToGen],
+        "ee": [q.selectedLepton, nanoAOD.Electron_indexToGen],
+    },
+    output=[q.gen_matchIdx_2],
+    scopes=["mm", "ee"],
+)
+
+genmatch_pt_1 = Producer(
+    name="genmatch_pt_1",
+    call="basefunctions::getvar<float>({df}, {output}, {input})",
+    input=[q.gen_matchIdx_1, nanoAOD.GenParticle_pt],
+    output=[q.genmatch_pt_1],
+    scopes=["mm", "mmet", "ee", "emet"],
+)
+genmatch_pt_2 = Producer(
+    name="genmatch_pt_2",
+    call="basefunctions::getvar<float>({df}, {output}, {input})",
+    input=[q.gen_matchIdx_2, nanoAOD.GenParticle_pt],
+    output=[q.genmatch_pt_2],
+    scopes=["mm", "ee"],
+)
+genmatch_eta_1 = Producer(
+    name="genmatch_eta_1",
+    call="basefunctions::getvar<float>({df}, {output}, {input})",
+    input=[q.gen_matchIdx_1, nanoAOD.GenParticle_eta],
+    output=[q.genmatch_eta_1],
+    scopes=["mm", "mmet", "ee", "emet"],
+)
+genmatch_eta_2 = Producer(
+    name="genmatch_eta_2",
+    call="basefunctions::getvar<float>({df}, {output}, {input})",
+    input=[q.gen_matchIdx_2, nanoAOD.GenParticle_eta],
+    output=[q.genmatch_eta_2],
+    scopes=["mm", "ee"],
+)
+genmatch_phi_1 = Producer(
+    name="genmatch_phi_1",
+    call="basefunctions::getvar<float>({df}, {output}, {input})",
+    input=[q.gen_matchIdx_1, nanoAOD.GenParticle_phi],
+    output=[q.genmatch_phi_1],
+    scopes=["mm", "mmet", "ee", "emet"],
+)
+genmatch_phi_2 = Producer(
+    name="genmatch_phi_2",
+    call="basefunctions::getvar<float>({df}, {output}, {input})",
+    input=[q.gen_matchIdx_2, nanoAOD.GenParticle_phi],
+    output=[q.genmatch_phi_2],
+    scopes=["mm", "ee"],
+)
+genmatch_mass_1 = Producer(
+    name="genmatch_mass_1",
+    call="basefunctions::getvar<float>({df}, {output}, {input})",
+    input=[q.gen_matchIdx_1, nanoAOD.GenParticle_mass],
+    output=[q.genmatch_mass_1],
+    scopes=["mm", "mmet", "ee", "emet"],
+)
+genmatch_mass_2 = Producer(
+    name="genmatch_mass_2",
+    call="basefunctions::getvar<float>({df}, {output}, {input})",
+    input=[q.gen_matchIdx_2, nanoAOD.GenParticle_mass],
+    output=[q.genmatch_mass_2],
+    scopes=["mm", "ee"],
+)
+UnrollGenMatchLV1 = ProducerGroup(
+    name="UnrollGenMatchLV1",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mm", "mmet", "ee", "emet"],
+    subproducers=[genmatch_pt_1, genmatch_eta_1, genmatch_phi_1, genmatch_mass_1],
+)
+UnrollGenMatchLV2 = ProducerGroup(
+    name="UnrollGenMatchLV2",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mm", "ee"],
+    subproducers=[genmatch_pt_2, genmatch_eta_2, genmatch_phi_2, genmatch_mass_2],
+)
+
+
+
+
+
 LVGenParticle1 = Producer(
     name="LVGenParticle1",
     call="lorentzvectors::build({df}, {input_vec}, 0, {output})",

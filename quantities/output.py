@@ -83,6 +83,10 @@ taujet_pt_2 = Quantity("taujet_pt_2")
 gen_taujet_pt_1 = Quantity("gen_taujet_pt_1")
 gen_taujet_pt_2 = Quantity("gen_taujet_pt_2")
 
+pt_rc_1 = Quantity("pt_rc_1")
+pt_rc_2 = Quantity("pt_rc_2")
+rndms = Quantity("rndms")
+
 #electron quantities
 descaledown_1 = Quantity("descaledown_1")
 descaledown_2 = Quantity("descaledown_2")
@@ -308,6 +312,18 @@ gen_phi_2 = Quantity("gen_phi_2")
 gen_mass_2 = Quantity("gen_mass_2")
 gen_pdgid_2 = Quantity("gen_pdgid_2")
 gen_m_vis = Quantity("gen_m_vis")
+
+gen_matchIdx_1 = Quantity("gen_matchIdx_1")
+genmatch_pt_1 = Quantity("genmatch_pt_1")
+genmatch_eta_1 = Quantity("genmatch_eta_1")
+genmatch_phi_1 = Quantity("genmatch_phi_1")
+genmatch_mass_1 = Quantity("genmatch_mass_1")
+
+gen_matchIdx_2 = Quantity("gen_matchIdx_2")
+genmatch_pt_2 = Quantity("genmatch_pt_2")
+genmatch_eta_2 = Quantity("genmatch_eta_2")
+genmatch_phi_2 = Quantity("genmatch_phi_2")
+genmatch_mass_2 = Quantity("genmatch_mass_2")
 
 topPtReweightWeight = Quantity("topPtReweightWeight")
 ZPtMassReweightWeight = Quantity("ZPtMassReweightWeight")
