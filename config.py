@@ -201,6 +201,11 @@ def build_config(
             "max_muon_eta": 2.4,
             "muon_iso_cut": 0.15,
             "second_muon_index_in_pair": 1,
+
+            "RoccoR_file": '"include/RoccoR/RoccoR2018UL.txt"',
+            "RoccoR_seed": 1,
+            "RoccoR_error_set": 0,
+            "RoccoR_error_member": 0,
         },
     )
 
@@ -219,7 +224,12 @@ def build_config(
             "max_muon_veto_dz": 1.e9,  # 0.2,
             "muon_veto_id": "Muon_looseId",  # "Muon_mediumId",
             "muon_veto_iso_cut": 1.e9,
-            "n_good_muons": 1
+            "n_good_muons": 1,
+
+            "RoccoR_file": '"include/RoccoR/RoccoR2018UL.txt"',
+            "RoccoR_seed": 1,
+            "RoccoR_error_set": 0,
+            "RoccoR_error_member": 0,
         },
     )
 
@@ -429,6 +439,14 @@ def build_config(
             genparticles.MMGenDiTauPairQuantities,
             genparticles.gen_match_1,
             genparticles.gen_match_2,
+
+            genparticles.gen_matchIdx_1,
+            genparticles.gen_matchIdx_2,
+
+            genparticles.UnrollGenMatchLV1,
+            genparticles.UnrollGenMatchLV2,
+
+            pairquantities.ApplyRoccoRMC,
         ],
     )
 
@@ -447,7 +465,12 @@ def build_config(
             triggers.MMGenerateSingleMuonTriggerFlags1,
 
             genparticles.gen_match_1,
-            # genparticles.gen_match_2,
+
+            genparticles.gen_matchIdx_1,
+
+            genparticles.UnrollGenMatchLV1,
+
+            pairquantities.ApplyRoccoRMC,
         ],
     )
 
@@ -474,6 +497,12 @@ def build_config(
             # genparticles.MMGenDiTauPairQuantities,
             genparticles.gen_match_1,
             genparticles.gen_match_2,
+
+            genparticles.gen_matchIdx_1,
+            genparticles.gen_matchIdx_2,
+
+            genparticles.UnrollGenMatchLV1,
+            genparticles.UnrollGenMatchLV2,
         ],
     )
 
@@ -492,12 +521,22 @@ def build_config(
             triggers.EEGenerateSingleElectronTriggerFlags1,
 
             genparticles.gen_match_1,
-            # genparticles.gen_match_2,
+
+            genparticles.gen_matchIdx_1,
+
+            genparticles.UnrollGenMatchLV1,
         ],
     )
 
 
     # modification rules
+    configuration.add_modification_rule(
+        ["mm", "mmet"],
+        ReplaceProducer(
+            producers=[pairquantities.ApplyRoccoRMC, pairquantities.ApplyRoccoRData],
+            samples="data",
+        ),
+    )
     configuration.add_modification_rule(
         "global",
         ReplaceProducer(
@@ -534,6 +573,10 @@ def build_config(
                 genparticles.MMGenDiTauPairQuantities,
                 genparticles.gen_match_1,
                 genparticles.gen_match_2,
+                genparticles.gen_matchIdx_1,
+                genparticles.gen_matchIdx_2,
+                genparticles.UnrollGenMatchLV1,
+                genparticles.UnrollGenMatchLV2,
             ],
             samples=["data"],
         ),
@@ -544,7 +587,8 @@ def build_config(
             producers=[
                 # genparticles.MMGenDiTauPairQuantities,
                 genparticles.gen_match_1,
-                # genparticles.gen_match_2,
+                genparticles.gen_matchIdx_1,
+                genparticles.UnrollGenMatchLV1,
             ],
             samples=["data"],
         ),
@@ -556,6 +600,10 @@ def build_config(
                 # genparticles.MMGenDiTauPairQuantities,
                 genparticles.gen_match_1,
                 genparticles.gen_match_2,
+                genparticles.gen_matchIdx_1,
+                genparticles.gen_matchIdx_2,
+                genparticles.UnrollGenMatchLV1,
+                genparticles.UnrollGenMatchLV2,
             ],
             samples=["data"],
         ),
@@ -566,7 +614,8 @@ def build_config(
             producers=[
                 # genparticles.MMGenDiTauPairQuantities,
                 genparticles.gen_match_1,
-                # genparticles.gen_match_2,
+                genparticles.gen_matchIdx_1,
+                genparticles.UnrollGenMatchLV1,
             ],
             samples=["data"],
         ),
@@ -691,7 +740,7 @@ def build_config(
             q.tkRelIso_1,
 
             q.fsrPhotonIdx_1,
-            q.genPartIdx_1,
+            # q.genPartIdx_1,
             q.highPtId_1,
             q.miniIsoId_1,
             q.multiIsoId_1,
@@ -706,7 +755,7 @@ def build_config(
             q.highPurity_1,
             q.inTimeMuon_1,
             q.isGlobal_1,
-            #q.isStandalone_1,
+            q.isStandalone_1,
             q.isTracker_1,
             q.looseId_1,
             q.mediumId_1,
@@ -742,7 +791,7 @@ def build_config(
             q.tkRelIso_2,
 
             q.fsrPhotonIdx_2,
-            q.genPartIdx_2,
+            # q.genPartIdx_2,
             q.highPtId_2,
             q.miniIsoId_2,
             q.multiIsoId_2,
@@ -757,7 +806,7 @@ def build_config(
             q.highPurity_2,
             q.inTimeMuon_2,
             q.isGlobal_2,
-            #q.isStandalone_2,
+            q.isStandalone_2,
             q.isTracker_2,
             q.looseId_2,
             q.mediumId_2,
@@ -783,7 +832,22 @@ def build_config(
             q.gen_pdgid_2,
             q.gen_match_2,
 
+            q.gen_matchIdx_1,
+            q.genmatch_pt_1,
+            q.genmatch_eta_1,
+            q.genmatch_phi_1,
+            q.genmatch_mass_1,
+
+            q.gen_matchIdx_2,
+            q.genmatch_pt_2,
+            q.genmatch_eta_2,
+            q.genmatch_phi_2,
+            q.genmatch_mass_2,
+
             q.gen_m_vis,
+
+            q.pt_rc_1,
+            q.pt_rc_2,
 
             q.mjj,
             q.m_vis,
@@ -836,7 +900,7 @@ def build_config(
             q.tkRelIso_1,
 
             q.fsrPhotonIdx_1,
-            q.genPartIdx_1,
+            # q.genPartIdx_1,
             q.highPtId_1,
             q.miniIsoId_1,
             q.multiIsoId_1,
@@ -854,7 +918,7 @@ def build_config(
             q.highPurity_1,
             q.inTimeMuon_1,
             q.isGlobal_1,
-            #q.isStandalone_1,
+            q.isStandalone_1,
             q.isTracker_1,
             q.looseId_1,
             q.mediumId_1,
@@ -864,6 +928,14 @@ def build_config(
             q.triggerIdLoose_1,
 
             q.gen_match_1,
+
+            q.gen_matchIdx_1,
+            q.genmatch_pt_1,
+            q.genmatch_eta_1,
+            q.genmatch_phi_1,
+            q.genmatch_mass_1,
+
+            q.pt_rc_1,
 
             q.mt_1,
 
@@ -889,10 +961,10 @@ def build_config(
             q.q_1,
             q.iso_1,
 
-            #q.descaledown_1,
-            #q.descaleup_1,
-            #q.desigmadown_1,
-            #q.desigmaup_1,
+            q.descaledown_1,
+            q.descaleup_1,
+            q.desigmadown_1,
+            q.desigmaup_1,
             q.deltaetaSC_1,
             q.dr03EcalRecHitSumEt_1,
             q.dr03HcalDepth1TowerSumEt_1,
@@ -939,10 +1011,10 @@ def build_config(
             q.mvaFall17V2noIso_WP90_1,
             q.mvaFall17V2noIso_WPL_1,
 
-            #q.descaledown_2,
-            #q.descaleup_2,
-            #q.desigmadown_2,
-            #q.desigmaup_2,
+            q.descaledown_2,
+            q.descaleup_2,
+            q.desigmadown_2,
+            q.desigmaup_2,
             q.deltaetaSC_2,
             q.dr03EcalRecHitSumEt_2,
             q.dr03HcalDepth1TowerSumEt_2,
@@ -1013,6 +1085,18 @@ def build_config(
             # q.gen_pdgid_2,
             q.gen_match_2,
 
+            q.gen_matchIdx_1,
+            q.genmatch_pt_1,
+            q.genmatch_eta_1,
+            q.genmatch_phi_1,
+            q.genmatch_mass_1,
+
+            q.gen_matchIdx_2,
+            q.genmatch_pt_2,
+            q.genmatch_eta_2,
+            q.genmatch_phi_2,
+            q.genmatch_mass_2,
+
             # q.gen_m_vis,
 
             q.mjj,
@@ -1040,10 +1124,10 @@ def build_config(
             q.q_1,
             q.iso_1,
 
-            #q.descaledown_1,
-            #q.descaleup_1,
-            #q.desigmadown_1,
-            #q.desigmaup_1,
+            q.descaledown_1,
+            q.descaleup_1,
+            q.desigmadown_1,
+            q.desigmaup_1,
             q.deltaetaSC_1,
             q.dr03EcalRecHitSumEt_1,
             q.dr03HcalDepth1TowerSumEt_1,
@@ -1092,6 +1176,12 @@ def build_config(
 
             q.gen_match_1,
 
+            q.gen_matchIdx_1,
+            q.genmatch_pt_1,
+            q.genmatch_eta_1,
+            q.genmatch_phi_1,
+            q.genmatch_mass_1,
+
             q.mt_1,
 
             triggers.EEGenerateSingleElectronTriggerFlags1.output_group,
@@ -1100,126 +1190,6 @@ def build_config(
             q.electron_veto_flag,
         ],
     )
-
-    #########################
-    # Lepton to tau fakes energy scalefactor shifts  #
-    #########################
-    # if "dyjets" in sample:
-    #     configuration.add_shift(
-    #         SystematicShift(
-    #             name="tauMuFakeEsDown",
-    #             shift_config={
-    #                 "mt": {
-    #                     "tau_mufake_es": "down",
-    #                 }
-    #             },
-    #             producers={"mt": [taus.TauPtCorrection_muFake]},
-    #         )
-    #     )
-    #     configuration.add_shift(
-    #         SystematicShift(
-    #             name="tauMuFakeEsUp",
-    #             shift_config={
-    #                 "mt": {
-    #                     "tau_mufake_es": "up",
-    #                 }
-    #             },
-    #             producers={"mt": [taus.TauPtCorrection_muFake]},
-    #         )
-    #     )
-    #     configuration.add_shift(
-    #         SystematicShift(
-    #             name="tauEleFakeEs1prongBarrelDown",
-    #             shift_config={
-    #                 "et": {
-    #                     "tau_elefake_es_DM0_barrel": "down",
-    #                 }
-    #             },
-    #             producers={"et": [taus.TauPtCorrection_eleFake]},
-    #         )
-    #     )
-    #     configuration.add_shift(
-    #         SystematicShift(
-    #             name="tauEleFakeEs1prongBarrelUp",
-    #             shift_config={
-    #                 "et": {
-    #                     "tau_elefake_es_DM0_barrel": "up",
-    #                 }
-    #             },
-    #             producers={"et": [taus.TauPtCorrection_eleFake]},
-    #         )
-    #     )
-    #     configuration.add_shift(
-    #         SystematicShift(
-    #             name="tauEleFakeEs1prongEndcapDown",
-    #             shift_config={
-    #                 "et": {
-    #                     "tau_elefake_es_DM0_endcap": "down",
-    #                 }
-    #             },
-    #             producers={"et": [taus.TauPtCorrection_eleFake]},
-    #         )
-    #     )
-    #     configuration.add_shift(
-    #         SystematicShift(
-    #             name="tauEleFakeEs1prongEndcapUp",
-    #             shift_config={
-    #                 "et": {
-    #                     "tau_elefake_es_DM0_endcap": "up",
-    #                 }
-    #             },
-    #             producers={"et": [taus.TauPtCorrection_eleFake]},
-    #         )
-    #     )
-    #     configuration.add_shift(
-    #         SystematicShift(
-    #             name="tauEleFakeEs1prong1pizeroBarrelDown",
-    #             shift_config={
-    #                 "et": {
-    #                     "tau_elefake_es_DM1_barrel": "down",
-    #                 }
-    #             },
-    #             producers={"et": [taus.TauPtCorrection_eleFake]},
-    #         )
-    #     )
-    #     configuration.add_shift(
-    #         SystematicShift(
-    #             name="tauEleFakeEs1prong1pizeroBarrelUp",
-    #             shift_config={
-    #                 "et": {
-    #                     "tau_elefake_es_DM1_barrel": "up",
-    #                 }
-    #             },
-    #             producers={"et": [taus.TauPtCorrection_eleFake]},
-    #         )
-    #     )
-    #     configuration.add_shift(
-    #         SystematicShift(
-    #             name="tauEleFakeEs1prong1pizeroEndcapDown",
-    #             shift_config={
-    #                 "et": {
-    #                     "tau_elefake_es_DM1_endcap": "down",
-    #                 }
-    #             },
-    #             producers={"et": [taus.TauPtCorrection_eleFake]},
-    #         )
-    #     )
-    #     configuration.add_shift(
-    #         SystematicShift(
-    #             name="tauEleFakeEs1prong1pizeroEndcapUp",
-    #             shift_config={
-    #                 "et": {
-    #                     "tau_elefake_es_DM1_endcap": "up",
-    #                 }
-    #             },
-    #             producers={"et": [taus.TauPtCorrection_eleFake]},
-    #         ),
-    #         samples=[
-    #             sample
-    #             for sample in available_sample_types
-    #             if sample not in ["data", "emb", "emb_mc"]
-    #         ],
-    #     )
 
     #########################
     # PU weights systematics
