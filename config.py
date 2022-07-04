@@ -535,6 +535,7 @@ def build_config(
         ReplaceProducer(
             producers=[pairquantities.ApplyRoccoRMC, pairquantities.ApplyRoccoRData],
             samples="data",
+            update_output=False,
         ),
     )
     configuration.add_modification_rule(
