@@ -202,7 +202,7 @@ def build_config(
             "muon_iso_cut": 0.15,
             "second_muon_index_in_pair": 1,
 
-            "RoccoR_file": '"include/RoccoR/RoccoR2018UL.txt"',
+            "RoccoR_file": '"data/RoccoR_files/RoccoR2018UL.txt"',
             "RoccoR_seed": 1,
             "RoccoR_error_set": 0,
             "RoccoR_error_member": 0,
@@ -226,7 +226,7 @@ def build_config(
             "muon_veto_iso_cut": 1.e9,
             "n_good_muons": 1,
 
-            "RoccoR_file": '"include/RoccoR/RoccoR2018UL.txt"',
+            "RoccoR_file": '"data/RoccoR_files/RoccoR2018UL.txt"',
             "RoccoR_seed": 1,
             "RoccoR_error_set": 0,
             "RoccoR_error_member": 0,
