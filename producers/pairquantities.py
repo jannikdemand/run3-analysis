@@ -1818,7 +1818,7 @@ UnrollElLV2 = ProducerGroup(
 # Rochester correction
 ApplyRoccoRData_1 = Producer(
     name="ApplyRoccoRData_1",
-    call="quantities::muon::applyRoccoRData({df}, {output}, {RoccoR_file}, 0, {input}, {RoccoR_error_set}, {RoccoR_error_member})",
+    call="physicsobject::muon::applyRoccoRData({df}, {output}, {RoccoR_file}, 0, {input}, {RoccoR_error_set}, {RoccoR_error_member})",
     input=[
         q.selectedLepton,
         nanoAOD.Muon_charge,
@@ -1832,7 +1832,7 @@ ApplyRoccoRData_1 = Producer(
 
 ApplyRoccoRData_2 = Producer(
     name="ApplyRoccoRData_2",
-    call="quantities::muon::applyRoccoRData({df}, {output}, {RoccoR_file}, 1, {input}, {RoccoR_error_set}, {RoccoR_error_member})",
+    call="physicsobject::muon::applyRoccoRData({df}, {output}, {RoccoR_file}, 1, {input}, {RoccoR_error_set}, {RoccoR_error_member})",
     input=[
         q.selectedLepton,
         nanoAOD.Muon_charge,
@@ -1858,7 +1858,7 @@ ApplyRoccoRData = ProducerGroup(
 
 MuonRoccoRRndm = Producer(
     name="MuonRndm",
-    call="quantities::muon::rndm({df}, {output}, {input}, {RoccoR_seed})",
+    call="physicsobject::muon::rndm({df}, {output}, {input}, {RoccoR_seed})",
     input=[
         q.selectedLepton,
     ],
@@ -1868,7 +1868,7 @@ MuonRoccoRRndm = Producer(
 
 ApplyRoccoRMC_1 = Producer(
     name="ApplyRoccoRMC_1",
-    call="quantities::muon::applyRoccoRMC({df}, {output}, {RoccoR_file}, 0, {input}, {RoccoR_error_set}, {RoccoR_error_member})",
+    call="physicsobject::muon::applyRoccoRMC({df}, {output}, {RoccoR_file}, 0, {input}, {RoccoR_error_set}, {RoccoR_error_member})",
     input=[
         q.selectedLepton,
         nanoAOD.Muon_charge,
@@ -1885,7 +1885,7 @@ ApplyRoccoRMC_1 = Producer(
 
 ApplyRoccoRMC_2 = Producer(
     name="ApplyRoccoRMC_2",
-    call="quantities::muon::applyRoccoRMC({df}, {output}, {RoccoR_file}, 1, {input}, {RoccoR_error_set}, {RoccoR_error_member})",
+    call="physicsobject::muon::applyRoccoRMC({df}, {output}, {RoccoR_file}, 1, {input}, {RoccoR_error_set}, {RoccoR_error_member})",
     input=[
         q.selectedLepton,
         nanoAOD.Muon_charge,
