@@ -1858,7 +1858,7 @@ ApplyRoccoRData = ProducerGroup(
 
 MuonRoccoRRndm = Producer(
     name="MuonRndm",
-    call="physicsobject::muon::rndm({df}, {output}, {input}, {RoccoR_seed})",
+    call="physicsobject::muon::GenerateRndm({df}, {output}, {input}, {RoccoR_seed})",
     input=[
         q.selectedLepton,
     ],
