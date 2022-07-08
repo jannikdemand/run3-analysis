@@ -1951,14 +1951,14 @@ mTdileptonMET = Producer(
 mt_1 = Producer(
     name="mt_1",
     call="quantities::mT({df}, {output}, {input})",
-    input=[q.p4_1, q.met_p4_recoilcorrected],
+    input=[q.p4_1, q.met_p4],
     output=[q.mt_1],
     scopes=["mm", "mmet", "ee", "emet"],
 )
 mt_2 = Producer(
     name="mt_2",
     call="quantities::mT({df}, {output}, {input})",
-    input=[q.p4_2, q.met_p4_recoilcorrected],
+    input=[q.p4_2, q.met_p4],
     output=[q.mt_2],
     scopes=["mm", "mmet", "ee", "emet"],
 )
@@ -1989,7 +1989,7 @@ DileptonMETQuantities = ProducerGroup(
     input=None,
     output=None,
     scopes=["mm", "mmet", "ee", "emet"],
-    subproducers=[Pzetamissvis, mTdileptonMET, mt_1, mt_2, pt_tt, pt_ttjj, mt_tot],
+    subproducers=[mt_1, mt_2],  # Pzetamissvis, mTdileptonMET, pt_tt, pt_ttjj, mt_tot
 )
 
 # Lepton + MET quantities
