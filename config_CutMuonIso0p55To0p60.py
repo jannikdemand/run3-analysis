@@ -198,7 +198,7 @@ def build_config(
     )
 
     # isolation cuts
-    apply_leptonIsoCutVariations(configuration, -1.0, 0.15)
+    apply_leptonIsoCutVariations(configuration, 0.55, 0.6)
 
     # Muon scale factors configuration
     configuration.add_config_parameters(
