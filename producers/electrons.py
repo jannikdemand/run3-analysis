@@ -276,6 +276,34 @@ OneGoodElectronSelection = ProducerGroup(
     ]
 )
 
+TwoGoodElectronFlag = Producer(
+    name="TwoGoodElectronFlag",
+    call="physicsobject::CutNFlag({df}, {output}, {input}, {n_good_electrons})",
+    input={
+        "ee": [q.good_electrons_mask],
+    },
+    output=[q.n_good_electrons_flag],
+    scopes=["ee"],
+)
+TwoGoodElectronFilter = Filter(
+    name="TwoGoodElectronFilter",
+    call='basefunctions::FilterFlagsAny({df}, "TwoGoodElectronFilter", {input})',
+    input=[q.n_good_electrons_flag],
+    scopes=["ee"],
+    subproducers=[]
+)
+TwoGoodElectronSelection = ProducerGroup(
+    name="TwoGoodElectronSelection",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["ee"],
+    subproducers=[
+        TwoGoodElectronFlag,
+        TwoGoodElectronFilter,
+    ]
+)
+
 ####################
 # Set of producers used for di-electron veto
 ####################

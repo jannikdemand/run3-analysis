@@ -39,7 +39,6 @@ def add_PUweightsShifts(configuration):
 
     return configuration
 
-
 def add_leptonSFShifts(configuration):
     configuration.add_shift(
         SystematicShift(
@@ -151,8 +150,6 @@ def add_leptonSFShifts(configuration):
     )
 
     return configuration
-
-
 
 def add_tauVariations(configuration):
     #########################

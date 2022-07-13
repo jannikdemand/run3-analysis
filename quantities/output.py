@@ -420,3 +420,9 @@ id_wgt_mu_1 = Quantity("id_wgt_mu_1")
 id_wgt_mu_2 = Quantity("id_wgt_mu_2")
 iso_wgt_mu_1 = Quantity("iso_wgt_mu_1")
 iso_wgt_mu_2 = Quantity("iso_wgt_mu_2")
+
+
+# Gen-level filters
+is_dy_ee = Quantity("is_dy_ee")
+is_dy_mm = Quantity("is_dy_mm")
+is_dy_tt = Quantity("is_dy_tt")

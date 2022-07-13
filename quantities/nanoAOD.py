@@ -84,6 +84,8 @@ Muon_softId = NanoAODQuantity("Muon_softId")
 Muon_tightId = NanoAODQuantity("Muon_tightId")
 Muon_triggerIdLoose = NanoAODQuantity("Muon_triggerIdLoose")
 
+HLT_IsoMu24 = NanoAODQuantity("HLT_IsoMu24")
+
 Electron_pt = NanoAODQuantity("Electron_pt")
 Electron_eta = NanoAODQuantity("Electron_eta")
 Electron_dxy = NanoAODQuantity("Electron_dxy")

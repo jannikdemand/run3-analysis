@@ -84,11 +84,18 @@ GoodMuonEtaCut = Producer(
 )
 GoodMuonIsoCut = Producer(
     name="GoodMuonIsoCut",
-    call="physicsobject::electron::CutIsolation({df}, {output}, {input}, {muon_iso_cut})",
-    input=[nanoAOD.Muon_iso],
+    call="physicsobject::CutVariableBarrelEndcap({df}, {output}, {input}, 1.2, {muon_iso_cut_barrel_lo}, {muon_iso_cut_barrel_up}, {muon_iso_cut_endcap_lo}, {muon_iso_cut_endcap_up})",
+    input=[nanoAOD.Muon_eta, nanoAOD.Muon_iso],
     output=[],
     scopes=["mm", "mmet"],
 )
+# GoodMuonIsoCut = Producer(
+#     name="GoodMuonIsoCut",
+#     call="physicsobject::electron::CutIsolation({df}, {output}, {input}, {muon_iso_cut})",
+#     input=[nanoAOD.Muon_iso],
+#     output=[],
+#     scopes=["mm", "mmet"],
+# )
 GoodMuons = ProducerGroup(
     name="GoodMuons",
     call="physicsobject::CombineMasks({df}, {output}, {input})",
@@ -264,6 +271,34 @@ OneGoodMuonSelection = ProducerGroup(
         VetoMuons,
         ExtraMuonsVeto,
         # VetoMuonFilter,
+    ]
+)
+
+TwoGoodMuonFlag = Producer(
+    name="TwoGoodMuonFlag",
+    call="physicsobject::CutNFlag({df}, {output}, {input}, {n_good_muons})",
+    input={
+        "mm": [q.good_muons_mask],
+    },
+    output=[q.n_good_muons_flag],
+    scopes=["mm"],
+)
+TwoGoodMuonFilter = Filter(
+    name="TwoGoodMuonFilter",
+    call='basefunctions::FilterFlagsAny({df}, "TwoGoodMuonFilter", {input})',
+    input=[q.n_good_muons_flag],
+    scopes=["mm"],
+    subproducers=[]
+)
+TwoGoodMuonSelection = ProducerGroup(
+    name="TwoGoodMuonSelection",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mm"],
+    subproducers=[
+        TwoGoodMuonFlag,
+        TwoGoodMuonFilter,
     ]
 )
 

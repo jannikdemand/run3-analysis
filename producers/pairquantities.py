@@ -1452,21 +1452,6 @@ electron_dz_2 = Producer(
     output=[q.dz_2],
     scopes=["ee"],
 )
-
-# tau_dz_1 = Producer(
-#     name="tau_dz_1",
-#     call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
-#     input=[q.selectedLepton, nanoAOD.Tau_dz],
-#     output=[q.dz_1],
-#     scopes=["tt"],
-# )
-# tau_dz_2 = Producer(
-#     name="tau_dz_2",
-#     call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
-#     input=[q.selectedLepton, nanoAOD.Tau_dz],
-#     output=[q.dz_2],
-#     scopes=["mt", "et", "tt"],
-# )
 muon_q_1 = Producer(
     name="muon_q_1",
     call="basefunctions::getvar<int>({df}, {output}, 0, {input})",

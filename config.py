@@ -21,11 +21,8 @@ from code_generation.configuration import Configuration
 from code_generation.modifiers import EraModifier, SampleModifier
 from code_generation.rules import AppendProducer, RemoveProducer, ReplaceProducer
 from code_generation.systematics import SystematicShift, SystematicShiftByQuantity
-from .variations import add_leptonSFShifts, add_PUweightsShifts  # add_tauVariations
-
-# from .producers import taus as taus
-# from .producers import embedding as emb
-
+from .variations import add_leptonSFShifts, add_PUweightsShifts  # add_leptonIsoCutVariations
+from .iso_variations import apply_leptonIsoCutVariations
 
 def build_config(
     era: str,
@@ -59,10 +56,6 @@ def build_config(
                     "2016": "",
                     "2017": "data/jsonpog-integration/POG/LUM/2017_UL/puWeights.json.gz",
                     "2018": "data/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz",
-
-                    # "2016": "data/pileup/Data_Pileup_2016_271036-284044_13TeVMoriond17_23Sep2016ReReco_69p2mbMinBiasXS.root",
-                    # "2017": "data/pileup/Data_Pileup_2017_294927-306462_13TeVSummer17_PromptReco_69p2mbMinBiasXS.root",
-                    # "2018": "data/pileup/Data_Pileup_2018_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18.root",
                 }
             ),
             "PU_reweighting_era": EraModifier(
@@ -73,7 +66,6 @@ def build_config(
                 }
             ),
             "PU_reweighting_variation": "nominal",
-
 
             "golden_json_file": EraModifier(
                 {
@@ -101,68 +93,6 @@ def build_config(
         },
     )
 
-    # jet base selection:
-    configuration.add_config_parameters(
-        "global",
-        {
-            "min_jet_pt": 30,
-            "max_jet_eta": 4.7,
-            "jet_id": 2,  # second bit is tight JetID
-            "jet_puid": 4,  # 0==fail, 4==pass(loose), 6==pass(loose,medium), 7==pass(loose,medium,tight) !check 2016 -> inverted ID
-            "jet_puid_max_pt": 50,  # recommended to apply puID only for jets below 50 GeV
-            "jet_reapplyJES": False,
-            "jet_jes_sources": '{""}',
-            "jet_jes_shift": 0,
-            "jet_jer_shift": '"nom"',  # or '"up"', '"down"'
-            "jet_jec_file": EraModifier(
-                {
-                    "2016": '"data/jsonpog-integration/POG/JME/2016postVFP_UL/jet_jerc.json.gz"',
-                    "2017": '"data/jsonpog-integration/POG/JME/2017_UL/jet_jerc.json.gz"',
-                    "2018": '"data/jsonpog-integration/POG/JME/2018_UL/jet_jerc.json.gz"',
-                }
-            ),
-            "jet_jer_tag": EraModifier(
-                {
-                    "2016preVFP": '"Summer20UL16APV_JRV3_MC"',
-                    "2016postVFP": '"Summer20UL16_JRV3_MC"',
-                    "2017": '"Summer19UL17_JRV2_MC"',
-                    "2018": '"Summer19UL18_JRV2_MC"',
-                }
-            ),
-            "jet_jes_tag_data": '""',
-            "jet_jes_tag": EraModifier(
-                {
-                    "2016preVFP": '"Summer19UL16APV_V7_MC"',
-                    "2016postVFP": '"Summer19UL16_V7_MC"',
-                    "2017": '"Summer19UL17_V5_MC"',
-                    "2018": '"Summer19UL18_V5_MC"',
-                }
-            ),
-            "jet_jec_algo": '"AK4PFchs"',
-        },
-    )
-    # bjet base selection:
-    configuration.add_config_parameters(
-        "global",
-        {
-            "min_bjet_pt": 20,
-            "max_bjet_eta": EraModifier(
-                {
-                    "2016": 2.4,
-                    "2017": 2.5,
-                    "2018": 2.5,
-                }
-            ),
-            "btag_cut": EraModifier(  # medium
-                {
-                    "2016": 0.3093,
-                    "2017": 0.3040,
-                    "2018": 0.2783,
-                }
-            ),
-        },
-    )
-
     # muon base selection:
     configuration.add_config_parameters(
         "global",
@@ -172,7 +102,8 @@ def build_config(
             "max_muon_dxy": 1e9,  # 0.045,
             "max_muon_dz": 1e0,  # 0.2,
             "muon_id": "Muon_tightId",  # "Muon_mediumId",
-            "muon_iso_cut": 0.3,
+
+            "muon_iso_cut": 1e9,  # 0.3,
         },
     )
 
@@ -197,10 +128,10 @@ def build_config(
         ["mm"],
         {
             "muon_index_in_pair": 0,
+            "second_muon_index_in_pair": 1,
             "min_muon_pt": 25.0,
             "max_muon_eta": 2.4,
-            "muon_iso_cut": 0.15,
-            "second_muon_index_in_pair": 1,
+            "n_good_muons": 2,
 
             "RoccoR_file": '"data/RoccoR_files/RoccoR2018UL.txt"',
             "RoccoR_seed": 1,
@@ -216,7 +147,6 @@ def build_config(
             "muon_index_in_pair": 0,  # dummy index for the selected lepton
             "min_muon_pt": 25.0,
             "max_muon_eta": 2.4,
-            "muon_iso_cut": 0.15,
 
             "min_muon_veto_pt": 10.0,
             "max_muon_veto_eta": 2.4,
@@ -264,6 +194,9 @@ def build_config(
             "n_good_electrons": 1
         },
     )
+
+    # isolation cuts
+    apply_leptonIsoCutVariations(configuration, -1.0, 0.15)
 
     # Muon scale factors configuration
     configuration.add_config_parameters(
@@ -318,61 +251,11 @@ def build_config(
     configuration.add_config_parameters(
         scopes,
         {
-            "deltaR_jet_veto": 0.5,
-            "pairselection_min_dR": 0.5,
-        },
-    )
-    ## all scopes MET selection
-    configuration.add_config_parameters(
-        scopes,
-        {
-            "propagateLeptons": SampleModifier(
-                {"data": False, "emb": False},
-                default=True,
-            ),
-            "propagateJets": SampleModifier(
-                {"data": False, "emb": False},
-                default=True,
-            ),
-            "recoil_corrections_file": EraModifier(
-                {
-                    "2016": "data/recoil_corrections/Type1_PuppiMET_2016.root",
-                    "2017": "data/recoil_corrections/Type1_PuppiMET_2017.root",
-                    "2018": "data/recoil_corrections/Type1_PuppiMET_2018.root",
-                }
-            ),
-            "recoil_systematics_file": EraModifier(
-                {
-                    "2016": "data/recoil_corrections/PuppiMETSys_2016.root",
-                    "2017": "data/recoil_corrections/PuppiMETSys_2017.root",
-                    "2018": "data/recoil_corrections/PuppiMETSys_2018.root",
-                }
-            ),
-            "applyRecoilCorrections": SampleModifier({"wj": True}, default=False),
-            "apply_recoil_resolution_systematic": False,
-            "apply_recoil_response_systematic": False,
-            "recoil_systematic_shift_up": False,
-            "recoil_systematic_shift_down": False,
-            "min_jetpt_met_propagation": 15,
+            # "deltaR_jet_veto": 0.5,
+            "pairselection_min_dR": -1.,  # 0.5,
         },
     )
 
-    configuration.add_config_parameters(
-        scopes,
-        {
-            "ggHNNLOweightsRootfile": "data/htxs/NNLOPS_reweight.root",
-            "ggH_generator": "powheg",
-            "zptmass_file": EraModifier(
-                {
-                    "2016": "data/zpt/htt_scalefactors_legacy_2016.root",
-                    "2017": "data/zpt/htt_scalefactors_legacy_2017.root",
-                    "2018": "data/zpt/htt_scalefactors_legacy_2018.root",
-                }
-            ),
-            "zptmass_functor": "zptmass_weight_nom",
-            "zptmass_arguments": "z_gen_mass,z_gen_pt",
-        },
-    )
     configuration.add_producers(
         "global",
         [
@@ -380,6 +263,7 @@ def build_config(
             event.SampleFlags,
             event.Lumi,
             event.npartons,
+            genparticles.DYFilters,
             event.Npu,
             event.NpvGood,
             event.MetFilter,
@@ -387,9 +271,9 @@ def build_config(
             event.EventGenWeight,
             muons.BaseMuons,
             electrons.BaseElectrons,
-            jets.JetEnergyCorrection,
-            jets.GoodJets,
-            jets.GoodBJets,
+            # jets.JetEnergyCorrection,
+            # jets.GoodJets,
+            # jets.GoodBJets,
             met.MetBasics,
 
             # event.DiLeptonVeto,
@@ -403,24 +287,15 @@ def build_config(
                 event.PrefireWeight,
             ],
         )
+
     # common
-    configuration.add_producers(
-        scopes,
-        [
-            jets.JetCollection,
-            jets.BasicJetQuantities,
-            jets.BJetCollection,
-            jets.BasicBJetQuantities,
-            met.MetCorrections,
-            met.PFMetCorrections,
-        ],
-    )
 
     configuration.add_producers(
         "mm",
         [
             muons.GoodMuons,
             muons.NumberOfGoodMuons,
+            muons.TwoGoodMuonSelection,
             pairselection.ZLLPairSelection,
             pairselection.GoodLLPairFilter,
             pairselection.LVMu1,
@@ -479,6 +354,7 @@ def build_config(
         [
             electrons.GoodElectrons,
             electrons.NumberOfGoodElectrons,
+            electrons.TwoGoodElectronSelection,
             pairselection.ZLLPairSelection,
             pairselection.GoodLLPairFilter,
             pairselection.LVEl1,
@@ -538,13 +414,7 @@ def build_config(
             update_output=False,
         ),
     )
-    configuration.add_modification_rule(
-        "global",
-        ReplaceProducer(
-            producers=[jets.JetEnergyCorrection, jets.JetEnergyCorrection_data],
-            samples="data",
-        ),
-    )
+
     configuration.add_modification_rule(
         ["mm", "mmet"],
         RemoveProducer(producers=scalefactors.MuonIDIso_SF, samples="data"),
@@ -556,8 +426,7 @@ def build_config(
     configuration.add_modification_rule(
         "global",
         RemoveProducer(
-            producers=[event.PUweights, event.EventGenWeight, event.npartons, event.Npu],
-            #producers=[event.PUweights, event.EventGenWeight, event.npartons],
+            producers=[event.PUweights, event.EventGenWeight, event.npartons, genparticles.DYFilters, event.Npu,],
             samples=["data"],
         ),
     )
@@ -645,30 +514,30 @@ def build_config(
             q.puweight,
             q.genweight,
 
-            q.njets,
-            q.jpt_1,
-            q.jpt_2,
-            q.jeta_1,
-            q.jeta_2,
-            q.jphi_1,
-            q.jphi_2,
-            q.jtag_value_1,
-            q.jtag_value_2,
+            # q.njets,
+            # q.jpt_1,
+            # q.jpt_2,
+            # q.jeta_1,
+            # q.jeta_2,
+            # q.jphi_1,
+            # q.jphi_2,
+            # q.jtag_value_1,
+            # q.jtag_value_2,
 
-            q.nbtag,
-            q.bpt_1,
-            q.bpt_2,
-            q.beta_1,
-            q.beta_2,
-            q.bphi_1,
-            q.bphi_2,
-            q.btag_value_1,
-            q.btag_value_2,
+            # q.nbtag,
+            # q.bpt_1,
+            # q.bpt_2,
+            # q.beta_1,
+            # q.beta_2,
+            # q.bphi_1,
+            # q.bphi_2,
+            # q.btag_value_1,
+            # q.btag_value_2,
 
-            q.met,
-            q.metphi,
-            q.pfmet,
-            q.pfmetphi,
+            # q.met,
+            # q.metphi,
+            # q.pfmet,
+            # q.pfmetphi,
             q.met_uncorrected,
             q.metphi_uncorrected,
             q.pfmet_uncorrected,
@@ -691,6 +560,10 @@ def build_config(
             q.genbosoneta,
             q.genbosonphi,
             q.genbosonrapidity,
+
+            q.is_dy_ee,
+            q.is_dy_mm,
+            q.is_dy_tt,
         ],
     )
 
@@ -850,7 +723,7 @@ def build_config(
             q.pt_rc_1,
             q.pt_rc_2,
 
-            q.mjj,
+            # q.mjj,
             q.m_vis,
             q.pt_vis,
 
@@ -1100,7 +973,7 @@ def build_config(
 
             # q.gen_m_vis,
 
-            q.mjj,
+            # q.mjj,
             q.m_vis,
             q.pt_vis,
 
@@ -1201,6 +1074,7 @@ def build_config(
     # Lepton ID/Iso scale factor shifts, channel dependent
     #########################
     add_leptonSFShifts(configuration)
+    # add_leptonIsoCutVariations(configuration)
 
     #########################
     # Import triggersetup   #
@@ -1353,12 +1227,12 @@ def build_config(
     #########################
     # Jet energy resolution and jet energy scale
     #########################
-    add_jetVariations(configuration, available_sample_types, era)
+    # add_jetVariations(configuration, available_sample_types, era)
 
     #########################
     # Jet energy correction for data
     #########################
-    add_jetCorrectionData(configuration, era)
+    # add_jetCorrectionData(configuration, era)
 
     #########################
     # Finalize and validate the configuration

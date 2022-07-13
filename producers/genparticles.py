@@ -3,6 +3,39 @@ from ..quantities import nanoAOD as nanoAOD
 from code_generation.producer import Producer, ProducerGroup
 
 ####################
+# Gen-level Filters
+####################
+DYToEEFilter = Producer(
+    name="DYToEEFilter",
+    call="genflag::DYGenFlag({df}, {output}, {input}, 11)",
+    input=[nanoAOD.GenParticle_pdgId, nanoAOD.GenParticle_statusFlags],
+    output=[q.is_dy_ee],
+    scopes=["global"],
+)
+DYToMMFilter = Producer(
+    name="DYToMMFilter",
+    call="genflag::DYGenFlag({df}, {output}, {input}, 13)",
+    input=[nanoAOD.GenParticle_pdgId, nanoAOD.GenParticle_statusFlags],
+    output=[q.is_dy_mm],
+    scopes=["global"],
+)
+DYToTTFilter = Producer(
+    name="DYToTTFilter",
+    call="genflag::DYGenFlag({df}, {output}, {input}, 15)",
+    input=[nanoAOD.GenParticle_pdgId, nanoAOD.GenParticle_statusFlags],
+    output=[q.is_dy_tt],
+    scopes=["global"],
+)
+DYFilters = ProducerGroup(
+    name="DYFilters",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["global"],
+    subproducers=[DYToEEFilter, DYToMMFilter, DYToTTFilter],
+)
+
+####################
 # Set of producers to get the genParticles from the ditaupair
 ####################
 MTGenPair = Producer(
