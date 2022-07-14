@@ -1,13 +1,24 @@
 
 def apply_leptonIsoCutVariations(configuration, cut_lo, cut_up):
     configuration.add_config_parameters(
-        ["mm", "mmet"],
+        ["mm"],
         {
             # "muon_iso_cut": 0.15,
             "muon_iso_cut_barrel_lo": cut_lo,
             "muon_iso_cut_barrel_up": cut_up,
             "muon_iso_cut_endcap_lo": cut_lo,
             "muon_iso_cut_endcap_up": cut_up,
+        },
+    )
+
+    configuration.add_config_parameters(
+        ["mmet"],
+        {
+            # "muon_iso_cut": 0.15,
+            "muon_iso_cut_barrel_lo": -1.,
+            "muon_iso_cut_barrel_up": 1.e9,
+            "muon_iso_cut_endcap_lo": -1.,
+            "muon_iso_cut_endcap_up": 1.e9,
         },
     )
 
