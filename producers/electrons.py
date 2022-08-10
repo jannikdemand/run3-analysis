@@ -53,6 +53,18 @@ ElectronVars = ProducerGroup(
     ],
 )
 
+ElectronVarsLess = ProducerGroup(
+    name="ElectronVarsLess",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["global"],
+    subproducers=[
+        Electron_etaSC,
+        Electron_energySC,
+    ],
+)
+
 ####################
 # Set of producers used for loosest selection of electrons
 ####################
@@ -119,7 +131,7 @@ BaseElectrons = ProducerGroup(
         ElectronDzCut,
         # HERE tmp
         # ElectronIDCut,
-        ElectronIsoCut,
+        # ElectronIsoCut,
     ],
 )
 
@@ -142,6 +154,20 @@ GoodElectronEtaCut = Producer(
     output=[],
     scopes=["ee", "emet"],
 )
+GoodElectronIDCut = Producer(
+    name="GoodElectronIDCut",
+    call='physicsobject::electron::CutCBID({df}, {output}, "{ele_id}", {ele_id_wp})',
+    input=[],
+    output=[],
+    scopes=["ee"],
+)
+GoodElectronIDCutNoIso = Producer(
+    name="GoodElectronIDCutNoIso",
+    call='physicsobject::electron::CutCBIDNoIso({df}, {output}, "{ele_id_noiso}", {ele_id_noiso_wp})',
+    input=[],
+    output=[],
+    scopes=["emet"],
+)
 GoodElectronIsoCut = Producer(
     name="GoodElectronIsoCut",
     call="physicsobject::electron::CutIsolation({df}, {output}, {input}, {electron_iso_cut})",
@@ -158,7 +184,21 @@ GoodElectrons = ProducerGroup(
     subproducers=[
         GoodElectronPtCut,
         GoodElectronEtaCut,
-        GoodElectronIsoCut,
+        GoodElectronIDCut,
+        # GoodElectronIsoCut,
+    ],
+)
+GoodElectronsNoIso = ProducerGroup(
+    name="GoodElectronsNoIso",
+    call="physicsobject::CombineMasks({df}, {output}, {input})",
+    input=[q.base_electrons_mask],
+    output=[q.good_electrons_mask],
+    scopes=["emet"],
+    subproducers=[
+        GoodElectronPtCut,
+        GoodElectronEtaCut,
+        GoodElectronIDCutNoIso,
+        # GoodElectronIsoCut,
     ],
 )
 
@@ -214,7 +254,7 @@ GoodElectronEInvMinusPInvCut = Producer(
 )
 GoodElectronLostHitsCut = Producer(
     name="GoodElectronLostHitsCut",
-    call="physicsobject::CutVariableBarrelEndcapInt({df}, {output}, {input}, 1.479, {ele_LostHits_cut_barrel_lo}, {ele_LostHits_cut_barrel_up}, {ele_LostHits_cut_endcap_lo}, {ele_LostHits_cut_endcap_up})",
+    call="physicsobject::CutIntVariableBarrelEndcap({df}, {output}, {input}, 1.479, {ele_LostHits_cut_barrel_lo}, {ele_LostHits_cut_barrel_up}, {ele_LostHits_cut_endcap_lo}, {ele_LostHits_cut_endcap_up})",
     input=[q.Electron_etaSC, nanoAOD.Electron_lostHits],
     output=[],
     scopes=["ee", "emet"],

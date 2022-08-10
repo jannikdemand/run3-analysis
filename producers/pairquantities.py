@@ -267,20 +267,20 @@ electron_dr03TkSumPtHEEP_2 = Producer(
     output=[q.dr03TkSumPtHEEP_2],
     scopes=["ee"],
 )
-# electron_eCorr_1 = Producer(
-#     name="electron_eCorr_1",
-#     call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
-#     input=[q.selectedLepton, nanoAOD.Electron_eCorr],
-#     output=[q.eCorr_1],
-#     scopes=["ee", "emet"],
-# )
-# electron_eCorr_2 = Producer(
-#     name="electron_eCorr_2",
-#     call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
-#     input=[q.selectedLepton, nanoAOD.Electron_eCorr],
-#     output=[q.eCorr_2],
-#     scopes=["ee"],
-# )
+electron_eCorr_1 = Producer(
+    name="electron_eCorr_1",
+    call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
+    input=[q.selectedLepton, nanoAOD.Electron_eCorr],
+    output=[q.eCorr_1],
+    scopes=["ee", "emet"],
+)
+electron_eCorr_2 = Producer(
+    name="electron_eCorr_2",
+    call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
+    input=[q.selectedLepton, nanoAOD.Electron_eCorr],
+    output=[q.eCorr_2],
+    scopes=["ee"],
+)
 electron_eInvMinusPInv_1 = Producer(
     name="electron_eInvMinusPInv_1",
     call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
@@ -648,6 +648,22 @@ electron_lostHits_2 = Producer(
     output=[q.lostHits_2],
     scopes=["ee"],
 )
+
+electron_lostHits_1_UChar = Producer(
+    name="electron_lostHits_1_UChar",
+    call="basefunctions::getvar<UChar_t>({df}, {output}, 0, {input})",
+    input=[q.selectedLepton, nanoAOD.Electron_lostHits],
+    output=[q.lostHits_1],
+    scopes=["ee", "emet"],
+)
+electron_lostHits_2_UChar = Producer(
+    name="electron_lostHits_2_UChar",
+    call="basefunctions::getvar<UChar_t>({df}, {output}, 1, {input})",
+    input=[q.selectedLepton, nanoAOD.Electron_lostHits],
+    output=[q.lostHits_2],
+    scopes=["ee"],
+)
+
 electron_seedGain_1 = Producer(
     name="electron_seedGain_1",
     call="basefunctions::getvar<UChar_t>({df}, {output}, 0, {input})",
@@ -691,20 +707,20 @@ electron_convVeto_2 = Producer(
 #     output=[q.cutBased_HEEP_2],
 #     scopes=["ee"],
 # )
-# electron_isPFcand_1 = Producer(
-#     name="electron_isPFcand_1",
-#     call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
-#     input=[q.selectedLepton, nanoAOD.Electron_isPFcand],
-#     output=[q.isPFcand_1],
-#     scopes=["ee", "emet"],
-# )
-# electron_isPFcand_2 = Producer(
-#     name="electron_isPFcand_2",
-#     call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
-#     input=[q.selectedLepton, nanoAOD.Electron_isPFcand],
-#     output=[q.isPFcand_2],
-#     scopes=["ee"],
-# )
+electron_isPFcand_1 = Producer(
+    name="electron_isPFcand_1",
+    call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
+    input=[q.selectedLepton, nanoAOD.Electron_isPFcand],
+    output=[q.isPFcand_1],
+    scopes=["ee", "emet"],
+)
+electron_isPFcand_2 = Producer(
+    name="electron_isPFcand_2",
+    call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
+    input=[q.selectedLepton, nanoAOD.Electron_isPFcand],
+    output=[q.isPFcand_2],
+    scopes=["ee"],
+)
 # electron_mvaFall17V2Iso_WP80_1 = Producer(
 #     name="electron_mvaFall17V2Iso_WP80_1",
 #     call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
@@ -1556,7 +1572,7 @@ FirstElectronProducers = ProducerGroup(
         electron_dr03HcalDepth1TowerSumEt_1,
         electron_dr03TkSumPt_1,
         electron_dr03TkSumPtHEEP_1,
-        # electron_eCorr_1,
+        electron_eCorr_1,
         electron_eInvMinusPInv_1,
         electron_energyErr_1,
         electron_hoe_1,
@@ -1581,7 +1597,7 @@ FirstElectronProducers = ProducerGroup(
         # electron_vidNestedWPBitmapHEEP_1,
         electron_convVeto_1,
         # electron_cutBased_HEEP_1,
-        # electron_isPFcand_1,
+        electron_isPFcand_1,
         # electron_mvaFall17V2Iso_WP80_1,
         # electron_mvaFall17V2Iso_WP90_1,
         # electron_mvaFall17V2Iso_WPL_1,
@@ -1614,7 +1630,7 @@ SecondElectronProducers = ProducerGroup(
         electron_dr03HcalDepth1TowerSumEt_2,
         electron_dr03TkSumPt_2,
         electron_dr03TkSumPtHEEP_2,
-        # electron_eCorr_2,
+        electron_eCorr_2,
         electron_eInvMinusPInv_2,
         electron_energyErr_2,
         electron_hoe_2,
@@ -1639,7 +1655,7 @@ SecondElectronProducers = ProducerGroup(
         # electron_vidNestedWPBitmapHEEP_2,
         electron_convVeto_2,
         # electron_cutBased_HEEP_2,
-        # electron_isPFcand_2,
+        electron_isPFcand_2,
         # electron_mvaFall17V2Iso_WP80_2,
         # electron_mvaFall17V2Iso_WP90_2,
         # electron_mvaFall17V2Iso_WPL_2,

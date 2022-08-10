@@ -148,28 +148,28 @@ GoodMuonIsPFCut = Producer(
 )
 GoodMuonNumberOfValidMuonHitsCut = Producer(
     name="GoodMuonNumberOfValidMuonHitsCut",
-    call="physicsobject::CutVariableBarrelEndcapInt({df}, {output}, {input}, 1.2, {muon_NumberOfValidMuonHits_cut_barrel_lo}, {muon_NumberOfValidMuonHits_cut_barrel_up}, {muon_NumberOfValidMuonHits_cut_endcap_lo}, {muon_NumberOfValidMuonHits_cut_endcap_up})",
+    call="physicsobject::CutIntVariableBarrelEndcap({df}, {output}, {input}, 1.2, {muon_NumberOfValidMuonHits_cut_barrel_lo}, {muon_NumberOfValidMuonHits_cut_barrel_up}, {muon_NumberOfValidMuonHits_cut_endcap_lo}, {muon_NumberOfValidMuonHits_cut_endcap_up})",
     input=[nanoAOD.Muon_eta, nanoAOD.Muon_numberOfValidMuonHits],
     output=[],
     scopes=["mm", "mmet"],
 )
 GoodMuonNStationsCut = Producer(
     name="GoodMuonNStationsCut",
-    call="physicsobject::CutVariableBarrelEndcapInt({df}, {output}, {input}, 1.2, {muon_NStations_cut_barrel_lo}, {muon_NStations_cut_barrel_up}, {muon_NStations_cut_endcap_lo}, {muon_NStations_cut_endcap_up})",
+    call="physicsobject::CutIntVariableBarrelEndcap({df}, {output}, {input}, 1.2, {muon_NStations_cut_barrel_lo}, {muon_NStations_cut_barrel_up}, {muon_NStations_cut_endcap_lo}, {muon_NStations_cut_endcap_up})",
     input=[nanoAOD.Muon_eta, nanoAOD.Muon_nStations],
     output=[],
     scopes=["mm", "mmet"],
 )
 GoodMuonNumberOfValidPixelHitsCut = Producer(
     name="GoodMuonNumberOfValidPixelHitsCut",
-    call="physicsobject::CutVariableBarrelEndcapInt({df}, {output}, {input}, 1.2, {muon_NumberOfValidPixelHits_cut_barrel_lo}, {muon_NumberOfValidPixelHits_cut_barrel_up}, {muon_NumberOfValidPixelHits_cut_endcap_lo}, {muon_NumberOfValidPixelHits_cut_endcap_up})",
+    call="physicsobject::CutIntVariableBarrelEndcap({df}, {output}, {input}, 1.2, {muon_NumberOfValidPixelHits_cut_barrel_lo}, {muon_NumberOfValidPixelHits_cut_barrel_up}, {muon_NumberOfValidPixelHits_cut_endcap_lo}, {muon_NumberOfValidPixelHits_cut_endcap_up})",
     input=[nanoAOD.Muon_eta, nanoAOD.Muon_numberOfValidPixelHits],
     output=[],
     scopes=["mm", "mmet"],
 )
 GoodMuonNTrackerLayersCut = Producer(
     name="GoodMuonNTrackerLayersCut",
-    call="physicsobject::CutVariableBarrelEndcapInt({df}, {output}, {input}, 1.2, {muon_NTrackerLayers_cut_barrel_lo}, {muon_NTrackerLayers_cut_barrel_up}, {muon_NTrackerLayers_cut_endcap_lo}, {muon_NTrackerLayers_cut_endcap_up})",
+    call="physicsobject::CutIntVariableBarrelEndcap({df}, {output}, {input}, 1.2, {muon_NTrackerLayers_cut_barrel_lo}, {muon_NTrackerLayers_cut_barrel_up}, {muon_NTrackerLayers_cut_endcap_lo}, {muon_NTrackerLayers_cut_endcap_up})",
     input=[nanoAOD.Muon_eta, nanoAOD.Muon_nTrackerLayers],
     output=[],
     scopes=["mm", "mmet"],

@@ -12,7 +12,7 @@ def add_earlyRun3TriggerSetup(configuration):
                         {
                             "flagname": "trg_single_mu24_1",
                             "hlt_path": "HLT_IsoMu24",
-                            "ptcut": -1,
+                            "ptcut": 24,
                             "etacut": 2.5,
                             "filterbit": 3,
                             "trigger_particle_id": 13,
@@ -21,7 +21,28 @@ def add_earlyRun3TriggerSetup(configuration):
                         {
                             "flagname": "trg_single_mu27_1",
                             "hlt_path": "HLT_IsoMu27",
-                            "ptcut": -1,
+                            "ptcut": 27,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.2,
+                        },
+                    ],
+
+                    "2022": [
+                        {
+                            "flagname": "trg_single_mu24_1",
+                            "hlt_path": "HLT_IsoMu24",
+                            "ptcut": 24,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.2,
+                        },
+                        {
+                            "flagname": "trg_single_mu27_1",
+                            "hlt_path": "HLT_IsoMu27",
+                            "ptcut": 27,
                             "etacut": 2.5,
                             "filterbit": 3,
                             "trigger_particle_id": 13,
@@ -36,7 +57,7 @@ def add_earlyRun3TriggerSetup(configuration):
                         {
                             "flagname": "trg_single_mu24_2",
                             "hlt_path": "HLT_IsoMu24",
-                            "ptcut": -1,
+                            "ptcut": 24,
                             "etacut": 2.5,
                             "filterbit": 3,
                             "trigger_particle_id": 13,
@@ -45,7 +66,28 @@ def add_earlyRun3TriggerSetup(configuration):
                         {
                             "flagname": "trg_single_mu27_2",
                             "hlt_path": "HLT_IsoMu27",
-                            "ptcut": -1,
+                            "ptcut": 27,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.2,
+                        },
+                    ],
+
+                    "2022": [
+                        {
+                            "flagname": "trg_single_mu24_2",
+                            "hlt_path": "HLT_IsoMu24",
+                            "ptcut": 24,
+                            "etacut": 2.5,
+                            "filterbit": 3,
+                            "trigger_particle_id": 13,
+                            "max_deltaR_triggermatch": 0.2,
+                        },
+                        {
+                            "flagname": "trg_single_mu27_2",
+                            "hlt_path": "HLT_IsoMu27",
+                            "ptcut": 27,
                             "etacut": 2.5,
                             "filterbit": 3,
                             "trigger_particle_id": 13,
@@ -101,11 +143,89 @@ def add_earlyRun3TriggerSetup(configuration):
                             "max_deltaR_triggermatch": 0.3,
                         },
                     ],
+
+                    "2022": [
+                        {
+                            "flagname": "trg_single_ele27_1",
+                            "hlt_path": "HLT_Ele27_WPTight_Gsf",
+                            "ptcut": 27,
+                            "etacut": 2.7,
+                            "filterbit": 1,
+                            "trigger_particle_id": 11,
+                            "max_deltaR_triggermatch": 0.3,
+                        },
+                        {
+                            "flagname": "trg_single_ele28_1",
+                            "hlt_path": "HLT_Ele28_WPTight_Gsf",
+                            "ptcut": 28,
+                            "etacut": 2.7,
+                            "filterbit": 1,
+                            "trigger_particle_id": 11,
+                            "max_deltaR_triggermatch": 0.3,
+                        },
+                        {
+                            "flagname": "trg_single_ele32_1",
+                            "hlt_path": "HLT_Ele32_WPTight_Gsf",
+                            "ptcut": 32,
+                            "etacut": 2.7,
+                            "filterbit": 1,
+                            "trigger_particle_id": 11,
+                            "max_deltaR_triggermatch": 0.3,
+                        },
+                        {
+                            "flagname": "trg_single_ele35_1",
+                            "hlt_path": "HLT_Ele35_WPTight_Gsf",
+                            "ptcut": 35,
+                            "etacut": 2.7,
+                            "filterbit": 1,
+                            "trigger_particle_id": 11,
+                            "max_deltaR_triggermatch": 0.3,
+                        },
+                    ],
                 }
             ),
             "singleelectron_trigger_2": EraModifier(
                 {
                     "2018": [
+                        {
+                            "flagname": "trg_single_ele27_2",
+                            "hlt_path": "HLT_Ele27_WPTight_Gsf",
+                            "ptcut": 27,
+                            "etacut": 2.7,
+                            "filterbit": 1,
+                            "trigger_particle_id": 11,
+                            "max_deltaR_triggermatch": 0.3,
+                        },
+                        {
+                            "flagname": "trg_single_ele28_2",
+                            "hlt_path": "HLT_Ele28_WPTight_Gsf",
+                            "ptcut": 28,
+                            "etacut": 2.7,
+                            "filterbit": 1,
+                            "trigger_particle_id": 11,
+                            "max_deltaR_triggermatch": 0.3,
+                        },
+                        {
+                            "flagname": "trg_single_ele32_2",
+                            "hlt_path": "HLT_Ele32_WPTight_Gsf",
+                            "ptcut": 32,
+                            "etacut": 2.7,
+                            "filterbit": 1,
+                            "trigger_particle_id": 11,
+                            "max_deltaR_triggermatch": 0.3,
+                        },
+                        {
+                            "flagname": "trg_single_ele35_2",
+                            "hlt_path": "HLT_Ele35_WPTight_Gsf",
+                            "ptcut": 35,
+                            "etacut": 2.7,
+                            "filterbit": 1,
+                            "trigger_particle_id": 11,
+                            "max_deltaR_triggermatch": 0.3,
+                        },
+                    ],
+
+                    "2022": [
                         {
                             "flagname": "trg_single_ele27_2",
                             "hlt_path": "HLT_Ele27_WPTight_Gsf",

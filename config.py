@@ -116,8 +116,6 @@ def build_config(
             "max_ele_dxy": 1.e9,  # 0.045,
             "max_ele_dz": 1.e9,  # 0.2,
             "max_ele_iso": 1.e9,  # 0.3
-            "ele_id": "Electron_cutBased",  # "Electron_mvaFall17V2noIso_WP90",
-            "ele_id_wp": 3,  # Cut-based medium ID
         },
     )
 
@@ -172,6 +170,9 @@ def build_config(
             "max_electron_eta": 2.5,
             "electron_iso_cut": 1e9,
 
+            "ele_id": "Electron_cutBased",  # "Electron_mvaFall17V2noIso_WP90",
+            "ele_id_wp": 3,  # Cut-based medium ID
+
             "n_good_electrons": 2,
         },
     )
@@ -185,6 +186,9 @@ def build_config(
             "max_electron_eta": 2.5,
             "electron_iso_cut": 1e9,
             "second_electron_index_in_pair": 1,
+
+            "ele_id_noiso": "Electron_vidNestedWPBitmap",
+            "ele_id_noiso_wp": 3,
 
             "min_electron_veto_pt": 10.0,
             "max_electron_veto_eta": 2.5,
@@ -253,7 +257,6 @@ def build_config(
     configuration.add_config_parameters(
         scopes,
         {
-            # "deltaR_jet_veto": 0.5,
             "pairselection_min_dR": -1.,  # 0.5,
         },
     )
@@ -261,7 +264,6 @@ def build_config(
     configuration.add_producers(
         "global",
         [
-            # event.RunLumiEventFilter,
             event.SampleFlags,
             event.Lumi,
             event.npartons,
@@ -272,13 +274,9 @@ def build_config(
             event.PUweights,
             event.EventGenWeight,
             muons.BaseMuons,
+            electrons.ElectronVarsLess,
             electrons.BaseElectrons,
-            # jets.JetEnergyCorrection,
-            # jets.GoodJets,
-            # jets.GoodBJets,
             met.MetBasics,
-
-            # event.DiLeptonVeto,
         ],
     )
     ## add prefiring
@@ -291,6 +289,19 @@ def build_config(
         )
 
     # common
+    configuration.add_producers(
+        scopes,
+        [
+            jets.SoftActivityJetQuantities,
+
+            # jets.JetCollection,
+            # jets.BasicJetQuantities,
+            # jets.BJetCollection,
+            # jets.BasicBJetQuantities,
+            # met.MetCorrections,
+            # met.PFMetCorrections,
+        ],
+    )
 
     configuration.add_producers(
         "mm",
@@ -387,7 +398,7 @@ def build_config(
     configuration.add_producers(
         "emet",
         [
-            electrons.GoodElectrons,
+            electrons.GoodElectronsNoIso,
             electrons.NumberOfGoodElectrons,
             electrons.OneGoodElectronSelection,
             pairselection.LVEl1,
@@ -414,6 +425,21 @@ def build_config(
             producers=[pairquantities.ApplyRoccoRMC, pairquantities.ApplyRoccoRData],
             samples="data",
             update_output=False,
+        ),
+    )
+
+    configuration.add_modification_rule(
+        ["ee", "emet"],
+        ReplaceProducer(
+            producers=[pairquantities.electron_lostHits_1, pairquantities.electron_lostHits_1_UChar],
+            samples=available_sample_types,
+        ),
+    )
+    configuration.add_modification_rule(
+        ["ee"],
+        ReplaceProducer(
+            producers=[pairquantities.electron_lostHits_2, pairquantities.electron_lostHits_2_UChar],
+            samples=available_sample_types,
         ),
     )
 
@@ -516,30 +542,6 @@ def build_config(
             q.puweight,
             q.genweight,
 
-            # q.njets,
-            # q.jpt_1,
-            # q.jpt_2,
-            # q.jeta_1,
-            # q.jeta_2,
-            # q.jphi_1,
-            # q.jphi_2,
-            # q.jtag_value_1,
-            # q.jtag_value_2,
-
-            # q.nbtag,
-            # q.bpt_1,
-            # q.bpt_2,
-            # q.beta_1,
-            # q.beta_2,
-            # q.bphi_1,
-            # q.bphi_2,
-            # q.btag_value_1,
-            # q.btag_value_2,
-
-            # q.met,
-            # q.metphi,
-            # q.pfmet,
-            # q.pfmetphi,
             q.met_uncorrected,
             q.metphi_uncorrected,
             q.pfmet_uncorrected,
@@ -550,18 +552,23 @@ def build_config(
             q.metcov10,
             q.metcov11,
 
-            # q.pzetamissvis,
-            # q.mTdileptonMET,
-            # q.mt_1,
-            # q.mt_2,
-            # q.pt_tt,
-            # q.pt_ttjj,
-            # q.mt_tot,
             q.genbosonmass,
             q.genbosonpt,
             q.genbosoneta,
             q.genbosonphi,
             q.genbosonrapidity,
+
+            nanoAOD.HLT_IsoMu24,
+            nanoAOD.HLT_Ele27_WPTight_Gsf,
+            nanoAOD.HLT_Ele28_WPTight_Gsf,
+
+            q.soft_activity_jet_HT,
+            q.soft_activity_jet_HT10,
+            q.soft_activity_jet_HT5,
+            q.soft_activity_jet_HT2,
+            q.soft_activity_jet_Njets10,
+            q.soft_activity_jet_Njets5,
+            q.soft_activity_jet_Njets2,
 
             q.is_dy_ee,
             q.is_dy_mm,
@@ -600,7 +607,7 @@ def build_config(
             q.jetPtRelv2_1,
             q.jetRelIso_1,
             q.miniPFRelIso_all_1,
-            q.mvaTTH_1,
+            # q.mvaTTH_1,
             q.sip3d_1,
             q.tightCharge_1,
 
@@ -651,7 +658,7 @@ def build_config(
             q.jetPtRelv2_2,
             q.jetRelIso_2,
             q.miniPFRelIso_all_2,
-            q.mvaTTH_2,
+            # q.mvaTTH_2,
             q.sip3d_2,
             q.tightCharge_2,
 
@@ -725,7 +732,6 @@ def build_config(
             q.pt_rc_1,
             q.pt_rc_2,
 
-            # q.mjj,
             q.m_vis,
             q.pt_vis,
 
@@ -760,7 +766,7 @@ def build_config(
             q.jetPtRelv2_1,
             q.jetRelIso_1,
             q.miniPFRelIso_all_1,
-            q.mvaTTH_1,
+            # q.mvaTTH_1,
             q.sip3d_1,
             q.tightCharge_1,
 
@@ -837,10 +843,10 @@ def build_config(
             q.q_1,
             q.iso_1,
 
-            q.descaledown_1,
-            q.descaleup_1,
-            q.desigmadown_1,
-            q.desigmaup_1,
+            # q.descaledown_1,
+            # q.descaleup_1,
+            # q.desigmadown_1,
+            # q.desigmaup_1,
             q.deltaetaSC_1,
             q.dr03EcalRecHitSumEt_1,
             q.dr03HcalDepth1TowerSumEt_1,
@@ -854,11 +860,11 @@ def build_config(
             q.jetPtRelv2_1,
             q.jetRelIso_1,
             q.miniPFRelIso_all_1,
-            q.mvaFall17V2Iso_1,
-            q.mvaFall17V2noIso_1,
+            # q.mvaFall17V2Iso_1,
+            # q.mvaFall17V2noIso_1,
             q.dxyErr_1,
             q.dzErr_1,
-            q.mvaTTH_1,
+            # q.mvaTTH_1,
             q.pfRelIso03_all_1,
             q.pfRelIso03_chg_1,
             q.r9_1,
@@ -866,31 +872,31 @@ def build_config(
             q.sieie_1,
             q.sip3d_1,
 
-            q.cutBased_1,
-            q.jetIdx_1,
-            q.photonIdx_1,
-            q.tightCharge_1,
-            q.vidNestedWPBitmap_1,
-            q.vidNestedWPBitmapHEEP_1,
+            # q.cutBased_1,
+            # q.jetIdx_1,
+            # q.photonIdx_1,
+            # q.tightCharge_1,
+            # q.vidNestedWPBitmap_1,
+            # q.vidNestedWPBitmapHEEP_1,
 
             q.jetNDauCharged_1,
             q.lostHits_1,
             q.seedGain_1,
             
             q.convVeto_1,
-            q.cutBased_HEEP_1,
+            # q.cutBased_HEEP_1,
             q.isPFcand_1,
-            q.mvaFall17V2Iso_WP80_1,
-            q.mvaFall17V2Iso_WP90_1,
-            q.mvaFall17V2Iso_WPL_1,
-            q.mvaFall17V2noIso_WP80_1,
-            q.mvaFall17V2noIso_WP90_1,
-            q.mvaFall17V2noIso_WPL_1,
+            # q.mvaFall17V2Iso_WP80_1,
+            # q.mvaFall17V2Iso_WP90_1,
+            # q.mvaFall17V2Iso_WPL_1,
+            # q.mvaFall17V2noIso_WP80_1,
+            # q.mvaFall17V2noIso_WP90_1,
+            # q.mvaFall17V2noIso_WPL_1,
 
-            q.descaledown_2,
-            q.descaleup_2,
-            q.desigmadown_2,
-            q.desigmaup_2,
+            # q.descaledown_2,
+            # q.descaleup_2,
+            # q.desigmadown_2,
+            # q.desigmaup_2,
             q.deltaetaSC_2,
             q.dr03EcalRecHitSumEt_2,
             q.dr03HcalDepth1TowerSumEt_2,
@@ -904,11 +910,11 @@ def build_config(
             q.jetPtRelv2_2,
             q.jetRelIso_2,
             q.miniPFRelIso_all_2,
-            q.mvaFall17V2Iso_2,
-            q.mvaFall17V2noIso_2,
+            # q.mvaFall17V2Iso_2,
+            # q.mvaFall17V2noIso_2,
             q.dxyErr_2,
             q.dzErr_2,
-            q.mvaTTH_2,
+            # q.mvaTTH_2,
             q.pfRelIso03_all_2,
             q.pfRelIso03_chg_2,
             q.r9_2,
@@ -916,26 +922,26 @@ def build_config(
             q.sieie_2,
             q.sip3d_2,
 
-            q.cutBased_2,
-            q.jetIdx_2,
-            q.photonIdx_2,
-            q.tightCharge_2,
-            q.vidNestedWPBitmap_2,
-            q.vidNestedWPBitmapHEEP_2,
+            # q.cutBased_2,
+            # q.jetIdx_2,
+            # q.photonIdx_2,
+            # q.tightCharge_2,
+            # q.vidNestedWPBitmap_2,
+            # q.vidNestedWPBitmapHEEP_2,
 
             q.jetNDauCharged_2,
             q.lostHits_2,
             q.seedGain_2,
 
             q.convVeto_2,
-            q.cutBased_HEEP_2,
+            # q.cutBased_HEEP_2,
             q.isPFcand_2,
-            q.mvaFall17V2Iso_WP80_2,
-            q.mvaFall17V2Iso_WP90_2,
-            q.mvaFall17V2Iso_WPL_2,
-            q.mvaFall17V2noIso_WP80_2,
-            q.mvaFall17V2noIso_WP90_2,
-            q.mvaFall17V2noIso_WPL_2,
+            # q.mvaFall17V2Iso_WP80_2,
+            # q.mvaFall17V2Iso_WP90_2,
+            # q.mvaFall17V2Iso_WPL_2,
+            # q.mvaFall17V2noIso_WP80_2,
+            # q.mvaFall17V2noIso_WP90_2,
+            # q.mvaFall17V2noIso_WPL_2,
 
 
             q.pt_2,
@@ -946,6 +952,11 @@ def build_config(
             q.dz_2,
             q.q_2,
             q.iso_2,
+
+            q.etaSC_1,
+            q.etaSC_2,
+            q.energySC_1,
+            q.energySC_2,
 
             # q.gen_pt_1,
             # q.gen_eta_1,
@@ -1000,10 +1011,10 @@ def build_config(
             q.q_1,
             q.iso_1,
 
-            q.descaledown_1,
-            q.descaleup_1,
-            q.desigmadown_1,
-            q.desigmaup_1,
+            # q.descaledown_1,
+            # q.descaleup_1,
+            # q.desigmadown_1,
+            # q.desigmaup_1,
             q.deltaetaSC_1,
             q.dr03EcalRecHitSumEt_1,
             q.dr03HcalDepth1TowerSumEt_1,
@@ -1017,11 +1028,11 @@ def build_config(
             q.jetPtRelv2_1,
             q.jetRelIso_1,
             q.miniPFRelIso_all_1,
-            q.mvaFall17V2Iso_1,
-            q.mvaFall17V2noIso_1,
+            # q.mvaFall17V2Iso_1,
+            # q.mvaFall17V2noIso_1,
             q.dxyErr_1,
             q.dzErr_1,
-            q.mvaTTH_1,
+            # q.mvaTTH_1,
             q.pfRelIso03_all_1,
             q.pfRelIso03_chg_1,
             q.r9_1,
@@ -1029,26 +1040,29 @@ def build_config(
             q.sieie_1,
             q.sip3d_1,
 
-            q.cutBased_1,
-            q.jetIdx_1,
-            q.photonIdx_1,
-            q.tightCharge_1,
-            q.vidNestedWPBitmap_1,
-            q.vidNestedWPBitmapHEEP_1,
+            # q.cutBased_1,
+            # q.jetIdx_1,
+            # q.photonIdx_1,
+            # q.tightCharge_1,
+            # q.vidNestedWPBitmap_1,
+            # q.vidNestedWPBitmapHEEP_1,
 
             q.jetNDauCharged_1,
             q.lostHits_1,
             q.seedGain_1,
 
             q.convVeto_1,
-            q.cutBased_HEEP_1,
+            # q.cutBased_HEEP_1,
             q.isPFcand_1,
-            q.mvaFall17V2Iso_WP80_1,
-            q.mvaFall17V2Iso_WP90_1,
-            q.mvaFall17V2Iso_WPL_1,
-            q.mvaFall17V2noIso_WP80_1,
-            q.mvaFall17V2noIso_WP90_1,
-            q.mvaFall17V2noIso_WPL_1,
+            # q.mvaFall17V2Iso_WP80_1,
+            # q.mvaFall17V2Iso_WP90_1,
+            # q.mvaFall17V2Iso_WPL_1,
+            # q.mvaFall17V2noIso_WP80_1,
+            # q.mvaFall17V2noIso_WP90_1,
+            # q.mvaFall17V2noIso_WPL_1,
+
+            q.etaSC_1,
+            q.energySC_1,
 
             q.gen_match_1,
 
@@ -1063,7 +1077,7 @@ def build_config(
             triggers.EEGenerateSingleElectronTriggerFlags1.output_group,
             q.id_wgt_ele_wpmedium_1,
 
-            q.electron_veto_flag,
+            # q.electron_veto_flag,
         ],
     )
 

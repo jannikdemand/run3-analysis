@@ -26,7 +26,7 @@ def run(args):
         "wjets",
         "data",
     ]
-    available_eras = ["2016", "2017", "2018"]
+    available_eras = ["2016", "2017", "2018", "2022"]
     available_scopes = ["mm", "mmet", "ee", "emet"]
 
     ## setup variables

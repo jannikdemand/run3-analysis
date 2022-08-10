@@ -88,11 +88,6 @@ def customize_ElectronIDIso(configuration):
             "ele_Hoe_cut_endcap_1": 2.52,
             "ele_Hoe_cut_endcap_2": 0.183,
 
-            "ele_Iso_cut_barrel_0": 0.0478,
-            "ele_Iso_cut_barrel_1": 0.506,
-            "ele_Iso_cut_endcap_0": 0.0658,
-            "ele_Iso_cut_endcap_1": 0.963,
-
             "ele_EInvMinusPInv_cut_barrel_lo": -1.,
             "ele_EInvMinusPInv_cut_barrel_up": 0.184,
             "ele_EInvMinusPInv_cut_endcap_lo": -1.,
@@ -102,6 +97,26 @@ def customize_ElectronIDIso(configuration):
             "ele_LostHits_cut_barrel_up": 2,
             "ele_LostHits_cut_endcap_lo": -1,
             "ele_LostHits_cut_endcap_up": 2,
+        },
+    )
+
+    configuration.add_config_parameters(
+        ["ee"],
+        {
+            "ele_Iso_cut_barrel_0": 0.0478,
+            "ele_Iso_cut_barrel_1": 0.506,
+            "ele_Iso_cut_endcap_0": 0.0658,
+            "ele_Iso_cut_endcap_1": 0.963,
+        },
+    )
+
+    configuration.add_config_parameters(
+        ["emet"],
+        {
+            "ele_Iso_cut_barrel_0": 1.e9,
+            "ele_Iso_cut_barrel_1": 0.,
+            "ele_Iso_cut_endcap_0": 1.e9,
+            "ele_Iso_cut_endcap_1": 0.,
         },
     )
 
