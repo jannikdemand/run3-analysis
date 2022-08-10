@@ -80,8 +80,8 @@ def build_config(
         {
             "min_muon_pt": 10.0,
             "max_muon_eta": 2.4,
-            "max_muon_dxy": 1e9,
-            "max_muon_dz": 1e9,
+            "max_muon_dxy": 1.e9,
+            "max_muon_dz": 1.e9,
             "muon_id": "Muon_isGlobal",
             "muon_iso_cut": 1.e9,
         },
@@ -105,9 +105,9 @@ def build_config(
         ["mm"],
         {
             "muon_index_in_pair": 0,
+            "second_muon_index_in_pair": 1,
             "min_muon_pt": 25.0,
             "max_muon_eta": 2.4,
-            "second_muon_index_in_pair": 1,
             "n_good_muons": 2,
 
             # "RoccoR_file": '"data/RoccoR_files/RoccoR2018UL.txt"',
@@ -157,9 +157,9 @@ def build_config(
         ["emet"],
         {
             "electron_index_in_pair": 0,
+            "second_electron_index_in_pair": 1,
             "min_electron_pt": 25.0,
             "max_electron_eta": 2.5,
-            "second_electron_index_in_pair": 1,
 
             "min_electron_veto_pt": 10.0,
             "max_electron_veto_eta": 2.5,
@@ -225,31 +225,20 @@ def build_config(
     configuration.add_producers(
         "global",
         [
-            # event.RunLumiEventFilter,
             event.SampleFlags,
             event.Lumi,
             event.npartons,
             event.Npu,
             event.NpvGood,
-
             # event.MetFilter,
-
             event.PUweights,
             event.EventGenWeight,
-
+            genparticles.DYFilters,
             muons.MuonVars,
             muons.BaseMuons,
-
             electrons.ElectronVars,
             electrons.BaseElectrons,
-
             met.MetBasics,
-
-            # jets.JetEnergyCorrection,
-            # jets.GoodJets,
-            # jets.GoodBJets,
-
-            genparticles.DYFilters,
         ],
     )
     ## add prefiring
@@ -279,7 +268,7 @@ def build_config(
     configuration.add_producers(
         "mm",
         [
-            muons.GoodMuons,
+            muons.GoodMuonsCustom,
             muons.NumberOfGoodMuons,
             muons.TwoGoodMuonSelection,
             pairselection.ZLLPairSelection,
@@ -314,7 +303,7 @@ def build_config(
     configuration.add_producers(
         "mmet",
         [
-            muons.GoodMuons,
+            muons.GoodMuonsCustom,
             muons.NumberOfGoodMuons,
             muons.OneGoodMuonSelection,
             pairselection.LVMu1,
@@ -338,7 +327,7 @@ def build_config(
     configuration.add_producers(
         "ee",
         [
-            electrons.GoodElectrons,
+            electrons.GoodElectronsCustom,
             electrons.NumberOfGoodElectrons,
             electrons.TwoGoodElectronSelection,
             pairselection.ZLLPairSelection,
@@ -371,7 +360,7 @@ def build_config(
     configuration.add_producers(
         "emet",
         [
-            electrons.GoodElectrons,
+            electrons.GoodElectronsCustom,
             electrons.NumberOfGoodElectrons,
             electrons.OneGoodElectronSelection,
             pairselection.LVEl1,
@@ -401,23 +390,23 @@ def build_config(
     #     ),
     # )
 
-    configuration.add_modification_rule(
-        ["mm", "mmet"],
-        ReplaceProducer(
-            producers=[muons.GoodMuons, muons.GoodMuonsCustom],
-            samples="data",
-            update_output=False,
-        ),
-    )
+    # configuration.add_modification_rule(
+    #     ["mm", "mmet"],
+    #     ReplaceProducer(
+    #         producers=[muons.GoodMuons, muons.GoodMuonsCustom],
+    #         samples="data",
+    #         update_output=False,
+    #     ),
+    # )
 
-    configuration.add_modification_rule(
-        ["ee", "emet"],
-        ReplaceProducer(
-            producers=[electrons.GoodElectrons, electrons.GoodElectronsCustom],
-            samples="data",
-            update_output=False,
-        ),
-    )
+    # configuration.add_modification_rule(
+    #     ["ee", "emet"],
+    #     ReplaceProducer(
+    #         producers=[electrons.GoodElectrons, electrons.GoodElectronsCustom],
+    #         samples="data",
+    #         update_output=False,
+    #     ),
+    # )
 
     configuration.add_modification_rule(
         ["mm", "mmet"],

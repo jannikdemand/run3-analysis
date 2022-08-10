@@ -21,7 +21,7 @@ from code_generation.configuration import Configuration
 from code_generation.modifiers import EraModifier, SampleModifier
 from code_generation.rules import AppendProducer, RemoveProducer, ReplaceProducer
 from code_generation.systematics import SystematicShift, SystematicShiftByQuantity
-from .variations import add_leptonSFShifts, add_PUweightsShifts  # add_leptonIsoCutVariations
+from .variations import add_leptonSFShifts, add_PUweightsShifts
 from .iso_variations import apply_leptonIsoCutVariations
 
 def build_config(
@@ -47,10 +47,6 @@ def build_config(
     configuration.add_config_parameters(
         "global",
         {
-            # "RunLumiEventFilter_Quantities": ["event", "luminosityBlock"],
-            # "RunLumiEventFilter_Quantity_Types": ["ULong64_t", "UInt_t"],
-            # "RunLumiEventFilter_Selections": ["3", "318"],
-
             "PU_reweighting_file": EraModifier(
                 {
                     "2016": "",
@@ -74,7 +70,7 @@ def build_config(
                     "2018": "data/golden_json/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt",
                 }
             ),
-            "PU_reweighting_hist": "pileup",
+
             "met_filters": EraModifier(
                 {
                     "2018": [
@@ -97,13 +93,13 @@ def build_config(
     configuration.add_config_parameters(
         "global",
         {
-            "min_muon_pt": 20.0,
+            "min_muon_pt": 10.0,
             "max_muon_eta": 2.4,
-            "max_muon_dxy": 1e9,  # 0.045,
-            "max_muon_dz": 1e0,  # 0.2,
-            "muon_id": "Muon_tightId",  # "Muon_mediumId",
+            "max_muon_dxy": 1.e9,
+            "max_muon_dz": 1.e9,
+            "muon_id": "Muon_tightId",
 
-            "muon_iso_cut": 1e9,  # 0.3,
+            "muon_iso_cut": 1.e9,
         },
     )
 
@@ -113,9 +109,8 @@ def build_config(
         {
             "min_ele_pt": 10.0,
             "max_ele_eta": 2.5,
-            "max_ele_dxy": 1.e9,  # 0.045,
-            "max_ele_dz": 1.e9,  # 0.2,
-            "max_ele_iso": 1.e9,  # 0.3
+            "max_ele_dxy": 1.e9,
+            "max_ele_dz": 1.e9,
         },
     )
 
@@ -148,9 +143,9 @@ def build_config(
 
             "min_muon_veto_pt": 10.0,
             "max_muon_veto_eta": 2.4,
-            "max_muon_veto_dxy": 1.e9,  # 0.045,
-            "max_muon_veto_dz": 1.e9,  # 0.2,
-            "muon_veto_id": "Muon_looseId",  # "Muon_mediumId",
+            "max_muon_veto_dxy": 1.e9,
+            "max_muon_veto_dz": 1.e9,
+            "muon_veto_id": "Muon_looseId",
             "muon_veto_iso_cut": 1.e9,
             "n_good_muons": 1,
 
@@ -168,9 +163,8 @@ def build_config(
             "electron_index_in_pair": 0,
             "min_electron_pt": 25.0,
             "max_electron_eta": 2.5,
-            "electron_iso_cut": 1e9,
 
-            "ele_id": "Electron_cutBased",  # "Electron_mvaFall17V2noIso_WP90",
+            "ele_id": "Electron_cutBased",
             "ele_id_wp": 3,  # Cut-based medium ID
 
             "n_good_electrons": 2,
@@ -182,18 +176,17 @@ def build_config(
         ["emet"],
         {
             "electron_index_in_pair": 0,
+            "second_electron_index_in_pair": 1,
             "min_electron_pt": 25.0,
             "max_electron_eta": 2.5,
-            "electron_iso_cut": 1e9,
-            "second_electron_index_in_pair": 1,
 
             "ele_id_noiso": "Electron_vidNestedWPBitmap",
             "ele_id_noiso_wp": 3,
 
             "min_electron_veto_pt": 10.0,
             "max_electron_veto_eta": 2.5,
-            "max_electron_veto_dxy": 1.e9,  # 0.045,
-            "max_electron_veto_dz": 1.e9,  # 0.2,
+            "max_electron_veto_dxy": 1.e9,
+            "max_electron_veto_dz": 1.e9,
             "electron_veto_id": "Electron_cutBased",
             "electron_veto_id_wp": 1,
             "electron_veto_iso_cut": 1.e9,
@@ -267,12 +260,12 @@ def build_config(
             event.SampleFlags,
             event.Lumi,
             event.npartons,
-            genparticles.DYFilters,
             event.Npu,
             event.NpvGood,
             event.MetFilter,
             event.PUweights,
             event.EventGenWeight,
+            genparticles.DYFilters,
             muons.BaseMuons,
             electrons.ElectronVarsLess,
             electrons.BaseElectrons,
