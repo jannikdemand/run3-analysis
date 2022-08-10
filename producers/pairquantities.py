@@ -141,62 +141,62 @@ electron_dzErr_2 = Producer(
     output=[q.dzErr_2],
     scopes=["ee"],
 )
-electron_descaledown_1 = Producer(
-    name="electron_descaledown_1",
-    call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_dEscaleDown],
-    output=[q.descaledown_1],
-    scopes=["ee", "emet"],
-)
-electron_descaledown_2 = Producer(
-    name="electron_descaledown_2",
-    call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_dEscaleDown],
-    output=[q.descaledown_2],
-    scopes=["ee"],
-)
-electron_descaleup_1 = Producer(
-    name="electron_descaleup_1",
-    call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_dEscaleUp],
-    output=[q.descaleup_1],
-    scopes=["ee", "emet"],
-)
-electron_descaleup_2 = Producer(
-    name="electron_descaleup_2",
-    call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_dEscaleUp],
-    output=[q.descaleup_2],
-    scopes=["ee"],
-)
-electron_desigmadown_1 = Producer(
-    name="electron_desigmadown_1",
-    call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_dEsigmaDown],
-    output=[q.desigmadown_1],
-    scopes=["ee", "emet"],
-)
-electron_desigmadown_2 = Producer(
-    name="electron_desigmadown_2",
-    call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_dEsigmaDown],
-    output=[q.desigmadown_2],
-    scopes=["ee"],
-)
-electron_desigmaup_1 = Producer(
-    name="electron_desigmaup_1",
-    call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_dEsigmaUp],
-    output=[q.desigmaup_1],
-    scopes=["ee", "emet"],
-)
-electron_desigmaup_2 = Producer(
-    name="electron_desigmaup_2",
-    call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_dEsigmaUp],
-    output=[q.desigmaup_2],
-    scopes=["ee"],
-)
+# electron_descaledown_1 = Producer(
+#     name="electron_descaledown_1",
+#     call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_dEscaleDown],
+#     output=[q.descaledown_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_descaledown_2 = Producer(
+#     name="electron_descaledown_2",
+#     call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_dEscaleDown],
+#     output=[q.descaledown_2],
+#     scopes=["ee"],
+# )
+# electron_descaleup_1 = Producer(
+#     name="electron_descaleup_1",
+#     call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_dEscaleUp],
+#     output=[q.descaleup_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_descaleup_2 = Producer(
+#     name="electron_descaleup_2",
+#     call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_dEscaleUp],
+#     output=[q.descaleup_2],
+#     scopes=["ee"],
+# )
+# electron_desigmadown_1 = Producer(
+#     name="electron_desigmadown_1",
+#     call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_dEsigmaDown],
+#     output=[q.desigmadown_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_desigmadown_2 = Producer(
+#     name="electron_desigmadown_2",
+#     call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_dEsigmaDown],
+#     output=[q.desigmadown_2],
+#     scopes=["ee"],
+# )
+# electron_desigmaup_1 = Producer(
+#     name="electron_desigmaup_1",
+#     call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_dEsigmaUp],
+#     output=[q.desigmaup_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_desigmaup_2 = Producer(
+#     name="electron_desigmaup_2",
+#     call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_dEsigmaUp],
+#     output=[q.desigmaup_2],
+#     scopes=["ee"],
+# )
 electron_deltaetaSC_1 = Producer(
     name="electron_deltaetaSC_1",
     call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
@@ -267,20 +267,20 @@ electron_dr03TkSumPtHEEP_2 = Producer(
     output=[q.dr03TkSumPtHEEP_2],
     scopes=["ee"],
 )
-electron_eCorr_1 = Producer(
-    name="electron_eCorr_1",
-    call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_eCorr],
-    output=[q.eCorr_1],
-    scopes=["ee", "emet"],
-)
-electron_eCorr_2 = Producer(
-    name="electron_eCorr_2",
-    call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_eCorr],
-    output=[q.eCorr_2],
-    scopes=["ee"],
-)
+# electron_eCorr_1 = Producer(
+#     name="electron_eCorr_1",
+#     call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_eCorr],
+#     output=[q.eCorr_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_eCorr_2 = Producer(
+#     name="electron_eCorr_2",
+#     call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_eCorr],
+#     output=[q.eCorr_2],
+#     scopes=["ee"],
+# )
 electron_eInvMinusPInv_1 = Producer(
     name="electron_eInvMinusPInv_1",
     call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
@@ -379,48 +379,48 @@ electron_miniPFRelIso_all_2 = Producer(
     output=[q.miniPFRelIso_all_2],
     scopes=["ee"],
 )
-electron_mvaFall17V2Iso_1 = Producer(
-    name="electron_mvaFall17V2Iso_1",
-    call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso],
-    output=[q.mvaFall17V2Iso_1],
-    scopes=["ee", "emet"],
-)
-electron_mvaFall17V2Iso_2 = Producer(
-    name="electron_mvaFall17V2Iso_2",
-    call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso],
-    output=[q.mvaFall17V2Iso_2],
-    scopes=["ee"],
-)
-electron_mvaFall17V2noIso_1 = Producer(
-    name="electron_mvaFall17V2noIso_1",
-    call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso],
-    output=[q.mvaFall17V2noIso_1],
-    scopes=["ee", "emet"],
-)
-electron_mvaFall17V2noIso_2 = Producer(
-    name="electron_mvaFall17V2noIso_2",
-    call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso],
-    output=[q.mvaFall17V2noIso_2],
-    scopes=["ee"],
-)
-electron_mvaTTH_1 = Producer(
-    name="electron_mvaTTH_1",
-    call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaTTH],
-    output=[q.mvaTTH_1],
-    scopes=["ee", "emet"],
-)
-electron_mvaTTH_2 = Producer(
-    name="electron_mvaTTH_2",
-    call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaTTH],
-    output=[q.mvaTTH_2],
-    scopes=["ee"],
-)
+# electron_mvaFall17V2Iso_1 = Producer(
+#     name="electron_mvaFall17V2Iso_1",
+#     call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso],
+#     output=[q.mvaFall17V2Iso_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_mvaFall17V2Iso_2 = Producer(
+#     name="electron_mvaFall17V2Iso_2",
+#     call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso],
+#     output=[q.mvaFall17V2Iso_2],
+#     scopes=["ee"],
+# )
+# electron_mvaFall17V2noIso_1 = Producer(
+#     name="electron_mvaFall17V2noIso_1",
+#     call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso],
+#     output=[q.mvaFall17V2noIso_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_mvaFall17V2noIso_2 = Producer(
+#     name="electron_mvaFall17V2noIso_2",
+#     call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso],
+#     output=[q.mvaFall17V2noIso_2],
+#     scopes=["ee"],
+# )
+# electron_mvaTTH_1 = Producer(
+#     name="electron_mvaTTH_1",
+#     call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaTTH],
+#     output=[q.mvaTTH_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_mvaTTH_2 = Producer(
+#     name="electron_mvaTTH_2",
+#     call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaTTH],
+#     output=[q.mvaTTH_2],
+#     scopes=["ee"],
+# )
 electron_pfRelIso03_all_1 = Producer(
     name="electron_pfRelIso03_all_1",
     call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
@@ -506,101 +506,130 @@ electron_sip3d_2 = Producer(
     scopes=["ee"],
 )
 
+electron_etaSC_1 = Producer(
+    name="electron_etaSC_1",
+    call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
+    input=[q.selectedLepton, q.Electron_etaSC],
+    output=[q.etaSC_1],
+    scopes=["ee", "emet"],
+)
+electron_etaSC_2 = Producer(
+    name="electron_etaSC_2",
+    call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
+    input=[q.selectedLepton, q.Electron_etaSC],
+    output=[q.etaSC_2],
+    scopes=["ee"],
+)
+electron_energySC_1 = Producer(
+    name="electron_energySC_1",
+    call="basefunctions::getvar<float>({df}, {output}, 0, {input})",
+    input=[q.selectedLepton, q.Electron_energySC],
+    output=[q.energySC_1],
+    scopes=["ee", "emet"],
+)
+electron_energySC_2 = Producer(
+    name="electron_energySC_2",
+    call="basefunctions::getvar<float>({df}, {output}, 1, {input})",
+    input=[q.selectedLepton, q.Electron_energySC],
+    output=[q.energySC_2],
+    scopes=["ee"],
+)
+
 #####int_t##########
-electron_cutBased_1 = Producer(
-    name="electron_cutBased_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_cutBased],
-    output=[q.cutBased_1],
-    scopes=["ee", "emet"],
-)
-electron_cutBased_2 = Producer(
-    name="electron_cutBased_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_cutBased],
-    output=[q.cutBased_2],
-    scopes=["ee"],
-)
-electron_jetIdx_1 = Producer(
-    name="electron_jetIdx_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_jetIdx],
-    output=[q.jetIdx_1],
-    scopes=["ee", "emet"],
-)
-electron_jetIdx_2 = Producer(
-    name="electron_jetIdx_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_jetIdx],
-    output=[q.jetIdx_2],
-    scopes=["ee"],
-)
-electron_photonIdx_1 = Producer(
-    name="electron_photonIdx_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_photonIdx],
-    output=[q.photonIdx_1],
-    scopes=["ee", "emet"],
-)
-electron_photonIdx_2 = Producer(
-    name="electron_photonIdx_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_photonIdx],
-    output=[q.photonIdx_2],
-    scopes=["ee"],
-)
-electron_tightCharge_1 = Producer(
-    name="electron_tightCharge_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_tightCharge],
-    output=[q.tightCharge_1],
-    scopes=["ee", "emet"],
-)
-electron_tightCharge_2 = Producer(
-    name="electron_tightCharge_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_tightCharge],
-    output=[q.tightCharge_2],
-    scopes=["ee"],
-)
-electron_vidNestedWPBitmap_1 = Producer(
-    name="electron_vidNestedWPBitmap_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_vidNestedWPBitmap],
-    output=[q.vidNestedWPBitmap_1],
-    scopes=["ee", "emet"],
-)
-electron_vidNestedWPBitmap_2 = Producer(
-    name="electron_vidNestedWPBitmap_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_vidNestedWPBitmap],
-    output=[q.vidNestedWPBitmap_2],
-    scopes=["ee"],
-)
-electron_vidNestedWPBitmapHEEP_1 = Producer(
-    name="electron_vidNestedWPBitmapHEEP_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_vidNestedWPBitmapHEEP],
-    output=[q.vidNestedWPBitmapHEEP_1],
-    scopes=["ee", "emet"],
-)
-electron_vidNestedWPBitmapHEEP_2 = Producer(
-    name="electron_vidNestedWPBitmapHEEP_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_vidNestedWPBitmapHEEP],
-    output=[q.vidNestedWPBitmapHEEP_2],
-    scopes=["ee"],
-)
+# electron_cutBased_1 = Producer(
+#     name="electron_cutBased_1",
+#     call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_cutBased],
+#     output=[q.cutBased_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_cutBased_2 = Producer(
+#     name="electron_cutBased_2",
+#     call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_cutBased],
+#     output=[q.cutBased_2],
+#     scopes=["ee"],
+# )
+# electron_jetIdx_1 = Producer(
+#     name="electron_jetIdx_1",
+#     call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_jetIdx],
+#     output=[q.jetIdx_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_jetIdx_2 = Producer(
+#     name="electron_jetIdx_2",
+#     call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_jetIdx],
+#     output=[q.jetIdx_2],
+#     scopes=["ee"],
+# )
+# electron_photonIdx_1 = Producer(
+#     name="electron_photonIdx_1",
+#     call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_photonIdx],
+#     output=[q.photonIdx_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_photonIdx_2 = Producer(
+#     name="electron_photonIdx_2",
+#     call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_photonIdx],
+#     output=[q.photonIdx_2],
+#     scopes=["ee"],
+# )
+# electron_tightCharge_1 = Producer(
+#     name="electron_tightCharge_1",
+#     call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_tightCharge],
+#     output=[q.tightCharge_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_tightCharge_2 = Producer(
+#     name="electron_tightCharge_2",
+#     call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_tightCharge],
+#     output=[q.tightCharge_2],
+#     scopes=["ee"],
+# )
+# electron_vidNestedWPBitmap_1 = Producer(
+#     name="electron_vidNestedWPBitmap_1",
+#     call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_vidNestedWPBitmap],
+#     output=[q.vidNestedWPBitmap_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_vidNestedWPBitmap_2 = Producer(
+#     name="electron_vidNestedWPBitmap_2",
+#     call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_vidNestedWPBitmap],
+#     output=[q.vidNestedWPBitmap_2],
+#     scopes=["ee"],
+# )
+# electron_vidNestedWPBitmapHEEP_1 = Producer(
+#     name="electron_vidNestedWPBitmapHEEP_1",
+#     call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_vidNestedWPBitmapHEEP],
+#     output=[q.vidNestedWPBitmapHEEP_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_vidNestedWPBitmapHEEP_2 = Producer(
+#     name="electron_vidNestedWPBitmapHEEP_2",
+#     call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_vidNestedWPBitmapHEEP],
+#     output=[q.vidNestedWPBitmapHEEP_2],
+#     scopes=["ee"],
+# )
 electron_jetNDauCharged_1 = Producer(
     name="electron_jetNDauCharged_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    call="basefunctions::getvar<UChar_t>({df}, {output}, 0, {input})",
     input=[q.selectedLepton, nanoAOD.Electron_jetNDauCharged],
     output=[q.jetNDauCharged_1],
     scopes=["ee", "emet"],
 )
 electron_jetNDauCharged_2 = Producer(
     name="electron_jetNDauCharged_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    call="basefunctions::getvar<UChar_t>({df}, {output}, 1, {input})",
     input=[q.selectedLepton, nanoAOD.Electron_jetNDauCharged],
     output=[q.jetNDauCharged_2],
     scopes=["ee"],
@@ -621,14 +650,14 @@ electron_lostHits_2 = Producer(
 )
 electron_seedGain_1 = Producer(
     name="electron_seedGain_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    call="basefunctions::getvar<UChar_t>({df}, {output}, 0, {input})",
     input=[q.selectedLepton, nanoAOD.Electron_seedGain],
     output=[q.seedGain_1],
     scopes=["ee", "emet"],
 )
 electron_seedGain_2 = Producer(
     name="electron_seedGain_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    call="basefunctions::getvar<UChar_t>({df}, {output}, 1, {input})",
     input=[q.selectedLepton, nanoAOD.Electron_seedGain],
     output=[q.seedGain_2],
     scopes=["ee"],
@@ -648,118 +677,118 @@ electron_convVeto_2 = Producer(
     output=[q.convVeto_2],
     scopes=["ee"],
 )
-electron_cutBased_HEEP_1 = Producer(
-    name="electron_cutBased_HEEP_1",
-    call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_cutBased_HEEP],
-    output=[q.cutBased_HEEP_1],
-    scopes=["ee", "emet"],
-)
-electron_cutBased_HEEP_2 = Producer(
-    name="electron_cutBased_HEEP_2",
-    call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_cutBased_HEEP],
-    output=[q.cutBased_HEEP_2],
-    scopes=["ee"],
-)
-electron_isPFcand_1 = Producer(
-    name="electron_isPFcand_1",
-    call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_isPFcand],
-    output=[q.isPFcand_1],
-    scopes=["ee", "emet"],
-)
-electron_isPFcand_2 = Producer(
-    name="electron_isPFcand_2",
-    call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_isPFcand],
-    output=[q.isPFcand_2],
-    scopes=["ee"],
-)
-electron_mvaFall17V2Iso_WP80_1 = Producer(
-    name="electron_mvaFall17V2Iso_WP80_1",
-    call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso_WP80],
-    output=[q.mvaFall17V2Iso_WP80_1],
-    scopes=["ee", "emet"],
-)
-electron_mvaFall17V2Iso_WP80_2 = Producer(
-    name="electron_mvaFall17V2Iso_WP80_2",
-    call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso_WP80],
-    output=[q.mvaFall17V2Iso_WP80_2],
-    scopes=["ee"],
-)
-electron_mvaFall17V2Iso_WP90_1 = Producer(
-    name="electron_mvaFall17V2Iso_WP90_1",
-    call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso_WP90],
-    output=[q.mvaFall17V2Iso_WP90_1],
-    scopes=["ee", "emet"],
-)
-electron_mvaFall17V2Iso_WP90_2 = Producer(
-    name="electron_mvaFall17V2Iso_WP90_2",
-    call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso_WP90],
-    output=[q.mvaFall17V2Iso_WP90_2],
-    scopes=["ee"],
-)
-electron_mvaFall17V2Iso_WPL_1 = Producer(
-    name="electron_mvaFall17V2Iso_WPL_1",
-    call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso_WPL],
-    output=[q.mvaFall17V2Iso_WPL_1],
-    scopes=["ee", "emet"],
-)
-electron_mvaFall17V2Iso_WPL_2 = Producer(
-    name="electron_mvaFall17V2Iso_WPL_2",
-    call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso_WPL],
-    output=[q.mvaFall17V2Iso_WPL_2],
-    scopes=["ee"],
-)
-electron_mvaFall17V2noIso_WP80_1 = Producer(
-    name="electron_mvaFall17V2noIso_WP80_1",
-    call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso_WP80],
-    output=[q.mvaFall17V2noIso_WP80_1],
-    scopes=["ee", "emet"],
-)
-electron_mvaFall17V2noIso_WP80_2 = Producer(
-    name="electron_mvaFall17V2noIso_WP80_2",
-    call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso_WP80],
-    output=[q.mvaFall17V2noIso_WP80_2],
-    scopes=["ee"],
-)
-electron_mvaFall17V2noIso_WP90_1 = Producer(
-    name="electron_mvaFall17V2noIso_WP90_1",
-    call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso_WP90],
-    output=[q.mvaFall17V2noIso_WP90_1],
-    scopes=["ee", "emet"],
-)
-electron_mvaFall17V2noIso_WP90_2 = Producer(
-    name="electron_mvaFall17V2noIso_WP90_2",
-    call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso_WP90],
-    output=[q.mvaFall17V2noIso_WP90_2],
-    scopes=["ee"],
-)
-electron_mvaFall17V2noIso_WPL_1 = Producer(
-    name="electron_mvaFall17V2noIso_WPL_1",
-    call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso_WPL],
-    output=[q.mvaFall17V2noIso_WPL_1],
-    scopes=["ee", "emet"],
-)
-electron_mvaFall17V2noIso_WPL_2 = Producer(
-    name="electron_mvaFall17V2noIso_WPL_2",
-    call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso_WPL],
-    output=[q.mvaFall17V2noIso_WPL_2],
-    scopes=["ee"],
-)
+# electron_cutBased_HEEP_1 = Producer(
+#     name="electron_cutBased_HEEP_1",
+#     call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_cutBased_HEEP],
+#     output=[q.cutBased_HEEP_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_cutBased_HEEP_2 = Producer(
+#     name="electron_cutBased_HEEP_2",
+#     call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_cutBased_HEEP],
+#     output=[q.cutBased_HEEP_2],
+#     scopes=["ee"],
+# )
+# electron_isPFcand_1 = Producer(
+#     name="electron_isPFcand_1",
+#     call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_isPFcand],
+#     output=[q.isPFcand_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_isPFcand_2 = Producer(
+#     name="electron_isPFcand_2",
+#     call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_isPFcand],
+#     output=[q.isPFcand_2],
+#     scopes=["ee"],
+# )
+# electron_mvaFall17V2Iso_WP80_1 = Producer(
+#     name="electron_mvaFall17V2Iso_WP80_1",
+#     call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso_WP80],
+#     output=[q.mvaFall17V2Iso_WP80_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_mvaFall17V2Iso_WP80_2 = Producer(
+#     name="electron_mvaFall17V2Iso_WP80_2",
+#     call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso_WP80],
+#     output=[q.mvaFall17V2Iso_WP80_2],
+#     scopes=["ee"],
+# )
+# electron_mvaFall17V2Iso_WP90_1 = Producer(
+#     name="electron_mvaFall17V2Iso_WP90_1",
+#     call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso_WP90],
+#     output=[q.mvaFall17V2Iso_WP90_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_mvaFall17V2Iso_WP90_2 = Producer(
+#     name="electron_mvaFall17V2Iso_WP90_2",
+#     call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso_WP90],
+#     output=[q.mvaFall17V2Iso_WP90_2],
+#     scopes=["ee"],
+# )
+# electron_mvaFall17V2Iso_WPL_1 = Producer(
+#     name="electron_mvaFall17V2Iso_WPL_1",
+#     call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso_WPL],
+#     output=[q.mvaFall17V2Iso_WPL_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_mvaFall17V2Iso_WPL_2 = Producer(
+#     name="electron_mvaFall17V2Iso_WPL_2",
+#     call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2Iso_WPL],
+#     output=[q.mvaFall17V2Iso_WPL_2],
+#     scopes=["ee"],
+# )
+# electron_mvaFall17V2noIso_WP80_1 = Producer(
+#     name="electron_mvaFall17V2noIso_WP80_1",
+#     call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso_WP80],
+#     output=[q.mvaFall17V2noIso_WP80_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_mvaFall17V2noIso_WP80_2 = Producer(
+#     name="electron_mvaFall17V2noIso_WP80_2",
+#     call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso_WP80],
+#     output=[q.mvaFall17V2noIso_WP80_2],
+#     scopes=["ee"],
+# )
+# electron_mvaFall17V2noIso_WP90_1 = Producer(
+#     name="electron_mvaFall17V2noIso_WP90_1",
+#     call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso_WP90],
+#     output=[q.mvaFall17V2noIso_WP90_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_mvaFall17V2noIso_WP90_2 = Producer(
+#     name="electron_mvaFall17V2noIso_WP90_2",
+#     call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso_WP90],
+#     output=[q.mvaFall17V2noIso_WP90_2],
+#     scopes=["ee"],
+# )
+# electron_mvaFall17V2noIso_WPL_1 = Producer(
+#     name="electron_mvaFall17V2noIso_WPL_1",
+#     call="basefunctions::getvar<bool>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso_WPL],
+#     output=[q.mvaFall17V2noIso_WPL_1],
+#     scopes=["ee", "emet"],
+# )
+# electron_mvaFall17V2noIso_WPL_2 = Producer(
+#     name="electron_mvaFall17V2noIso_WPL_2",
+#     call="basefunctions::getvar<bool>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Electron_mvaFall17V2noIso_WPL],
+#     output=[q.mvaFall17V2noIso_WPL_2],
+#     scopes=["ee"],
+# )
 
 ###################
 ###END ELECTRONS###
@@ -1518,16 +1547,16 @@ FirstElectronProducers = ProducerGroup(
     subproducers=[
         electron_dxyErr_1,
         electron_dzErr_1,
-        electron_descaledown_1,
-        electron_descaleup_1,
-        electron_desigmadown_1,
-        electron_desigmaup_1,
+        # electron_descaledown_1,
+        # electron_descaleup_1,
+        # electron_desigmadown_1,
+        # electron_desigmaup_1,
         electron_deltaetaSC_1,
         electron_dr03EcalRecHitSumEt_1,
         electron_dr03HcalDepth1TowerSumEt_1,
         electron_dr03TkSumPt_1,
         electron_dr03TkSumPtHEEP_1,
-        electron_eCorr_1,
+        # electron_eCorr_1,
         electron_eInvMinusPInv_1,
         electron_energyErr_1,
         electron_hoe_1,
@@ -1535,33 +1564,36 @@ FirstElectronProducers = ProducerGroup(
         electron_jetPtRelv2_1,
         electron_jetRelIso_1,
         electron_miniPFRelIso_all_1,
-        electron_mvaFall17V2Iso_1,
-        electron_mvaFall17V2noIso_1,
-        electron_mvaTTH_1,
+        # electron_mvaFall17V2Iso_1,
+        # electron_mvaFall17V2noIso_1,
+        # electron_mvaTTH_1,
         electron_pfRelIso03_all_1,
         electron_pfRelIso03_chg_1,
         electron_r9_1,
         electron_scEtOverPt_1,
         electron_sieie_1,
         electron_sip3d_1,
-        electron_cutBased_1,
-        electron_jetIdx_1,
-        electron_photonIdx_1,
-        electron_tightCharge_1,
-        electron_vidNestedWPBitmap_1,
-        electron_vidNestedWPBitmapHEEP_1,
+        # electron_cutBased_1,
+        # electron_jetIdx_1,
+        # electron_photonIdx_1,
+        # electron_tightCharge_1,
+        # electron_vidNestedWPBitmap_1,
+        # electron_vidNestedWPBitmapHEEP_1,
         electron_convVeto_1,
-        electron_cutBased_HEEP_1,
-        electron_isPFcand_1,
-        electron_mvaFall17V2Iso_WP80_1,
-        electron_mvaFall17V2Iso_WP90_1,
-        electron_mvaFall17V2Iso_WPL_1,
-        electron_mvaFall17V2noIso_WP80_1,
-        electron_mvaFall17V2noIso_WP90_1,
-        electron_mvaFall17V2noIso_WPL_1,
+        # electron_cutBased_HEEP_1,
+        # electron_isPFcand_1,
+        # electron_mvaFall17V2Iso_WP80_1,
+        # electron_mvaFall17V2Iso_WP90_1,
+        # electron_mvaFall17V2Iso_WPL_1,
+        # electron_mvaFall17V2noIso_WP80_1,
+        # electron_mvaFall17V2noIso_WP90_1,
+        # electron_mvaFall17V2noIso_WPL_1,
         electron_jetNDauCharged_1,
         electron_lostHits_1,
         electron_seedGain_1,
+
+        electron_etaSC_1,
+        electron_energySC_1,
     ],
 )
 SecondElectronProducers = ProducerGroup(
@@ -1573,16 +1605,16 @@ SecondElectronProducers = ProducerGroup(
     subproducers=[
         electron_dxyErr_2,
         electron_dzErr_2,
-        electron_descaledown_2,
-        electron_descaleup_2,
-        electron_desigmadown_2,
-        electron_desigmaup_2,
+        # electron_descaledown_2,
+        # electron_descaleup_2,
+        # electron_desigmadown_2,
+        # electron_desigmaup_2,
         electron_deltaetaSC_2,
         electron_dr03EcalRecHitSumEt_2,
         electron_dr03HcalDepth1TowerSumEt_2,
         electron_dr03TkSumPt_2,
         electron_dr03TkSumPtHEEP_2,
-        electron_eCorr_2,
+        # electron_eCorr_2,
         electron_eInvMinusPInv_2,
         electron_energyErr_2,
         electron_hoe_2,
@@ -1590,33 +1622,36 @@ SecondElectronProducers = ProducerGroup(
         electron_jetPtRelv2_2,
         electron_jetRelIso_2,
         electron_miniPFRelIso_all_2,
-        electron_mvaFall17V2Iso_2,
-        electron_mvaFall17V2noIso_2,
-        electron_mvaTTH_2,
+        # electron_mvaFall17V2Iso_2,
+        # electron_mvaFall17V2noIso_2,
+        # electron_mvaTTH_2,
         electron_pfRelIso03_all_2,
         electron_pfRelIso03_chg_2,
         electron_r9_2,
         electron_scEtOverPt_2,
         electron_sieie_2,
         electron_sip3d_2,
-        electron_cutBased_2,
-        electron_jetIdx_2,
-        electron_photonIdx_2,
-        electron_tightCharge_2,
-        electron_vidNestedWPBitmap_2,
-        electron_vidNestedWPBitmapHEEP_2,
+        # electron_cutBased_2,
+        # electron_jetIdx_2,
+        # electron_photonIdx_2,
+        # electron_tightCharge_2,
+        # electron_vidNestedWPBitmap_2,
+        # electron_vidNestedWPBitmapHEEP_2,
         electron_convVeto_2,
-        electron_cutBased_HEEP_2,
-        electron_isPFcand_2,
-        electron_mvaFall17V2Iso_WP80_2,
-        electron_mvaFall17V2Iso_WP90_2,
-        electron_mvaFall17V2Iso_WPL_2,
-        electron_mvaFall17V2noIso_WP80_2,
-        electron_mvaFall17V2noIso_WP90_2,
-        electron_mvaFall17V2noIso_WPL_2,
+        # electron_cutBased_HEEP_2,
+        # electron_isPFcand_2,
+        # electron_mvaFall17V2Iso_WP80_2,
+        # electron_mvaFall17V2Iso_WP90_2,
+        # electron_mvaFall17V2Iso_WPL_2,
+        # electron_mvaFall17V2noIso_WP80_2,
+        # electron_mvaFall17V2noIso_WP90_2,
+        # electron_mvaFall17V2noIso_WPL_2,
         electron_jetNDauCharged_2,
         electron_lostHits_2,
         electron_seedGain_2,
+
+        electron_etaSC_2,
+        electron_energySC_2,
     ],
 )
 

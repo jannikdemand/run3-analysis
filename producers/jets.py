@@ -331,6 +331,75 @@ BasicJetQuantities = ProducerGroup(
 )
 
 ##########################
+# Basic SoftActivityJet Quantities
+##########################
+RenameSoftActivityJetHT = Producer(
+    name="RenameSoftActivityJetHT",
+    call="basefunctions::rename<float>({df}, {input}, {output})",
+    input=[nanoAOD.SoftActivityJetHT],
+    output=[q.soft_activity_jet_HT],
+    scopes=["mm", "mmet", "ee", "emet"],
+)
+RenameSoftActivityJetHT10 = Producer(
+    name="RenameSoftActivityJetHT10",
+    call="basefunctions::rename<float>({df}, {input}, {output})",
+    input=[nanoAOD.SoftActivityJetHT10],
+    output=[q.soft_activity_jet_HT10],
+    scopes=["mm", "mmet", "ee", "emet"],
+)
+RenameSoftActivityJetHT5 = Producer(
+    name="RenameSoftActivityJetHT5",
+    call="basefunctions::rename<float>({df}, {input}, {output})",
+    input=[nanoAOD.SoftActivityJetHT5],
+    output=[q.soft_activity_jet_HT5],
+    scopes=["mm", "mmet", "ee", "emet"],
+)
+RenameSoftActivityJetHT2 = Producer(
+    name="RenameSoftActivityJetHT2",
+    call="basefunctions::rename<float>({df}, {input}, {output})",
+    input=[nanoAOD.SoftActivityJetHT2],
+    output=[q.soft_activity_jet_HT2],
+    scopes=["mm", "mmet", "ee", "emet"],
+)
+RenameSoftActivityJetNjets10 = Producer(
+    name="RenameSoftActivityJetNjets10",
+    call="basefunctions::rename<int>({df}, {input}, {output})",
+    input=[nanoAOD.SoftActivityJetNjets10],
+    output=[q.soft_activity_jet_Njets10],
+    scopes=["mm", "mmet", "ee", "emet"],
+)
+RenameSoftActivityJetNjets5 = Producer(
+    name="RenameSoftActivityJetNjets5",
+    call="basefunctions::rename<int>({df}, {input}, {output})",
+    input=[nanoAOD.SoftActivityJetNjets5],
+    output=[q.soft_activity_jet_Njets5],
+    scopes=["mm", "mmet", "ee", "emet"],
+)
+RenameSoftActivityJetNjets2 = Producer(
+    name="RenameSoftActivityJetNjets2",
+    call="basefunctions::rename<int>({df}, {input}, {output})",
+    input=[nanoAOD.SoftActivityJetNjets2],
+    output=[q.soft_activity_jet_Njets2],
+    scopes=["mm", "mmet", "ee", "emet"],
+)
+SoftActivityJetQuantities = ProducerGroup(
+    name="SoftActivityJetQuantities",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mm", "mmet", "ee", "emet"],
+    subproducers=[
+        RenameSoftActivityJetHT,
+        RenameSoftActivityJetHT10,
+        RenameSoftActivityJetHT5,
+        RenameSoftActivityJetHT2,
+        RenameSoftActivityJetNjets10,
+        RenameSoftActivityJetNjets5,
+        RenameSoftActivityJetNjets2,
+    ],
+)
+
+##########################
 # Basic b-Jet Quantities
 # nbtag, pt, eta, phi, b-tag value
 ##########################

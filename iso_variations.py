@@ -1,5 +1,5 @@
 
-def apply_leptonIsoCutVariations(configuration, cut_lo, cut_up):
+def apply_leptonIsoCutVariations(configuration, cut_lo = -1., cut_up = 0.15):
     configuration.add_config_parameters(
         ["mm"],
         {

@@ -87,6 +87,9 @@ pt_rc_1 = Quantity("pt_rc_1")
 pt_rc_2 = Quantity("pt_rc_2")
 rndms = Quantity("rndms")
 
+Muon_abs_dxy = Quantity("Muon_abs_dxy")
+Muon_abs_dz = Quantity("Muon_abs_dz")
+
 #electron quantities
 descaledown_1 = Quantity("descaledown_1")
 descaledown_2 = Quantity("descaledown_2")
@@ -183,6 +186,18 @@ lostHits_1 = Quantity("lostHits_1")
 lostHits_2 = Quantity("lostHits_2")
 seedGain_1 = Quantity("seedGain_1")
 seedGain_2 = Quantity("seedGain_2")
+
+Electron_etaSC = Quantity("Electron_etaSC")
+Electron_energySC = Quantity("Electron_energySC")
+
+Electron_abs_dEtaInSeed = Quantity("Electron_abs_dEtaInSeed")
+Electron_abs_deltaPhiSuperClusterTrackAtVtx = Quantity("Electron_abs_deltaPhiSuperClusterTrackAtVtx")
+Electron_abs_eInvMinusPInv = Quantity("Electron_abs_eInvMinusPInv")
+
+etaSC_1 = Quantity("etaSC_1")
+etaSC_2 = Quantity("etaSC_2")
+energySC_1 = Quantity("energySC_1")
+energySC_2 = Quantity("energySC_2")
 
 #Muon Quantities
 dxybs_1 = Quantity("dxybs_1")
@@ -292,6 +307,14 @@ bpt_2 = Quantity("bpt_2")
 beta_2 = Quantity("beta_2")
 bphi_2 = Quantity("bphi_2")
 btag_value_2 = Quantity("btag_value_2")
+
+soft_activity_jet_HT = Quantity("soft_activity_jet_HT")
+soft_activity_jet_HT10 = Quantity("soft_activity_jet_HT10")
+soft_activity_jet_HT5 = Quantity("soft_activity_jet_HT5")
+soft_activity_jet_HT2 = Quantity("soft_activity_jet_HT2")
+soft_activity_jet_Njets10 = Quantity("soft_activity_jet_Njets10")
+soft_activity_jet_Njets5 = Quantity("soft_activity_jet_Njets5")
+soft_activity_jet_Njets2 = Quantity("soft_activity_jet_Njets2")
 
 dielectron_veto = Quantity("dielectron_veto")
 dimuon_veto = Quantity("dimuon_veto")
