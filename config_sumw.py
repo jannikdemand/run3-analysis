@@ -2,26 +2,14 @@ from __future__ import annotations  # needed for type annotations in > python 3.
 
 from typing import List
 
-# from .producers import electrons as electrons
 from .producers import event as event
-from .producers import genparticles as genparticles
-# from .producers import jets as jets
-# from .producers import met as met
 from .producers import muons as muons
-# from .producers import pairquantities as pairquantities
-# from .producers import pairselection as pairselection
-# from .producers import scalefactors as scalefactors
-# from .producers import triggers as triggers
 from .quantities import nanoAOD as nanoAOD
 from .quantities import output as q
-# from .triggersetup import add_earlyRun3TriggerSetup
-# from .jet_variations import add_jetVariations
-# from .jec_data import add_jetCorrectionData
 from code_generation.configuration import Configuration
 from code_generation.modifiers import EraModifier, SampleModifier
 from code_generation.rules import AppendProducer, RemoveProducer, ReplaceProducer
 from code_generation.systematics import SystematicShift, SystematicShiftByQuantity
-# from .variations import add_leptonSFShifts  # add_tauVariations
 
 
 def build_config(
@@ -70,12 +58,11 @@ def build_config(
         "mm",
         [
             q.is_data,
-            q.is_embedding,
             q.is_ttbar,
+            q.is_singletop,
+            q.is_ewk_tau,
             q.is_dyjets,
             q.is_wjets,
-            q.is_ggh_htautau,
-            q.is_vbf_htautau,
             q.is_diboson,
 
             nanoAOD.run,

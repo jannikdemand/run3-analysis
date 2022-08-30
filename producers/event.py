@@ -58,6 +58,20 @@ is_ttbar = Producer(
     output=[q.is_ttbar],
     scopes=["global"],
 )
+is_singletop = Producer(
+    name="is_singletop",
+    call="basefunctions::DefineQuantity({df}, {output}, {is_singletop})",
+    input=[],
+    output=[q.is_singletop],
+    scopes=["global"],
+)
+is_ewk_tau = Producer(
+    name="is_ewk_tau",
+    call="basefunctions::DefineQuantity({df}, {output}, {is_ewk_tau})",
+    input=[],
+    output=[q.is_ewk_tau],
+    scopes=["global"],
+)
 is_dyjets = Producer(
     name="is_dyjets",
     call="basefunctions::DefineQuantity({df}, {output}, {is_dyjets})",
@@ -102,12 +116,11 @@ SampleFlags = ProducerGroup(
     scopes=["global"],
     subproducers=[
         is_data,
-        is_embedding,
         is_ttbar,
+        is_singletop,
+        is_ewk_tau,
         is_dyjets,
         is_wjets,
-        is_ggh_htautau,
-        is_vbf_htautau,
         is_diboson,
     ],
 )

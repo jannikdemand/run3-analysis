@@ -127,9 +127,8 @@ BaseElectrons = ProducerGroup(
     subproducers=[
         ElectronPtCut,
         ElectronEtaCut,
-        ElectronDxyCut,
-        ElectronDzCut,
-        # HERE tmp
+        # ElectronDxyCut,
+        # ElectronDzCut,
         # ElectronIDCut,
         # ElectronIsoCut,
     ],
@@ -180,7 +179,7 @@ GoodElectrons = ProducerGroup(
     call="physicsobject::CombineMasks({df}, {output}, {input})",
     input=[q.base_electrons_mask],
     output=[q.good_electrons_mask],
-    scopes=["ee", "emet"],
+    scopes=["ee"],
     subproducers=[
         GoodElectronPtCut,
         GoodElectronEtaCut,
@@ -378,6 +377,7 @@ LooseElectrons = ProducerGroup(
         ElectronVetoIsoCut,
     ],
 )
+
 VetoElectrons = Producer(
     name="VetoElectrons",
     call="physicsobject::VetoCandInMask({df}, {output}, {input}, {electron_index_in_pair})",
@@ -413,10 +413,9 @@ OneGoodElectronSelection = ProducerGroup(
         OneGoodElectronFilter,
         OneGoodElectron,
 
-        # HERE tmp
-        # LooseElectrons,
-        # VetoElectrons,
-        # ExtraElectronsVeto,
+        LooseElectrons,
+        VetoElectrons,
+        ExtraElectronsVeto,
 
         # VetoElectronFilter,
     ]
@@ -449,79 +448,3 @@ TwoGoodElectronSelection = ProducerGroup(
         TwoGoodElectronFilter,
     ]
 )
-
-####################
-# Set of producers used for di-electron veto
-####################
-
-# VetoElectrons = Producer(
-#     name="VetoElectrons",
-#     call="physicsobject::VetoCandInMask({df}, {output}, {input}, {electron_index_in_pair})",
-#     input=[q.base_electrons_mask, q.selectedLepton],
-#     output=[q.veto_electrons_mask],
-#     scopes=["ee", "emet"],
-# )
-# VetoSecondElectron = Producer(
-#     name="VetoSecondElectron",
-#     call="physicsobject::VetoCandInMask({df}, {output}, {input}, {second_electron_index_in_pair})",
-#     input=[q.veto_electrons_mask, q.selectedLepton],
-#     output=[q.veto_electrons_mask_2],
-#     scopes=["ee"],
-# )
-# ExtraElectronsVeto = Producer(
-#     name="ExtraElectronsVeto",
-#     call="physicsobject::LeptonVetoFlag({df}, {output}, {input})",
-#     input={
-#         "em": [q.veto_electrons_mask],
-#         "et": [q.veto_electrons_mask],
-#         "mt": [q.base_electrons_mask],
-#         "tt": [q.base_electrons_mask],
-#         "mm": [q.base_electrons_mask],
-#         "ee": [q.veto_electrons_mask_2],
-#     },
-#     output=[q.electron_veto_flag],
-#     scopes=["em", "et", "mt", "tt", "mm", "ee"],
-# )
-
-# DiElectronVetoPtCut = Producer(
-#     name="DiElectronVetoPtCut",
-#     call="physicsobject::CutPt({df}, {input}, {output}, {min_dielectronveto_pt})",
-#     input=[nanoAOD.Electron_pt],
-#     output=[],
-#     scopes=["global"],
-# )
-# DiElectronVetoIDCut = Producer(
-#     name="DiElectronVetoIDCut",
-#     call='physicsobject::electron::CutCBID({df}, {output}, "{dielectronveto_id}", {dielectronveto_id_wp})',
-#     input=[],
-#     output=[],
-#     scopes=["global"],
-# )
-# DiElectronVetoElectrons = ProducerGroup(
-#     name="DiElectronVetoElectrons",
-#     call="physicsobject::CombineMasks({df}, {output}, {input})",
-#     input=ElectronEtaCut.output
-#     + ElectronDxyCut.output
-#     + ElectronDzCut.output
-#     + ElectronIsoCut.output,
-#     output=[],
-#     scopes=["global"],
-#     subproducers=[
-#         DiElectronVetoPtCut,
-#         DiElectronVetoIDCut,
-#     ],
-# )
-# DiElectronVeto = ProducerGroup(
-#     name="DiElectronVeto",
-#     call="physicsobject::CheckForDiLeptonPairs({df}, {output}, {input}, {dileptonveto_dR})",
-#     input=[
-#         nanoAOD.Electron_pt,
-#         nanoAOD.Electron_eta,
-#         nanoAOD.Electron_phi,
-#         nanoAOD.Electron_mass,
-#         nanoAOD.Electron_charge,
-#     ],
-#     output=[q.dielectron_veto],
-#     scopes=["global"],
-#     subproducers=[DiElectronVetoElectrons],
-# )

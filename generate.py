@@ -10,17 +10,19 @@ def run(args):
     analysis_name = "earlyrun3"
 
     available_samples = [
-        "ggh_htautau",
-        "ggh_hbb",
-        "vbf_htautau",
-        "vbf_hbb",
-        "rem_htautau",
-        "rem_hbb",
-        "embedding",
-        "embedding_mc",
-        "electroweak_boson",
+        # "ggh_htautau",
+        # "ggh_hbb",
+        # "vbf_htautau",
+        # "vbf_hbb",
+        # "rem_htautau",
+        # "rem_hbb",
+        # "embedding",
+        # "embedding_mc",
+        # "electroweak_boson",
 
+        "ewk_tau",
         "ttbar",
+        "singletop",
         "diboson",
         "dyjets",
         "wjets",

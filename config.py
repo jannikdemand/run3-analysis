@@ -22,7 +22,8 @@ from code_generation.modifiers import EraModifier, SampleModifier
 from code_generation.rules import AppendProducer, RemoveProducer, ReplaceProducer
 from code_generation.systematics import SystematicShift, SystematicShiftByQuantity
 from .variations import add_leptonSFShifts, add_PUweightsShifts
-from .iso_variations import apply_leptonIsoCutVariations
+from .customize_leptonIDIso import customize_MuonIDIso, customize_ElectronIDIso
+
 
 def build_config(
     era: str,
@@ -49,41 +50,25 @@ def build_config(
         {
             "PU_reweighting_file": EraModifier(
                 {
-                    "2016": "",
-                    "2017": "data/jsonpog-integration/POG/LUM/2017_UL/puWeights.json.gz",
-                    "2018": "data/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz",
+                    "2022": "",
                 }
             ),
             "PU_reweighting_era": EraModifier(
                 {
-                    "2016": "",
-                    "2017": "Collisions17_UltraLegacy_goldenJSON",
-                    "2018": "Collisions18_UltraLegacy_goldenJSON",
+                    "2022": "",
                 }
             ),
             "PU_reweighting_variation": "nominal",
 
             "golden_json_file": EraModifier(
                 {
-                    "2016": "data/golden_json/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt",
-                    "2017": "data/golden_json/Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt",
-                    "2018": "data/golden_json/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt",
+                    "2022": "data/run3_json/Cert_Collisions2022_355100_357550_Golden.json",
                 }
             ),
 
             "met_filters": EraModifier(
                 {
-                    "2018": [
-                        "Flag_goodVertices",
-                        "Flag_globalSuperTightHalo2016Filter",
-                        "Flag_HBHENoiseFilter",
-                        "Flag_HBHENoiseIsoFilter",
-                        "Flag_EcalDeadCellTriggerPrimitiveFilter",
-                        "Flag_BadPFMuonFilter",
-                        # "Flag_BadPFMuonDzFilter", # only since nanoAODv9 available
-                        "Flag_eeBadScFilter",
-                        "Flag_ecalBadCalibFilter",
-                    ],
+                    "2022": [],
                 }
             ),
         },
@@ -98,7 +83,6 @@ def build_config(
             "max_muon_dxy": 1.e9,
             "max_muon_dz": 1.e9,
             "muon_id": "Muon_tightId",
-
             "muon_iso_cut": 1.e9,
         },
     )
@@ -122,14 +106,14 @@ def build_config(
         {
             "muon_index_in_pair": 0,
             "second_muon_index_in_pair": 1,
-            "min_muon_pt": 25.0,
+            "min_muon_pt": 20.0,
             "max_muon_eta": 2.4,
             "n_good_muons": 2,
 
-            "RoccoR_file": '"data/RoccoR_files/RoccoR2018UL.txt"',
-            "RoccoR_seed": 1,
-            "RoccoR_error_set": 0,
-            "RoccoR_error_member": 0,
+            # "RoccoR_file": '"data/RoccoR_files/RoccoR2018UL.txt"',
+            # "RoccoR_seed": 1,
+            # "RoccoR_error_set": 0,
+            # "RoccoR_error_member": 0,
         },
     )
 
@@ -138,8 +122,9 @@ def build_config(
         ["mmet"],
         {
             "muon_index_in_pair": 0,  # dummy index for the selected lepton
-            "min_muon_pt": 25.0,
+            "min_muon_pt": 20.0,
             "max_muon_eta": 2.4,
+            "n_good_muons": 1,
 
             "min_muon_veto_pt": 10.0,
             "max_muon_veto_eta": 2.4,
@@ -147,12 +132,11 @@ def build_config(
             "max_muon_veto_dz": 1.e9,
             "muon_veto_id": "Muon_looseId",
             "muon_veto_iso_cut": 1.e9,
-            "n_good_muons": 1,
 
-            "RoccoR_file": '"data/RoccoR_files/RoccoR2018UL.txt"',
-            "RoccoR_seed": 1,
-            "RoccoR_error_set": 0,
-            "RoccoR_error_member": 0,
+            # "RoccoR_file": '"data/RoccoR_files/RoccoR2018UL.txt"',
+            # "RoccoR_seed": 1,
+            # "RoccoR_error_set": 0,
+            # "RoccoR_error_member": 0,
         },
     )
 
@@ -161,7 +145,7 @@ def build_config(
         ["ee"],
         {
             "electron_index_in_pair": 0,
-            "min_electron_pt": 25.0,
+            "min_electron_pt": 20.0,
             "max_electron_eta": 2.5,
 
             "ele_id": "Electron_cutBased",
@@ -177,8 +161,9 @@ def build_config(
         {
             "electron_index_in_pair": 0,
             "second_electron_index_in_pair": 1,
-            "min_electron_pt": 25.0,
+            "min_electron_pt": 20.0,
             "max_electron_eta": 2.5,
+            "n_good_electrons": 1,
 
             "ele_id_noiso": "Electron_vidNestedWPBitmap",
             "ele_id_noiso_wp": 3,
@@ -190,12 +175,12 @@ def build_config(
             "electron_veto_id": "Electron_cutBased",
             "electron_veto_id_wp": 1,
             "electron_veto_iso_cut": 1.e9,
-            "n_good_electrons": 1
         },
     )
 
-    # isolation cuts
-    apply_leptonIsoCutVariations(configuration, -1.0, 0.15)
+    # ID and isolation cuts
+    customize_MuonIDIso(configuration)
+    customize_ElectronIDIso(configuration)
 
     # Muon scale factors configuration
     configuration.add_config_parameters(
@@ -203,18 +188,14 @@ def build_config(
         {
             "muon_sf_file": EraModifier(
                 {
-                    # "2016": "data/jsonpog-integration/POG/MUO/2016postVFP_UL/muon_Z.json.gz",
-                    # "2017": "data/jsonpog-integration/POG/MUO/2017_UL/muon_Z.json.gz",
-                    "2018": "data/jsonpog-integration/POG/MUO/2018_UL/muon_Z.json.gz",
+                    "2022": "",
                 }
             ),
             "muon_id_sf_name": "NUM_TightID_DEN_TrackerMuons",
             "muon_iso_sf_name": "NUM_TightRelIso_DEN_TightIDandIPCut",
             "muon_sf_year_id": EraModifier(
                 {
-                    # "2016": "2016postVFP_UL",
-                    # "2017": "2017_UL",
-                    "2018": "2018_UL",
+                    "2022": "",
                 }
             ),
             "muon_sf_varation": "sf",  # "sf" is nominal, "systup"/"systdown" are up/down variations
@@ -226,31 +207,24 @@ def build_config(
         {
             "ele_sf_file": EraModifier(
                 {
-                    "2016preVFP": "data/jsonpog-integration/POG/EGM/2016preVFP_UL/electron.json.gz",
-                    "2016postVFP": "data/jsonpog-integration/POG/EGM/2016postVFP_UL/electron.json.gz",
-                    "2017": "data/jsonpog-integration/POG/EGM/2017_UL/electron.json.gz",
-                    "2018": "data/jsonpog-integration/POG/EGM/2018_UL/electron.json.gz",
+                    "2022": "",
                 }
             ),
             "ele_id_sf_name": "UL-Electron-ID-SF",
             "ele_sf_year_id": EraModifier(
                 {
-                    "2016preVFP": "2016preVFP",
-                    "2016postVFP": "2016postVFP",
-                    "2017": "2017",
-                    "2018": "2018",
+                    "2022": "",
                 }
             ),
             "ele_sf_varation": "sf",  # "sf" is nominal, "sfup"/"sfdown" are up/down variations
         },
     )
 
-
     ## all scopes misc settings
     configuration.add_config_parameters(
         scopes,
         {
-            "pairselection_min_dR": -1.,  # 0.5,
+            "pairselection_min_dR": -1.,
         },
     )
 
@@ -262,24 +236,17 @@ def build_config(
             event.npartons,
             event.Npu,
             event.NpvGood,
-            event.MetFilter,
-            event.PUweights,
+            # event.MetFilter,
+            # event.PUweights,
             event.EventGenWeight,
             genparticles.DYFilters,
+            muons.MuonVars,
             muons.BaseMuons,
-            electrons.ElectronVarsLess,
+            electrons.ElectronVars,
             electrons.BaseElectrons,
             met.MetBasics,
         ],
     )
-    ## add prefiring
-    if era != "2018":
-        configuration.add_producers(
-            "global",
-            [
-                event.PrefireWeight,
-            ],
-        )
 
     # common
     configuration.add_producers(
@@ -313,7 +280,7 @@ def build_config(
             pairquantities.FirstMuonProducers,
             pairquantities.SecondMuonProducers,
 
-            scalefactors.MuonIDIso_SF,
+            # scalefactors.MuonIDIso_SF,
             triggers.MMGenerateSingleMuonTriggerFlags1,
             triggers.MMGenerateSingleMuonTriggerFlags2,
 
@@ -327,7 +294,7 @@ def build_config(
             genparticles.UnrollGenMatchLV1,
             genparticles.UnrollGenMatchLV2,
 
-            pairquantities.ApplyRoccoRMC,
+            # pairquantities.ApplyRoccoRMC,
         ],
     )
 
@@ -342,7 +309,7 @@ def build_config(
             pairquantities.LepMETQuantities,
             pairquantities.FirstMuonProducers,
 
-            scalefactors.MuonIDIso_SF,
+            # scalefactors.MuonIDIso_SF,
             triggers.MMGenerateSingleMuonTriggerFlags1,
 
             genparticles.gen_match_1,
@@ -351,7 +318,7 @@ def build_config(
 
             genparticles.UnrollGenMatchLV1,
 
-            pairquantities.ApplyRoccoRMC,
+            # pairquantities.ApplyRoccoRMC,
         ],
     )
 
@@ -372,7 +339,7 @@ def build_config(
             pairquantities.FirstElectronProducers,
             pairquantities.SecondElectronProducers,
 
-            scalefactors.EleID_SF,
+            # scalefactors.EleID_SF,
             triggers.EEGenerateSingleElectronTriggerFlags1,
             triggers.EEGenerateSingleElectronTriggerFlags2,
 
@@ -399,7 +366,7 @@ def build_config(
             pairquantities.LepMETQuantities,
             pairquantities.FirstElectronProducers,
 
-            scalefactors.EleID_SF,
+            # scalefactors.EleID_SF,
             triggers.EEGenerateSingleElectronTriggerFlags1,
 
             genparticles.gen_match_1,
@@ -412,42 +379,47 @@ def build_config(
 
 
     # modification rules
-    configuration.add_modification_rule(
-        ["mm", "mmet"],
-        ReplaceProducer(
-            producers=[pairquantities.ApplyRoccoRMC, pairquantities.ApplyRoccoRData],
-            samples="data",
-            update_output=False,
-        ),
-    )
+    # configuration.add_modification_rule(
+    #     ["mm", "mmet"],
+    #     ReplaceProducer(
+    #         producers=[pairquantities.ApplyRoccoRMC, pairquantities.ApplyRoccoRData],
+    #         samples="data",
+    #         update_output=False,
+    #     ),
+    # )
 
-    configuration.add_modification_rule(
-        ["ee", "emet"],
-        ReplaceProducer(
-            producers=[pairquantities.electron_lostHits_1, pairquantities.electron_lostHits_1_UChar],
-            samples=available_sample_types,
-        ),
-    )
-    configuration.add_modification_rule(
-        ["ee"],
-        ReplaceProducer(
-            producers=[pairquantities.electron_lostHits_2, pairquantities.electron_lostHits_2_UChar],
-            samples=available_sample_types,
-        ),
-    )
+    # configuration.add_modification_rule(
+    #     ["mm", "mmet"],
+    #     ReplaceProducer(
+    #         producers=[muons.GoodMuons, muons.GoodMuonsCustom],
+    #         samples="data",
+    #         update_output=False,
+    #     ),
+    # )
 
-    configuration.add_modification_rule(
-        ["mm", "mmet"],
-        RemoveProducer(producers=scalefactors.MuonIDIso_SF, samples="data"),
-    )
-    configuration.add_modification_rule(
-        ["ee", "emet"],
-        RemoveProducer(producers=scalefactors.EleID_SF, samples="data"),
-    )
+    # configuration.add_modification_rule(
+    #     ["ee", "emet"],
+    #     ReplaceProducer(
+    #         producers=[electrons.GoodElectrons, electrons.GoodElectronsCustom],
+    #         samples="data",
+    #         update_output=False,
+    #     ),
+    # )
+
+    # configuration.add_modification_rule(
+    #     ["mm", "mmet"],
+    #     RemoveProducer(producers=scalefactors.MuonIDIso_SF, samples="data"),
+    # )
+
+    # configuration.add_modification_rule(
+    #     ["ee", "emet"],
+    #     RemoveProducer(producers=scalefactors.EleID_SF, samples="data"),
+    # )
+
     configuration.add_modification_rule(
         "global",
         RemoveProducer(
-            producers=[event.PUweights, event.EventGenWeight, event.npartons, genparticles.DYFilters, event.Npu,],
+            producers=[event.EventGenWeight, event.npartons, genparticles.DYFilters, event.Npu,],  # event.PUweights, 
             samples=["data"],
         ),
     )
@@ -512,18 +484,36 @@ def build_config(
         ),
     )
 
+    configuration.add_modification_rule(
+        "ee",
+        RemoveProducer(
+            producers=[
+                pairquantities.electron_eCorr_1,
+                pairquantities.electron_eCorr_2,
+            ],
+            samples=available_sample_types,
+        ),
+    )
+    configuration.add_modification_rule(
+        "emet",
+        RemoveProducer(
+            producers=[
+                pairquantities.electron_eCorr_1,
+            ],
+            samples=available_sample_types,
+        ),
+    )
 
     # Output contents
     configuration.add_outputs(
         scopes,
         [
             q.is_data,
-            q.is_embedding,
             q.is_ttbar,
+            q.is_singletop,
+            q.is_ewk_tau,
             q.is_dyjets,
             q.is_wjets,
-            q.is_ggh_htautau,
-            q.is_vbf_htautau,
             q.is_diboson,
 
             nanoAOD.run,
@@ -532,7 +522,7 @@ def build_config(
             q.npvGood,
             q.npu,
             q.npartons,
-            q.puweight,
+            # q.puweight,
             q.genweight,
 
             q.met_uncorrected,
@@ -722,18 +712,18 @@ def build_config(
 
             q.gen_m_vis,
 
-            q.pt_rc_1,
-            q.pt_rc_2,
+            # q.pt_rc_1,
+            # q.pt_rc_2,
 
             q.m_vis,
             q.pt_vis,
 
             triggers.MMGenerateSingleMuonTriggerFlags1.output_group,
             triggers.MMGenerateSingleMuonTriggerFlags2.output_group,
-            q.id_wgt_mu_1,
-            q.iso_wgt_mu_1,
-            q.id_wgt_mu_2,
-            q.iso_wgt_mu_2,
+            # q.id_wgt_mu_1,
+            # q.iso_wgt_mu_1,
+            # q.id_wgt_mu_2,
+            # q.iso_wgt_mu_2,
         ],
     )
 
@@ -810,13 +800,13 @@ def build_config(
             q.genmatch_phi_1,
             q.genmatch_mass_1,
 
-            q.pt_rc_1,
+            # q.pt_rc_1,
 
             q.mt_1,
 
             triggers.MMGenerateSingleMuonTriggerFlags1.output_group,
-            q.id_wgt_mu_1,
-            q.iso_wgt_mu_1,
+            # q.id_wgt_mu_1,
+            # q.iso_wgt_mu_1,
 
             q.muon_veto_flag,
         ],
@@ -865,19 +855,19 @@ def build_config(
             q.sieie_1,
             q.sip3d_1,
 
-            # q.cutBased_1,
-            # q.jetIdx_1,
-            # q.photonIdx_1,
-            # q.tightCharge_1,
-            # q.vidNestedWPBitmap_1,
-            # q.vidNestedWPBitmapHEEP_1,
+            q.cutBased_1,
+            q.jetIdx_1,
+            q.photonIdx_1,
+            q.tightCharge_1,
+            q.vidNestedWPBitmap_1,
+            q.vidNestedWPBitmapHEEP_1,
 
             q.jetNDauCharged_1,
             q.lostHits_1,
             q.seedGain_1,
             
             q.convVeto_1,
-            # q.cutBased_HEEP_1,
+            q.cutBased_HEEP_1,
             q.isPFcand_1,
             # q.mvaFall17V2Iso_WP80_1,
             # q.mvaFall17V2Iso_WP90_1,
@@ -915,19 +905,19 @@ def build_config(
             q.sieie_2,
             q.sip3d_2,
 
-            # q.cutBased_2,
-            # q.jetIdx_2,
-            # q.photonIdx_2,
-            # q.tightCharge_2,
-            # q.vidNestedWPBitmap_2,
-            # q.vidNestedWPBitmapHEEP_2,
+            q.cutBased_2,
+            q.jetIdx_2,
+            q.photonIdx_2,
+            q.tightCharge_2,
+            q.vidNestedWPBitmap_2,
+            q.vidNestedWPBitmapHEEP_2,
 
             q.jetNDauCharged_2,
             q.lostHits_2,
             q.seedGain_2,
 
             q.convVeto_2,
-            # q.cutBased_HEEP_2,
+            q.cutBased_HEEP_2,
             q.isPFcand_2,
             # q.mvaFall17V2Iso_WP80_2,
             # q.mvaFall17V2Iso_WP90_2,
@@ -985,8 +975,8 @@ def build_config(
 
             triggers.EEGenerateSingleElectronTriggerFlags1.output_group,
             triggers.EEGenerateSingleElectronTriggerFlags2.output_group,
-            q.id_wgt_ele_wpmedium_1,
-            q.id_wgt_ele_wpmedium_2,
+            # q.id_wgt_ele_wpmedium_1,
+            # q.id_wgt_ele_wpmedium_2,
         ],
     )
 
@@ -1033,19 +1023,19 @@ def build_config(
             q.sieie_1,
             q.sip3d_1,
 
-            # q.cutBased_1,
-            # q.jetIdx_1,
-            # q.photonIdx_1,
-            # q.tightCharge_1,
-            # q.vidNestedWPBitmap_1,
-            # q.vidNestedWPBitmapHEEP_1,
+            q.cutBased_1,
+            q.jetIdx_1,
+            q.photonIdx_1,
+            q.tightCharge_1,
+            q.vidNestedWPBitmap_1,
+            q.vidNestedWPBitmapHEEP_1,
 
             q.jetNDauCharged_1,
             q.lostHits_1,
             q.seedGain_1,
 
             q.convVeto_1,
-            # q.cutBased_HEEP_1,
+            q.cutBased_HEEP_1,
             q.isPFcand_1,
             # q.mvaFall17V2Iso_WP80_1,
             # q.mvaFall17V2Iso_WP90_1,
@@ -1068,22 +1058,21 @@ def build_config(
             q.mt_1,
 
             triggers.EEGenerateSingleElectronTriggerFlags1.output_group,
-            q.id_wgt_ele_wpmedium_1,
+            # q.id_wgt_ele_wpmedium_1,
 
-            # q.electron_veto_flag,
+            q.electron_veto_flag,
         ],
     )
 
     #########################
     # PU weights systematics
     #########################
-    add_PUweightsShifts(configuration)
+    # add_PUweightsShifts(configuration)
 
     #########################
     # Lepton ID/Iso scale factor shifts, channel dependent
     #########################
-    add_leptonSFShifts(configuration)
-    # add_leptonIsoCutVariations(configuration)
+    # add_leptonSFShifts(configuration)
 
     #########################
     # Import triggersetup   #
@@ -1093,145 +1082,147 @@ def build_config(
     #########################
     # MET Shifts
     #########################
-    configuration.add_shift(
-        SystematicShiftByQuantity(
-            name="metUnclusteredEnUp",
-            quantity_change={
-                nanoAOD.MET_pt: "PuppiMET_ptUnclusteredUp",
-                nanoAOD.MET_phi: "PuppiMET_phiUnclusteredUp",
-            },
-            scopes=["global"],
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShiftByQuantity(
-            name="metUnclusteredEnDown",
-            quantity_change={
-                nanoAOD.MET_pt: "PuppiMET_ptUnclusteredDown",
-                nanoAOD.MET_phi: "PuppiMET_phiUnclusteredDown",
-            },
-            scopes=["global"],
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
+    # configuration.add_shift(
+    #     SystematicShiftByQuantity(
+    #         name="metUnclusteredEnUp",
+    #         quantity_change={
+    #             nanoAOD.MET_pt: "PuppiMET_ptUnclusteredUp",
+    #             nanoAOD.MET_phi: "PuppiMET_phiUnclusteredUp",
+    #         },
+    #         scopes=["global"],
+    #     ),
+    #     samples=[
+    #         sample
+    #         for sample in available_sample_types
+    #         if sample not in ["data", "embedding", "embedding_mc"]
+    #     ],
+    # )
+    # configuration.add_shift(
+    #     SystematicShiftByQuantity(
+    #         name="metUnclusteredEnDown",
+    #         quantity_change={
+    #             nanoAOD.MET_pt: "PuppiMET_ptUnclusteredDown",
+    #             nanoAOD.MET_phi: "PuppiMET_phiUnclusteredDown",
+    #         },
+    #         scopes=["global"],
+    #     ),
+    #     samples=[
+    #         sample
+    #         for sample in available_sample_types
+    #         if sample not in ["data", "embedding", "embedding_mc"]
+    #     ],
+    # )
+
     #########################
     # Prefiring Shifts
     #########################
-    if era != "2018":
-        configuration.add_shift(
-            SystematicShiftByQuantity(
-                name="prefiringDown",
-                quantity_change={
-                    nanoAOD.prefireWeight: "L1PreFiringWeight_Dn",
-                },
-                scopes=["global"],
-            )
-        )
-        configuration.add_shift(
-            SystematicShiftByQuantity(
-                name="prefiringUp",
-                quantity_change={
-                    nanoAOD.prefireWeight: "L1PreFiringWeight_Up",
-                },
-                scopes=["global"],
-            )
-        )
+    # if era != "2018":
+    #     configuration.add_shift(
+    #         SystematicShiftByQuantity(
+    #             name="prefiringDown",
+    #             quantity_change={
+    #                 nanoAOD.prefireWeight: "L1PreFiringWeight_Dn",
+    #             },
+    #             scopes=["global"],
+    #         )
+    #     )
+    #     configuration.add_shift(
+    #         SystematicShiftByQuantity(
+    #             name="prefiringUp",
+    #             quantity_change={
+    #                 nanoAOD.prefireWeight: "L1PreFiringWeight_Up",
+    #             },
+    #             scopes=["global"],
+    #         )
+    #     )
+
     #########################
     # MET Recoil Shifts
     #########################
-    configuration.add_shift(
-        SystematicShift(
-            name="metRecoilResponseUp",
-            shift_config={
-                ("mm", "mmet", "ee", "emet"): {
-                    "apply_recoil_resolution_systematic": False,
-                    "apply_recoil_response_systematic": True,
-                    "recoil_systematic_shift_up": True,
-                    "recoil_systematic_shift_down": False,
-                },
-            },
-            producers={
-                ("mm", "mmet", "ee", "emet"): met.ApplyRecoilCorrections
-            },
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="metRecoilResponseDown",
-            shift_config={
-                ("mm", "mmet", "ee", "emet"): {
-                    "apply_recoil_resolution_systematic": False,
-                    "apply_recoil_response_systematic": True,
-                    "recoil_systematic_shift_up": False,
-                    "recoil_systematic_shift_down": True,
-                },
-            },
-            producers={
-                ("mm", "mmet", "ee", "emet"): met.ApplyRecoilCorrections
-            },
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="metRecoilResolutionUp",
-            shift_config={
-                ("mm", "mmet", "ee", "emet"): {
-                    "apply_recoil_resolution_systematic": True,
-                    "apply_recoil_response_systematic": False,
-                    "recoil_systematic_shift_up": True,
-                    "recoil_systematic_shift_down": False,
-                },
-            },
-            producers={
-                ("mm", "mmet", "ee", "emet"): met.ApplyRecoilCorrections
-            },
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
-    configuration.add_shift(
-        SystematicShift(
-            name="metRecoilResolutionDown",
-            shift_config={
-                ("mm", "mmet", "ee", "emet"): {
-                    "apply_recoil_resolution_systematic": True,
-                    "apply_recoil_response_systematic": False,
-                    "recoil_systematic_shift_up": False,
-                    "recoil_systematic_shift_down": True,
-                },
-            },
-            producers={
-                ("mm", "mmet", "ee", "emet"): met.ApplyRecoilCorrections
-            },
-        ),
-        samples=[
-            sample
-            for sample in available_sample_types
-            if sample not in ["data", "embedding", "embedding_mc"]
-        ],
-    )
+    # configuration.add_shift(
+    #     SystematicShift(
+    #         name="metRecoilResponseUp",
+    #         shift_config={
+    #             ("mm", "mmet", "ee", "emet"): {
+    #                 "apply_recoil_resolution_systematic": False,
+    #                 "apply_recoil_response_systematic": True,
+    #                 "recoil_systematic_shift_up": True,
+    #                 "recoil_systematic_shift_down": False,
+    #             },
+    #         },
+    #         producers={
+    #             ("mm", "mmet", "ee", "emet"): met.ApplyRecoilCorrections
+    #         },
+    #     ),
+    #     samples=[
+    #         sample
+    #         for sample in available_sample_types
+    #         if sample not in ["data", "embedding", "embedding_mc"]
+    #     ],
+    # )
+    # configuration.add_shift(
+    #     SystematicShift(
+    #         name="metRecoilResponseDown",
+    #         shift_config={
+    #             ("mm", "mmet", "ee", "emet"): {
+    #                 "apply_recoil_resolution_systematic": False,
+    #                 "apply_recoil_response_systematic": True,
+    #                 "recoil_systematic_shift_up": False,
+    #                 "recoil_systematic_shift_down": True,
+    #             },
+    #         },
+    #         producers={
+    #             ("mm", "mmet", "ee", "emet"): met.ApplyRecoilCorrections
+    #         },
+    #     ),
+    #     samples=[
+    #         sample
+    #         for sample in available_sample_types
+    #         if sample not in ["data", "embedding", "embedding_mc"]
+    #     ],
+    # )
+    # configuration.add_shift(
+    #     SystematicShift(
+    #         name="metRecoilResolutionUp",
+    #         shift_config={
+    #             ("mm", "mmet", "ee", "emet"): {
+    #                 "apply_recoil_resolution_systematic": True,
+    #                 "apply_recoil_response_systematic": False,
+    #                 "recoil_systematic_shift_up": True,
+    #                 "recoil_systematic_shift_down": False,
+    #             },
+    #         },
+    #         producers={
+    #             ("mm", "mmet", "ee", "emet"): met.ApplyRecoilCorrections
+    #         },
+    #     ),
+    #     samples=[
+    #         sample
+    #         for sample in available_sample_types
+    #         if sample not in ["data", "embedding", "embedding_mc"]
+    #     ],
+    # )
+    # configuration.add_shift(
+    #     SystematicShift(
+    #         name="metRecoilResolutionDown",
+    #         shift_config={
+    #             ("mm", "mmet", "ee", "emet"): {
+    #                 "apply_recoil_resolution_systematic": True,
+    #                 "apply_recoil_response_systematic": False,
+    #                 "recoil_systematic_shift_up": False,
+    #                 "recoil_systematic_shift_down": True,
+    #             },
+    #         },
+    #         producers={
+    #             ("mm", "mmet", "ee", "emet"): met.ApplyRecoilCorrections
+    #         },
+    #     ),
+    #     samples=[
+    #         sample
+    #         for sample in available_sample_types
+    #         if sample not in ["data", "embedding", "embedding_mc"]
+    #     ],
+    # )
 
     #########################
     # Jet energy resolution and jet energy scale
