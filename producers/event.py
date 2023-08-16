@@ -158,6 +158,32 @@ Npu = Producer(
     scopes=["global"],
 )
 
+RhoFastjetCentralChargedPileUp = Producer(
+    name="RhoFastjetCentralChargedPileUp",
+    call="basefunctions::rename<Float_t>({df}, {input}, {output})",
+    input=[nanoAOD.rho_fastjet_central_charged_pileup],
+    output=[q.rhoFastjetCentralChargedPileUp],
+    scopes=["global"],
+)
+
+RhoFastjetCentralCalo = Producer(
+    name="RhoFastjetCentralCalo",
+    call="basefunctions::rename<Float_t>({df}, {input}, {output})",
+    input=[nanoAOD.rho_fastjet_central_calo],
+    output=[q.rhoFastjetCentralCalo],
+    scopes=["global"],
+)
+
+PSWeight = Producer(
+    name="PSWeight",
+    call='basefunctions::getvarsFromArray<Float_t>({df}, "PSWeight",  4, {input})',
+    input=[nanoAOD.PSWeight],
+    output=[
+        getattr(q, f"PSWeight{i}") for i in range(4)
+    ],
+    scopes=["global"],
+)
+
 npartons = Producer(
     name="npartons",
     call="basefunctions::rename<UChar_t>({df}, {input}, {output})",
@@ -187,6 +213,26 @@ EventGenWeight = Producer(
     call="basefunctions::rename<Float_t>({df}, {input}, {output})",
     input=[nanoAOD.genWeight],
     output=[q.genweight],
+    scopes=["global"],
+)
+
+LHEPdfWeight = Producer(
+    name="LHEPdfWeight",
+    call='basefunctions::getvarsFromArray<Float_t>({df}, "LHEPdfWeight",  103, {input})',
+    input=[nanoAOD.LHEPdfWeight],
+    output=[
+        getattr(q, f"LHEPdfWeight{i}") for i in range(103)
+    ],
+    scopes=["global"],
+)
+
+LHEScaleWeight = Producer(
+    name="LHEScaleWeight",
+    call='basefunctions::getvarsFromArray<Float_t>({df}, "LHEScaleWeight",  8, {input})',
+    input=[nanoAOD.LHEScaleWeight],
+    output=[
+        getattr(q, f"LHEScaleWeight{i}") for i in range(8)
+    ],
     scopes=["global"],
 )
 

@@ -3,6 +3,136 @@ from ..quantities import nanoAOD as nanoAOD
 from code_generation.producer import Producer, ProducerGroup
 
 ####################
+# Gen-level leptons
+####################
+GenLeptonProducer = Producer(
+    name="GenLeptonProducer",
+    call="genleptons::GenLepton({df}, {input})",
+    input=[
+        nanoAOD.GenParticle_pt,
+        nanoAOD.GenParticle_eta,
+        nanoAOD.GenParticle_phi,
+        nanoAOD.GenParticle_mass,
+        nanoAOD.GenParticle_pdgId,
+        nanoAOD.GenParticle_status,
+        nanoAOD.GenParticle_statusFlags
+    ],
+    output=[
+        q.genlep_pt_1,
+        q.genlep_eta_1,
+        q.genlep_phi_1,
+        q.genlep_mass_1,
+        q.genlep_pdgId_1,
+        q.genlep_p4_1,
+        q.genlep_pt_2,
+        q.genlep_eta_2,
+        q.genlep_phi_2,
+        q.genlep_mass_2,
+        q.genlep_pdgId_2,
+        q.genlep_p4_2,
+    ],
+    scopes=["mm"],
+)
+GenLeptonPreFSRProducer = Producer(
+    name="GenLeptonPreFSRProducer",
+    call="genleptons::GenLeptonPreFSR({df}, {input})",
+    input=[
+        nanoAOD.GenParticle_pt,
+        nanoAOD.GenParticle_eta,
+        nanoAOD.GenParticle_phi,
+        nanoAOD.GenParticle_mass,
+        nanoAOD.GenParticle_pdgId,
+        nanoAOD.GenParticle_status,
+        nanoAOD.GenParticle_statusFlags
+    ],
+    output=[
+        q.genlepPreFSR_pt_1,
+        q.genlepPreFSR_eta_1,
+        q.genlepPreFSR_phi_1,
+        q.genlepPreFSR_mass_1,
+        q.genlepPreFSR_pdgId_1,
+        q.genlepPreFSR_p4_1,
+        q.genlepPreFSR_pt_2,
+        q.genlepPreFSR_eta_2,
+        q.genlepPreFSR_phi_2,
+        q.genlepPreFSR_mass_2,
+        q.genlepPreFSR_pdgId_2,
+        q.genlepPreFSR_p4_2,
+    ],
+    scopes=["mm"],
+)
+GenDressedProducer = Producer(
+    name="GenDressedProducer",
+    call="genleptons::GenDressedLepton({df}, {input})",
+    input=[
+        nanoAOD.GenDressedLepton_pt,
+        nanoAOD.GenDressedLepton_eta,
+        nanoAOD.GenDressedLepton_phi,
+        nanoAOD.GenDressedLepton_mass,
+        nanoAOD.GenDressedLepton_pdgId,
+        nanoAOD.GenDressedLepton_hasTauAnc,
+        q.genlepPreFSR_p4_1,
+        q.genlepPreFSR_p4_2,
+    ],
+    output=[
+        q.genDressed_pt_1,
+        q.genDressed_eta_1,
+        q.genDressed_phi_1,
+        q.genDressed_mass_1,
+        q.genDressed_pdgId_1,
+        q.genDressed_p4_1,
+        q.genDressed_dR_1,
+        q.genDressed_pt_2,
+        q.genDressed_eta_2,
+        q.genDressed_phi_2,
+        q.genDressed_mass_2,
+        q.genDressed_pdgId_2,
+        q.genDressed_p4_2,
+        q.genDressed_dR_2,
+        q.genDressed_idx_1,
+        q.genDressed_idx_2,
+    ],
+    scopes=["mm"],
+)
+
+genlep_dilepton_mass = Producer(
+    name="genlep_dilepton_mass",
+    call="quantities::m_vis({df}, {output}, {input_vec})",
+    input=[q.genlep_p4_1, q.genlep_p4_2],
+    output=[q.genlep_dilepton_mass],
+    scopes=["mm"],
+)
+genlepPreFSR_dilepton_mass = Producer(
+    name="genlepPreFSR_dilepton_mass",
+    call="quantities::m_vis({df}, {output}, {input_vec})",
+    input=[q.genlepPreFSR_p4_1, q.genlepPreFSR_p4_2],
+    output=[q.genlepPreFSR_dilepton_mass],
+    scopes=["mm"],
+)
+genDressed_dilepton_mass = Producer(
+    name="genDressed_dilepton_mass",
+    call="quantities::m_vis({df}, {output}, {input_vec})",
+    input=[q.genDressed_p4_1, q.genDressed_p4_2],
+    output=[q.genDressed_dilepton_mass],
+    scopes=["mm"],
+)
+GenLeptonProducers = ProducerGroup(
+    name="GenLeptonProducers",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["mm"],
+    subproducers=[
+        GenLeptonProducer,
+        GenLeptonPreFSRProducer,
+        GenDressedProducer,
+        genlep_dilepton_mass,
+        genlepPreFSR_dilepton_mass,
+        genDressed_dilepton_mass,
+    ],
+)
+
+####################
 # Gen-level Filters
 ####################
 DYToEEFilter = Producer(
@@ -33,6 +163,35 @@ DYFilters = ProducerGroup(
     output=None,
     scopes=["global"],
     subproducers=[DYToEEFilter, DYToMMFilter, DYToTTFilter],
+)
+WToEEFilter = Producer(
+    name="WToEEFilter",
+    call="genflag::WGenFlag({df}, {output}, {input}, 11)",
+    input=[nanoAOD.GenParticle_pdgId, nanoAOD.GenParticle_statusFlags],
+    output=[q.is_w_e],
+    scopes=["global"],
+)
+WToMMFilter = Producer(
+    name="WToMMFilter",
+    call="genflag::WGenFlag({df}, {output}, {input}, 13)",
+    input=[nanoAOD.GenParticle_pdgId, nanoAOD.GenParticle_statusFlags],
+    output=[q.is_w_m],
+    scopes=["global"],
+)
+WToTTFilter = Producer(
+    name="WToTTFilter",
+    call="genflag::WGenFlag({df}, {output}, {input}, 15)",
+    input=[nanoAOD.GenParticle_pdgId, nanoAOD.GenParticle_statusFlags],
+    output=[q.is_w_t],
+    scopes=["global"],
+)
+WFilters = ProducerGroup(
+    name="WFilters",
+    call=None,
+    input=None,
+    output=None,
+    scopes=["global"],
+    subproducers=[WToEEFilter, WToMMFilter, WToTTFilter],
 )
 
 ####################
