@@ -65,7 +65,7 @@ def build_config(
             "golden_json_file": EraModifier(
                 {
                     "2018": "data/golden_json/Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt",
-                    "2022": "data/run3_json/Cert_Collisions2022_eraC_355862_357482_Golden.json",
+                    "2022": "data/golden_json/Cert_Collisions2022_eraC_355862_357482_Golden.json",
                 }
             ),
 
@@ -256,8 +256,8 @@ def build_config(
             genparticles.WFilters,
             muons.MuonVars,
             muons.BaseMuons,
-            electrons.ElectronVarsLess,  # HERE for 2018
-            electrons.BaseElectrons,
+            #electrons.ElectronVarsLess,  # HERE for 2018
+            #electrons.BaseElectrons,
             met.MetBasics,
         ],
     )
