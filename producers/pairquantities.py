@@ -1183,34 +1183,34 @@ muon_multiIsoId_2 = Producer(
     output=[q.multiIsoId_2],
     scopes=["mm"],
 )
-muon_mvaId_1 = Producer(
-    name="muon_mvaId_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Muon_mvaId],
-    output=[q.mvaId_1],
-    scopes=["mm", "mmet"],
-)
-muon_mvaId_2 = Producer(
-    name="muon_mvaId_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Muon_mvaId],
-    output=[q.mvaId_2],
-    scopes=["mm"],
-)
-muon_mvaLowPtId_1 = Producer(
-    name="muon_mvaLowPtId_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
-    input=[q.selectedLepton, nanoAOD.Muon_mvaLowPtId],
-    output=[q.mvaLowPtId_1],
-    scopes=["mm", "mmet"],
-)
-muon_mvaLowPtId_2 = Producer(
-    name="muon_mvaLowPtId_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
-    input=[q.selectedLepton, nanoAOD.Muon_mvaLowPtId],
-    output=[q.mvaLowPtId_2],
-    scopes=["mm"],
-)
+# muon_mvaId_1 = Producer(
+#     name="muon_mvaId_1",
+#     call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Muon_mvaId],
+#     output=[q.mvaId_1],
+#     scopes=["mm", "mmet"],
+# )
+# muon_mvaId_2 = Producer(
+#     name="muon_mvaId_2",
+#     call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Muon_mvaId],
+#     output=[q.mvaId_2],
+#     scopes=["mm"],
+# )
+# muon_mvaLowPtId_1 = Producer(
+#     name="muon_mvaLowPtId_1",
+#     call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+#     input=[q.selectedLepton, nanoAOD.Muon_mvaLowPtId],
+#     output=[q.mvaLowPtId_1],
+#     scopes=["mm", "mmet"],
+# )
+# muon_mvaLowPtId_2 = Producer(
+#     name="muon_mvaLowPtId_2",
+#     call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+#     input=[q.selectedLepton, nanoAOD.Muon_mvaLowPtId],
+#     output=[q.mvaLowPtId_2],
+#     scopes=["mm"],
+# )
 muon_nStations_1 = Producer(
     name="muon_nStations_1",
     call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
@@ -1704,8 +1704,8 @@ FirstMuonProducers = ProducerGroup(
         muon_highPtId_1,
         muon_miniIsoId_1,
         muon_multiIsoId_1,
-        muon_mvaId_1,
-        muon_mvaLowPtId_1,
+        # muon_mvaId_1,
+        # muon_mvaLowPtId_1,
         muon_nStations_1,
         muon_nTrackerLayers_1,
         muon_pfIsoId_1,
@@ -1759,8 +1759,8 @@ SecondMuonProducers = ProducerGroup(
         muon_highPtId_2,
         muon_miniIsoId_2,
         muon_multiIsoId_2,
-        muon_mvaId_2,
-        muon_mvaLowPtId_2,
+        # muon_mvaId_2,
+        # muon_mvaLowPtId_2,
         muon_nStations_2,
         muon_nTrackerLayers_2,
         muon_pfIsoId_2,
