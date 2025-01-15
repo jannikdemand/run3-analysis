@@ -7,7 +7,7 @@ from code_generation.code_generation import CodeGenerator
 
 def run(args):
 
-    analysis_name = "earlyrun3"
+    analysis_name = "run3analysis"
 
     available_samples = [
         # "ggh_htautau",
