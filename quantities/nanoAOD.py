@@ -188,7 +188,7 @@ SoftActivityJetNjets5 = NanoAODQuantity("SoftActivityJetNjets5")
 
 Pileup_nTrueInt = NanoAODQuantity("Pileup_nTrueInt")
 #npv = NanoAODQuantity("PV_npvs")
-npv_good = NanoAODQuantity("PV_npvsGood")
+# npv_good = NanoAODQuantity("PV_npvsGood")
 rho = NanoAODQuantity("Rho_fixedGridRhoFastjetAll")
 rho_fastjet_central_charged_pileup = NanoAODQuantity("Rho_fixedGridRhoFastjetCentralChargedPileUp")
 rho_fastjet_central_calo = NanoAODQuantity("Rho_fixedGridRhoFastjetCentralCalo")

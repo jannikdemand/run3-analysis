@@ -142,13 +142,13 @@ Lumi = Producer(
     scopes=["global"],
 )
 
-NpvGood = Producer(
-    name="NpvGood",
-    call="basefunctions::rename<Int_t>({df}, {input}, {output})",
-    input=[nanoAOD.npv_good],
-    output=[q.npvGood],
-    scopes=["global"],
-)
+# NpvGood = Producer(
+#     name="NpvGood",
+#     call="basefunctions::rename<Int_t>({df}, {input}, {output})",
+#     input=[nanoAOD.npv_good],
+#     output=[q.npvGood],
+#     scopes=["global"],
+# )
 
 Npu = Producer(
     name="Npu",
