@@ -859,28 +859,28 @@ muon_ip3d_2 = Producer(
 )
 muon_jetIdx_1 = Producer(
     name="muon_jetIdx_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    call="basefunctions::getvar<short>({df}, {output}, 0, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_jetIdx],
     output=[q.jetIdx_1],
     scopes=["mm", "mmet"],
 )
 muon_jetIdx_2 = Producer(
     name="muon_jetIdx_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    call="basefunctions::getvar<short>({df}, {output}, 1, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_jetIdx],
     output=[q.jetIdx_2],
     scopes=["mm"],
 )
 muon_jetNDauCharged_1 = Producer(
     name="muon_jetNDauCharged_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 0, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_jetNDauCharged],
     output=[q.jetNDauCharged_1],
     scopes=["mm", "mmet"],
 )
 muon_jetNDauCharged_2 = Producer(
     name="muon_jetNDauCharged_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 1, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_jetNDauCharged],
     output=[q.jetNDauCharged_2],
     scopes=["mm"],
@@ -957,14 +957,14 @@ muon_sip3d_2 = Producer(
 )
 muon_tightCharge_1 = Producer(
     name="muon_tightCharge_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 0, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_tightCharge],
     output=[q.tightCharge_1],
     scopes=["mm", "mmet"],
 )
 muon_tightCharge_2 = Producer(
     name="muon_tightCharge_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 1, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_tightCharge],
     output=[q.tightCharge_2],
     scopes=["mm"],
@@ -1115,14 +1115,14 @@ muon_tkRelIso_2 = Producer(
 ###### INT_T  ########
 muon_fsrPhotonIdx_1 = Producer(
     name="muon_fsrPhotonIdx_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    call="basefunctions::getvar<short>({df}, {output}, 0, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_fsrPhotonIdx],
     output=[q.fsrPhotonIdx_1],
     scopes=["mm", "mmet"],
 )
 muon_fsrPhotonIdx_2 = Producer(
     name="muon_fsrPhotonIdx_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    call="basefunctions::getvar<short>({df}, {output}, 1, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_fsrPhotonIdx],
     output=[q.fsrPhotonIdx_2],
     scopes=["mm"],
@@ -1143,42 +1143,42 @@ muon_fsrPhotonIdx_2 = Producer(
 # )
 muon_highPtId_1 = Producer(
     name="muon_highPtId_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 0, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_highPtId],
     output=[q.highPtId_1],
     scopes=["mm", "mmet"],
 )
 muon_highPtId_2 = Producer(
     name="muon_highPtId_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 1, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_highPtId],
     output=[q.highPtId_2],
     scopes=["mm"],
 )
 muon_miniIsoId_1 = Producer(
     name="muon_miniIsoId_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 0, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_miniIsoId],
     output=[q.miniIsoId_1],
     scopes=["mm", "mmet"],
 )
 muon_miniIsoId_2 = Producer(
     name="muon_miniIsoId_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 1, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_miniIsoId],
     output=[q.miniIsoId_2],
     scopes=["mm"],
 )
 muon_multiIsoId_1 = Producer(
     name="muon_multiIsoId_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 0, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_multiIsoId],
     output=[q.multiIsoId_1],
     scopes=["mm", "mmet"],
 )
 muon_multiIsoId_2 = Producer(
     name="muon_multiIsoId_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 1, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_multiIsoId],
     output=[q.multiIsoId_2],
     scopes=["mm"],
@@ -1213,70 +1213,70 @@ muon_multiIsoId_2 = Producer(
 # )
 muon_nStations_1 = Producer(
     name="muon_nStations_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 0, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_nStations],
     output=[q.nStations_1],
     scopes=["mm", "mmet"],
 )
 muon_nStations_2 = Producer(
     name="muon_nStations_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 1, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_nStations],
     output=[q.nStations_2],
     scopes=["mm"],
 )
 muon_nTrackerLayers_1 = Producer(
     name="muon_nTrackerLayers_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 0, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_nTrackerLayers],
     output=[q.nTrackerLayers_1],
     scopes=["mm", "mmet"],
 )
 muon_nTrackerLayers_2 = Producer(
     name="muon_nTrackerLayers_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 1, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_nTrackerLayers],
     output=[q.nTrackerLayers_2],
     scopes=["mm"],
 )
 muon_pfIsoId_1 = Producer(
     name="muon_pfIsoId_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 0, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_pfIsoId],
     output=[q.pfIsoId_1],
     scopes=["mm", "mmet"],
 )
 muon_pfIsoId_2 = Producer(
     name="muon_pfIsoId_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 1, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_pfIsoId],
     output=[q.pfIsoId_2],
     scopes=["mm"],
 )
 muon_puppiIsoId_1 = Producer(
     name="muon_puppiIsoId_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 0, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_puppiIsoId],
     output=[q.puppiIsoId_1],
     scopes=["mm", "mmet"],
 )
 muon_puppiIsoId_2 = Producer(
     name="muon_puppiIsoId_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 1, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_puppiIsoId],
     output=[q.puppiIsoId_2],
     scopes=["mm"],
 )
 muon_tkIsoId_1 = Producer(
     name="muon_tkIsoId_1",
-    call="basefunctions::getvar<int>({df}, {output}, 0, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 0, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_tkIsoId],
     output=[q.tkIsoId_1],
     scopes=["mm", "mmet"],
 )
 muon_tkIsoId_2 = Producer(
     name="muon_tkIsoId_2",
-    call="basefunctions::getvar<int>({df}, {output}, 1, {input})",
+    call="basefunctions::getvar<unsigned char>({df}, {output}, 1, {input})",
     input=[q.selectedLepton, nanoAOD.Muon_tkIsoId],
     output=[q.tkIsoId_2],
     scopes=["mm"],
